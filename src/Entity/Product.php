@@ -53,7 +53,7 @@ class Product
     private $quantity;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default": true})
      */
     private $availability;
 
