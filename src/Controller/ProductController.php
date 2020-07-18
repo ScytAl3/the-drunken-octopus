@@ -6,14 +6,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+class ProductController extends AbstractController
 {
     /**
-     * @Route("/", name="app_home", methods={"GET"})
+     * @Route("/products", name="app_product_index", methods={"GET"})
      * @return Response
      */
     public function index(): Response
     {
-        return $this->render('home/index.html.twig', []);
+        return $this->render('product/index.html.twig', [
+            'current_page' => 'products',
+        ]);
     }
 }
