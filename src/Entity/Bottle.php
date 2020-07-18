@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\BootleRepository;
+use App\Repository\BottleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=BootleRepository::class)
+ * @ORM\Entity(repositoryClass=BottleRepository::class)
  */
-class Bootle
+class Bottle
 {
     /**
      * @ORM\Id()
