@@ -4,4 +4,19 @@
 
 {% block body %}
 <h1>Bienvenue sur la page des produits</h1>
+<div class="row flex">
+    {% for product in products %}
+    <div class="col-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{{ path('app_product_show', {id: product.id, slug: product.slug})}}">{{ product.title }}</a>
+                </h5>
+                <div class="text-primary h4">{{ product.getFormatedPrice }} €</div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
 {% endblock %}

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -55,12 +56,27 @@ class Product
     /**
      * @ORM\Column(type="boolean", options={"default": true})
      */
-    private $availability;
+    private $availability = true;
 
     /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
+
+    /*----------------------------------------------------------------------------
+                                    Constructeur
+    ----------------------------------------------------------------------------*/
+    /**
+     * constructeur qui initialise la date de creation au Datetime de la creation de l'Event 
+     */
+    public function __construct()
+    {
+        $this->created_at = new \DateTime();
+    }
+
+    /*-----------------------------------------------------------------------------
+                                    Getters - Setters 
+    -----------------------------------------------------------------------------*/
 
     public function getId(): ?int
     {
@@ -77,6 +93,11 @@ class Product
         $this->title = $title;
 
         return $this;
+    }
+
+    public function getSlug(): string
+    {
+        return (new Slugify())->slugify($this->title);
     }
 
     public function getDescription(): ?string
@@ -137,6 +158,11 @@ class Product
         $this->price = $price;
 
         return $this;
+    }
+
+    public function getFormatedPrice(): string
+    {
+        return number_format($this->price, 2, ',', ' ');
     }
 
     public function getQuantity(): ?int
