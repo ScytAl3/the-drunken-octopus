@@ -2,7 +2,13 @@
 <html lang="{{ app.request.locale }}">
 
     <head>
+        <!-- default meta tags -->
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="author" content="Franck Jakubowski">
+        <meta name="description"
+              content="Un mini site pour administrer des produits et permettre un affichage suivant des filtres.">
+        <!-- /default meta tags -->
         <title>{% block title %} Octopus {% endblock %}</title>
 
         {% block stylesheets %}
@@ -18,10 +24,6 @@
         <!-- header import -->
         {{ include('layouts/partials/_header.html.twig') }}
         <!-- /header import -->
-
-        <!-- Message flash area -->
-        {{ include('layouts/partials/_flash_messages.html.twig') }}
-        <!-- /Message flash area -->
 
         <main role="main" class="container">
             {% block body %}{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %} Product Management | {{ parent() }} {% endblock %}
+
+{% block body %}
+<!-- Message flash area -->
+{{ include('layouts/partials/_flash_messages.html.twig') }}
+<!-- /Message flash area -->
+
+<!-- Titre de la page -->
+<h1>Bienvenue sur la page d'administration des produits</h1>
+
+<!-- Bouton qui dirige vers la page de création -->
+<div class="">
+    <a class="btn btn-success btn-lg btn-block" href="{{ path('app_admin_product_create') }}">Create a new Product</a>
+</div>
+
+<!-- Tableau de tous les produits -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nom du produit</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.title }}</td>
+            <td>
+                <a href="{{ path('app_admin_product_edit', {id: product.id}) }}" class="btn btn-secondary">Editer</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
