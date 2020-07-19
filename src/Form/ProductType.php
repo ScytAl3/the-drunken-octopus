@@ -6,6 +6,8 @@ use App\Entity\Product;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\PercentType;
 
 class ProductType extends AbstractType
 {
@@ -16,11 +18,15 @@ class ProductType extends AbstractType
             ->add('description')
             ->add('color')
             ->add('ibu')
-            ->add('alcohol')
-            ->add('price')
+            ->add('alcohol', PercentType::class, [
+                'scale' => 2,
+                'type' => 'integer',
+            ])
+            ->add('price', MoneyType::class, [
+                'scale' => 2,
+            ])
             ->add('quantity')
-            ->add('availability')
-        ;
+            ->add('availability');
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -40,8 +40,9 @@
 <div class="form-group">
     {{ form_row(form.availability) }}
 </div>
+
 {# <input class="btn btn-primary" type="submit" value="{{ submitButtonText|default('Create Pin') }}"> #}
-<!-- desactivation de la validation HTML5 avec "formnovalidate" -->
+{# desactivation de la validation HTML5 avec "formnovalidate" #}
 <input class="btn btn-primary btn-block" type="submit" value="{{ submitButtonText ?? ('Create Product') }}"
        formnovalidate>
 

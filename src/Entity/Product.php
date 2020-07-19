@@ -5,9 +5,13 @@ namespace App\Entity;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use Symfony\Component\Validator\Constraints as Assert;
+// Validates that a particular field (or fields) in a Doctrine entity is (are) unique
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @UniqueEntity("title")
  */
 class Product
 {
@@ -20,16 +24,29 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(min=3)
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *      min=10,
+     *      minMessage="La description doit faire {{ limit }} caractères au minimum",
+     *      allowEmptyString = false
+     * )
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Regex(
+     *      pattern="/\d/",
+     *      match=false,
+     *      message="The color cannot contain a number"
+     * )
      */
     private $color;
 
@@ -40,16 +57,19 @@ class Product
 
     /**
      * @ORM\Column(type="decimal", precision=4, scale=2)
+     * @Assert\NotBlank
      */
     private $alcohol;
 
     /**
      * @ORM\Column(type="decimal", precision=5, scale=2)
+     * @Assert\NotBlank
      */
     private $price;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
      */
     private $quantity;
 
@@ -88,7 +108,7 @@ class Product
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -105,7 +125,7 @@ class Product
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
@@ -117,7 +137,7 @@ class Product
         return $this->color;
     }
 
-    public function setColor(string $color): self
+    public function setColor(?string $color): self
     {
         $this->color = $color;
 
@@ -141,7 +161,7 @@ class Product
         return $this->alcohol;
     }
 
-    public function setAlcohol(string $alcohol): self
+    public function setAlcohol(?string $alcohol): self
     {
         $this->alcohol = $alcohol;
 
@@ -153,13 +173,18 @@ class Product
         return $this->price;
     }
 
-    public function setPrice(string $price): self
+    public function setPrice(?string $price): self
     {
         $this->price = $price;
 
         return $this;
     }
 
+    /**
+     * Formate le prix du produit
+     * 
+     * @return string 
+     */
     public function getFormatedPrice(): string
     {
         return number_format($this->price, 2, ',', ' ');
@@ -170,7 +195,7 @@ class Product
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity): self
+    public function setQuantity(?int $quantity): self
     {
         $this->quantity = $quantity;
 
