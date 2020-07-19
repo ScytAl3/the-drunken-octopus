@@ -1,0 +1,10 @@
+<div class="col-md-4 mb-3">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">
+                <a href="{{ path('app_product_show', {slug: product.slug, id: product.id}) }}">{{ product.title }}</a>
+            </h5>
+            <div class="text-primary h4">{{ product.formatedPrice }} €</div>
+        </div>
+    </div>
+</div>

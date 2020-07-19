@@ -11,6 +11,10 @@
                 <li class="nav-item">
                     <a class="nav-link {% if  current_page is defined and current_page == 'products' %}active{% endif %}" href="{{ path('app_product_index') }}">Produits</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if  current_page is defined and current_page == 'admin' %}active{% endif %}"
+                       href="{{ path('app_admin_product') }}">GodMod</a>
+                </li>
             </ul>
         </div>
     </div>
