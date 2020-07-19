@@ -3,9 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Product;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -21,24 +22,43 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
-    * @return Product[] Returns an array of Product objects
-    */
+     * @return Query
+     */
+    public function findAllAvailableQuery(): Query
+    {
+        return $this->findAvailableQuery(true)
+            ->getQuery()
+        ;
+    }
+
+    /**
+     * @return Product[] Returns an array of available Product objects
+     */
     public function findAllAvailable(): array
     {
-        return $this->findAvailableQuery()
+        return $this->findAvailableQuery(true)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
+    }
+
+    /**
+     * @return Product[] Returns an array of unavailable Product objects
+     */
+    public function findAllUnavailable(): array
+    {
+        return $this->findAvailableQuery(false)
+            ->getQuery()
+            ->getResult();
     }
 
     /**
      * @return QueryBuilder
      */
-    private function findAvailableQuery(): QueryBuilder
+    private function findAvailableQuery($boolean): QueryBuilder
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.availability = :val')
-            ->setParameter('val', true);
+            ->setParameter('val', $boolean);
     }
 
     // /**

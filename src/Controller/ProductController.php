@@ -4,26 +4,34 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Repository\ProductRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProductController extends AbstractController
 {
     /**
      * @Route("/products", name="app_product_index", methods={"GET"})
      * @param ProductRepository $repo
+     * @param PaginatorInterface $paginator 
      * 
      * @return Response
      */
-    public function index(ProductRepository $repo): Response
+    public function index(ProductRepository $repo, PaginatorInterface $paginator, Request $request): Response
     {
-        // $product = $repo->findAllAvailable();
-        // dump($product);
+        $query = $repo->findAllAvailableQuery();
+
+        $products = $paginator->paginate(
+                $query, /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                10 /*limit per page*/
+            );
 
         return $this->render('product/index.html.twig', [
             'current_page' => 'products',
-            'products' => $repo->findAllAvailable(),
+            'products' => $products,
         ]);
     }
 

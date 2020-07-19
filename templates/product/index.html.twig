@@ -9,9 +9,14 @@
 <!-- Liste des produits -->
 <div class="row">
     {% for product in products %}
-    <!-- Import du template associé au Product -->
-    {% include "product/_product.html.twig" %}
+        <!-- Import du template associé au Product -->
+        {% include "product/_product.html.twig" %}
     {% endfor %}
+</div>
+
+{# display pagination navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(products) }}
 </div>
 
 {% endblock %}
