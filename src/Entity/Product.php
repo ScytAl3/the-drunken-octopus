@@ -88,6 +88,11 @@ class Product
      */
     private $style;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Country::class, inversedBy="products")
+     */
+    private $country;
+
     /*----------------------------------------------------------------------------
                                     Constructeur
     ----------------------------------------------------------------------------*/
@@ -239,6 +244,18 @@ class Product
     public function setStyle(?Style $style): self
     {
         $this->style = $style;
+
+        return $this;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Style;
+use App\Entity\Country;
 use App\Entity\Product;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
@@ -33,6 +34,14 @@ class ProductType extends AbstractType
             ->add('style', EntityType::class, [
                 'class' => Style::class,
                 'placeholder' => '-- Select a style of beer --',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.label', 'ASC');
+                },
+            ])
+            ->add('country', EntityType::class, [
+                'class' => Country::class,
+                'placeholder' => '-- Select a country --',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.label', 'ASC');
