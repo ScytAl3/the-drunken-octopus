@@ -6,9 +6,13 @@ use App\Repository\BottleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+// Validates that a particular field (or fields) in a Doctrine entity is (are) unique
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=BottleRepository::class)
+ * @UniqueEntity("capacity")
  */
 class Bottle
 {
