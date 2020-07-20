@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Style;
+use App\Entity\Brewery;
 use App\Entity\Country;
 use App\Entity\Product;
 use Doctrine\ORM\EntityRepository;
@@ -33,7 +34,7 @@ class ProductType extends AbstractType
             ->add('availability')
             ->add('style', EntityType::class, [
                 'class' => Style::class,
-                'placeholder' => '-- Select a style of beer --',
+                'placeholder' => '-- Select a Style of beer --',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.label', 'ASC');
@@ -41,7 +42,15 @@ class ProductType extends AbstractType
             ])
             ->add('country', EntityType::class, [
                 'class' => Country::class,
-                'placeholder' => '-- Select a country --',
+                'placeholder' => '-- Select a Country --',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.label', 'ASC');
+                },
+            ])
+            ->add('brewery', EntityType::class, [
+                'class' => Brewery::class,
+                'placeholder' => '-- Select a Brewery --',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.label', 'ASC');

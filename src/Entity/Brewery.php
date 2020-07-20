@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BreweryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,6 +24,16 @@ class Brewery
      */
     private $label;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="brewery")
+     */
+    private $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,5 +49,45 @@ class Brewery
         $this->label = $label;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setBrewery($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+            // set the owning side to null (unless already changed)
+            if ($product->getBrewery() === $this) {
+                $product->setBrewery(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Permet de recupérer le nom des Styles
+     * @return string 
+     */
+    public function __toString()
+    {
+        return $this->label;
     }
 }
