@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Bottle;
 use App\Entity\Style;
 use App\Entity\Brewery;
 use App\Entity\Country;
@@ -54,6 +55,15 @@ class ProductType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.label', 'ASC');
+                },
+            ])
+            ->add('bottle', EntityType::class, [
+                'label' => 'Capacity (cl)',
+                'class' => Bottle::class,
+                'placeholder' => '-- Capacity --',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.capacity', 'ASC');
                 },
             ]);
     }

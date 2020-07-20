@@ -98,6 +98,11 @@ class Product
      */
     private $brewery;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Bottle::class, inversedBy="products")
+     */
+    private $bottle;
+
     /*----------------------------------------------------------------------------
                                     Constructeur
     ----------------------------------------------------------------------------*/
@@ -273,6 +278,18 @@ class Product
     public function setBrewery(?Brewery $brewery): self
     {
         $this->brewery = $brewery;
+
+        return $this;
+    }
+
+    public function getBottle(): ?Bottle
+    {
+        return $this->bottle;
+    }
+
+    public function setBottle(?Bottle $bottle): self
+    {
+        $this->bottle = $bottle;
 
         return $this;
     }
