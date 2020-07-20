@@ -83,6 +83,11 @@ class Product
      */
     private $created_at;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Style::class, inversedBy="products")
+     */
+    private $style;
+
     /*----------------------------------------------------------------------------
                                     Constructeur
     ----------------------------------------------------------------------------*/
@@ -222,6 +227,18 @@ class Product
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getStyle(): ?Style
+    {
+        return $this->style;
+    }
+
+    public function setStyle(?Style $style): self
+    {
+        $this->style = $style;
 
         return $this;
     }
