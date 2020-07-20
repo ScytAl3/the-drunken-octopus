@@ -1,5 +1,10 @@
 {{ form_start(form) }}
 
+<!-- champ availability -->
+<div class="form-group">
+    {{ form_row(form.availability) }}
+</div>
+
 <div class="row">
     <!-- Champ titre -->
     <div class="form-group col-md-6">
@@ -31,14 +36,15 @@
         {{ form_row(form.quantity) }}
     </div>
 </div>
+
+<!-- champ style -->
+<div class="form-group">
+    {{ form_row(form.style) }}
+</div>
+
 <!-- champ description -->
 <div class="form-group">
     {{ form_row(form.description) }}
-</div>
-
-<!-- champ availability -->
-<div class="form-group">
-    {{ form_row(form.availability) }}
 </div>
 
 {# <input class="btn btn-primary" type="submit" value="{{ submitButtonText|default('Create Pin') }}"> #}
