@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Style;
 use App\Entity\Product;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -28,7 +30,14 @@ class ProductType extends AbstractType
             ])
             ->add('quantity')
             ->add('availability')
-            ->add('style');
+            ->add('style', EntityType::class, [
+                'class' => Style::class,
+                'placeholder' => '-- Select a style of beer --',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.label', 'ASC');
+                },
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
