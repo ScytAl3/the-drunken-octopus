@@ -2,19 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
-use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Traits\Timestampable;
+use App\Repository\ProductRepository;
 // Validates that a particular field (or fields) in a Doctrine entity is (are) unique
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity("title")
  */
 class Product
 {
+    use Timestampable;
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -79,16 +83,6 @@ class Product
     private $availability = true;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $updatedAt;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Style::class, inversedBy="products")
      */
     private $style;
@@ -107,18 +101,7 @@ class Product
      * @ORM\ManyToOne(targetEntity=Bottle::class, inversedBy="products")
      */
     private $bottle;
-
-    /*----------------------------------------------------------------------------
-                                    Constructeur
-    ----------------------------------------------------------------------------*/
-    /**
-     * constructeur qui initialise la date de creation au Datetime de la creation de l'Event 
-     */
-    public function __construct()
-    {
-        $this->createdAt = new \DateTime();
-    }
-
+    
     /*-----------------------------------------------------------------------------
                                     Getters - Setters 
     -----------------------------------------------------------------------------*/
@@ -235,30 +218,6 @@ class Product
     public function setAvailability(bool $availability): self
     {
         $this->availability = $availability;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }
