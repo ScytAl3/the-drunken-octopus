@@ -4,14 +4,34 @@
 
 {% block body %}
 <!-- Titre de la page-->
-<h1>Bienvenue sur la page des produits</h1>
+<h1 class="text-center my-4">Welcome to the shop</h1>
 
-<!-- Liste des produits -->
+<!-- Liste des produits et filtre de recherche -->
 <div class="row">
-    {% for product in products %}
-        <!-- Import du template associé au Product -->
-        {% include "product/_product.html.twig" %}
-    {% endfor %}
+
+    <!-- Section filtre -->
+    <div class="col-md-3">
+        <!-- Titre de la section -->
+        <h2 class="text-center my-3">Filters</h2>
+        <!-- Import du template assocée à formulaire de recherche -->
+        {% include 'product/_filter.html.twig' with {form: form} only %}
+    </div>
+    <!-- /Section filtre -->
+
+    <!-- Section produits -->
+    <div class="col-md-9">
+        <!-- Titre de la section -->
+        <h2 class="text-center my-3">Products</h2>
+
+        <div class="row">
+            {% for product in products %}
+            <!-- Import du template associé à un Product -->
+            {% include 'product/_card.html.twig' with {product: product} only %}
+            {% endfor %}
+        </div>   
+    </div>
+    <!-- /Section produits -->
+    
 </div>
 
 {# display pagination navigation #}
