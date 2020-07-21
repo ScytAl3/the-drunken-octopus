@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Product;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -22,13 +23,57 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
+     * returns products related to a search
+     * 
+     * @return Product[] Returns an array of available Product objects
+     */
+    public function findSearch(SearchData $data): array
+    {
+        return $this->findAll();
+    }
+
+    /**
+     * Return a query used for the paginator bundle
+     * @return Query 
+     */
+    public function findSearchQuery(SearchData $searchdata): Query
+    {
+        // Construction de la requête
+        $query = $this
+            ->createQueryBuilder('p')
+            ->select('s', 'p')
+            ->join('p.style', 's')
+            ->select('c', 'p')
+            ->join('p.country', 'c');
+        // Contrôle du champ de recherche
+        if (!empty($searchdata->q)) {
+            $query = $query
+                ->andWhere('p.title LIKE :q')
+                ->setParameter('q', "%{$searchdata->q}%");
+        }
+        // Contrôle du filtre sur les styles
+        if (!empty($searchdata->style)) {
+            $query = $query
+                ->andWhere('s.id IN (:style)')
+                ->setParameter('style', $searchdata->style);
+        }
+        // Contrôle du filtre sur les pays
+        if (!empty($searchdata->country)) {
+            $query = $query
+            ->andWhere('c.id IN (:country)')
+                ->setParameter('country', $searchdata->country);
+        }
+        return $query->getQuery();
+    }
+
+    /**
+     * Return a query used for the paginator bundle
      * @return Query
      */
     public function findAllAvailableQuery(): Query
     {
         return $this->findAvailableQuery(true)
-            ->getQuery()
-        ;
+            ->getQuery();
     }
 
     /**

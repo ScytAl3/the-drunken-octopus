@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
 use App\Entity\Product;
+use App\Form\SearchType;
 use App\Repository\ProductRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,17 +23,35 @@ class ProductController extends AbstractController
      */
     public function index(ProductRepository $repo, PaginatorInterface $paginator, Request $request): Response
     {
-        $query = $repo->findAllAvailableQuery();
+        // Initialisation des données de recherche
+        $data = new SearchData();
+        // Initialisation du formulaire de recherche
+        $form = $this->createForm(SearchType::class, $data);
+        // Gestion de la requête qui est soumise par le formulaire de filtre
+        $form->handleRequest($request);
+        // dd($data);
+        
+        // $query = $repo->findAllAvailableQuery();
+        $query = $repo->findSearchQuery($data);
 
         $products = $paginator->paginate(
                 $query, /* query NOT result */
                 $request->query->getInt('page', 1), /*page number*/
-                10 /*limit per page*/
+                12 /*limit per page*/
             );
+
+        // set an array of custom parameters
+        $products->setCustomParameters([
+            'align' => 'center', # center|right (for template: twitter_bootstrap_v4_pagination)
+            'size' => 'small', # small|large (for template: twitter_bootstrap_v4_pagination)
+            'style' => 'bottom',
+            'span_class' => 'whatever',
+        ]);
 
         return $this->render('product/index.html.twig', [
             'current_page' => 'products',
             'products' => $products,
+            'form' => $form->createView(),
         ]);
     }
 
