@@ -5,4 +5,25 @@
     {{ form_row(form.q) }}
 </div>
 
+<!-- champ style -->
+<h4>Style of beer</h4>
+<div class="form-group">
+    {{ form_row(form.style) }}
+</div>
+
+<!-- champ country -->
+<h4>beer country</h4>
+<div class="form-group">
+    {{ form_row(form.country) }}
+</div>
+
+<!-- champ brewery -->
+<h4>Beer Brewery</h4>
+<div class="form-group">
+    {{ form_row(form.brewery) }}
+</div>
+
+<!-- Bouton pour filtrer -->
+<button class="btn btn-primary w-100" type="submit">Filtrer</button>
+
 {{ form_end(form) }}
