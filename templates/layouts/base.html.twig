@@ -27,6 +27,10 @@
         {{ include('layouts/partials/_header.html.twig') }}
         <!-- /header import -->
 
+        <!-- Message flash area -->
+        {{ include('layouts/partials/_flash_messages.html.twig') }}
+        <!-- /Message flash area -->
+        
         <main role="main" class="container">
             {% block body %}{% endblock %}
         </main>
