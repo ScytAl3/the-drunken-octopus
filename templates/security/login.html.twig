@@ -1,42 +1,103 @@
-{% extends 'base.html.twig' %}
+{% extends 'layouts/base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %} Login | {{ parent() }} {% endblock %}
 
 {% block body %}
-<form method="post">
+
+<!-- Titre et messages divers de la page du formulaire -->
+<div class="text-center mx-auto py-2">
+    <h1 class="display-5 font-weight-bold text-muted">Please sign in</h1>
+    <!-- logo du site -->
+
+
+    <!-- /logo du site -->
+
+    <!-- Affiche un message d'erreur lors d'un mauvais login : pseudo inexistant ou erreur password -->
     {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
+    <!-- /Affiche un message d'erreur lors d'un mauvais login : pseudo inexistant ou erreur password -->
 
+    <!-- Afficher un lien: nom de l'utilisateur, pour le logout si déjà loggé -->
     {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
+    <div class="mb-3">
+        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+    </div>
     {% endif %}
+    <!-- Afficher un lien: nom de l'utilisateur, pour le logout si déjà loggé -->
+</div>
+<!-- /Titre et messages divers de la page du formulaire -->
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required>
+<div class="row">
+    <!-- Left side -->
+    <div class="col-md-8">
+        <section id="loginForm">
+            <!-- Formulaire pour les informations de login -->
+            <form method="post">
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+                <h4 class="mb-3 font-weight-normal">Sign in using email</h4>
+                <hr>
+                <!-- email input -->
+                <label class="sr-only" for="inputEmail">Email</label>
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
+                    </div>
 
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
+                    <input class="form-control" type="email" value="{{ last_username }}" name="email" id="inputEmail"
+                           placeholder="Your email address" required autofocus>
+                </div>
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
+                <!-- password input -->
+                <label class="sr-only" for="inputPassword">Password</label>
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
+                    </div>
+                    <input class="form-control" type="password" name="password" id="inputPassword"
+                           placeholder="Password" required>
+                </div>
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <!-- remember me checkbox -->
+                <div class="form-group form-check pl-0">
+                    <label>
+                        <input type="checkbox" name="_remember_me"> Remember me
+                    </label>
+                </div>
+
+
+                <!-- buttons -->
+                <div class="login-links">
+                    <button class="btn btn-lg btn-primary btn-block mb-2 text-uppercase" type="submit">LOG IN</button>
+                    <p><a href="#">Register as a new user</a></p>
+                    <p><a href="#">Forgot your password?</a></p>
+                </div>
+            </form>
+            <!-- /Formulaire pour les informations de login -->
+        </section>
+    </div>
+    <!-- /Left side -->
+
+    <!-- Right side -->
+    <div class="col-md-4">
+        <section id="socialLoginForm">
+            <h4 class="mb-3 font-weight-normal">Use another service to log in</h4>
+            <hr>
+            <div id="socialLoginList">
+                <p>
+                    <button type="submit" class="btn btn-info" id="Facebook" name="provider" value="Facebook"
+                            title="Log in using your Facebook account">Facebook</button>
+                    <button type="submit" class="btn btn-warning" id="Another" name="provider" value="Another"
+                            title="Log in using Another social network account">Another social network account</button>
+                </p>
+            </div>
+        </section>
+    </div>
+    <!-- /Right side -->
+</div>
+
+
+
 {% endblock %}
