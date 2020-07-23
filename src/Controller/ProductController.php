@@ -6,7 +6,6 @@ use App\Data\SearchData;
 use App\Entity\Product;
 use App\Form\SearchType;
 use App\Repository\ProductRepository;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,32 +20,27 @@ class ProductController extends AbstractController
      * 
      * @return Response
      */
-    public function index(ProductRepository $repo, PaginatorInterface $paginator, Request $request): Response
+    public function index(ProductRepository $repo, Request $request): Response
     {
         // Initialisation des données de recherche
         $data = new SearchData();
+        // Recupère dans la requête la valeur de la page de paginator - (par défaut si elle n'est pas défini = 1)
+        $data->page = $request->get('page', 1);
         // Initialisation du formulaire de recherche
         $form = $this->createForm(SearchType::class, $data);
         // Gestion de la requête qui est soumise par le formulaire de filtre
         $form->handleRequest($request);
         // dd($data);
-        
-        // $query = $repo->findAllAvailableQuery();
-        $query = $repo->findSearchQuery($data);
 
-        $products = $paginator->paginate(
-                $query, /* query NOT result */
-                $request->query->getInt('page', 1), /*page number*/
-                12 /*limit per page*/
-            );
+        $products = $repo->findSearch($data);
 
         // set an array of custom parameters
-        $products->setCustomParameters([
-            'align' => 'center', # center|right (for template: twitter_bootstrap_v4_pagination)
-            'size' => 'small', # small|large (for template: twitter_bootstrap_v4_pagination)
-            'style' => 'bottom',
-            'span_class' => 'whatever',
-        ]);
+        // $products->setCustomParameters([
+        //     'align' => 'center', # center|right (for template: twitter_bootstrap_v4_pagination)
+        //     'size' => 'small', # small|large (for template: twitter_bootstrap_v4_pagination)
+        //     'style' => 'bottom',
+        //     'span_class' => 'whatever',
+        // ]);
 
         return $this->render('product/index.html.twig', [
             'current_page' => 'products',

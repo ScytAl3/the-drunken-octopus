@@ -2,12 +2,14 @@
 
 namespace App\Repository;
 
-use App\Data\SearchData;
 use App\Entity\Product;
 use Doctrine\ORM\Query;
+use App\Data\SearchData;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,34 +19,35 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class ProductRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * 
+     * @var PaginatorInterface
+     */
+    private $paginator;
+
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, Product::class);
+        $this->paginator = $paginator;
     }
 
     /**
-     * returns products related to a search
+     * Return a pagination with the products based on the search.
+     * @param SearchData $searchdata
      * 
-     * @return Product[] Returns an array of available Product objects
+     * @return PaginationInterface 
      */
-    public function findSearch(SearchData $data): array
-    {
-        return $this->findAll();
-    }
-
-    /**
-     * Return a query used for the paginator bundle
-     * @return Query 
-     */
-    public function findSearchQuery(SearchData $searchdata): Query
+    public function findSearch(SearchData $searchdata): PaginationInterface
     {
         // Construction de la requête
         $query = $this
             ->createQueryBuilder('p')
-            ->select('s', 'p')
+            ->addSelect('s')            // Ajout de la table Style
             ->join('p.style', 's')
-            ->select('c', 'p')
-            ->join('p.country', 'c');
+            ->addSelect('c')            // Ajout de la table Country
+            ->join('p.country', 'c')
+            ->addSelect('b')            // Ajout de la table Brewery
+            ->join('p.brewery', 'b');
         // Contrôle du champ de recherche
         if (!empty($searchdata->q)) {
             $query = $query
@@ -60,10 +63,31 @@ class ProductRepository extends ServiceEntityRepository
         // Contrôle du filtre sur les pays
         if (!empty($searchdata->country)) {
             $query = $query
-            ->andWhere('c.id IN (:country)')
+                ->andWhere('c.id IN (:country)')
                 ->setParameter('country', $searchdata->country);
         }
-        return $query->getQuery();
+        // Contrôle du filtre sur les brasserie
+        if (!empty($searchdata->brewery)) {
+            $query = $query
+                ->andWhere('b.id IN (:brewery)')
+                ->setParameter('brewery', $searchdata->brewery);
+        }
+
+        $query = $query->getQuery();
+
+        $pagination = $this->paginator->paginate(
+            $query, /* query NOT result */
+            $searchdata->page, /*page number*/
+            12 /*limit per page*/
+        );
+        $pagination->setCustomParameters([
+            'align' => 'center', # center|right (for template: twitter_bootstrap_v4_pagination)
+            'size' => 'small', # small|large (for template: twitter_bootstrap_v4_pagination)
+            'style' => 'bottom',
+            'span_class' => 'whatever',
+        ]);
+
+        return $pagination;
     }
 
     /**

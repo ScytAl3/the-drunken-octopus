@@ -9,6 +9,12 @@ use App\Entity\Style;
 class SearchData
 {
     /**
+     * Pour l'utilisation de paginator
+     * @var int
+     */
+    public $page = 1;
+
+    /**
      * 
      * @var string
      */
