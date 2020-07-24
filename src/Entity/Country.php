@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=CountryRepository::class)
+ * @ORM\Table(name="countries")
  * @UniqueEntity("label")
  */
 class Country

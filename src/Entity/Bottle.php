@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=BottleRepository::class)
+ * @ORM\Table(name="bottles")
  * @UniqueEntity("capacity")
  */
 class Bottle
@@ -25,6 +26,10 @@ class Bottle
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank
+     * @Assert\Positive
+     * @Assert\Type(type="float", message="La valeur {{ value }} doit être de type {{ type }}")
+     * 
      */
     private $capacity;
 
@@ -92,6 +97,6 @@ class Bottle
      */
     public function __toString()
     {
-        return (string)$this->capacity;
+        return (string) $this->capacity;
     }
 }

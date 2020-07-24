@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=StyleRepository::class)
+ * @ORM\Table(name="styles")
  * @UniqueEntity("label")
  */
 class Style
