@@ -6,8 +6,8 @@ use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\Timestampable;
 use App\Repository\ProductRepository;
-// Validates that a particular field (or fields) in a Doctrine entity is (are) unique
 use Symfony\Component\Validator\Constraints as Assert;
+// Validates that a particular field (or fields) in a Doctrine entity is (are) unique
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
