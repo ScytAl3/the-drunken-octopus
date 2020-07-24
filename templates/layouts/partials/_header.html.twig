@@ -42,11 +42,10 @@
                     <button class="btn text-white dropdown-toggle btn-account-connected" id="navbarDropdownMenuLink"
                             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="{{ asset('images/header/default-user-image.svg') }}" alt="Default User Account Image">
-                        <span>{{ app.user.username }}</span>
-                        {# <span class="">{{ app.user.firstName }} {{ app.user.lastName }}</span> #}
+                        <span class="">{{ app.user.firstName }} {{ app.user.lastName }}</span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#{#{ path('app_account') }#}"><i class="fas fa-user-edit"
+                        <a class="dropdown-item" href="{{ path('app_user_account') }}"><i class="fas fa-user-edit"
                                aria-hidden="true"></i> Profile</a>
                         <a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fas fa-user-slash"
                                aria-hidden="true"></i> Logout</a>

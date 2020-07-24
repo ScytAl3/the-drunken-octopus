@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %} Account | {{ parent() }} {% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/_sidenav.css') }}">
+{% endblock %}
+
+
+
+{% block body %}
+<div class="row">
+    <!-- Section Side Navigation -->
+    <div class="col-md-3">
+        <!-- Import du template assocée à la sidenav -->
+        {% include 'account/_sidenav.html.twig' %}
+    </div>
+    <!-- /Section Side Navigation -->
+
+    <!-- Section informations du compte -->
+    <div class="col-md-9">
+        <div class="card my-5">
+            <h4 class="card-header py-5">Welcome back, {{ app.user.firstName }} {{ app.user.lastName }}</h4>
+            <div class="card-body">
+                <h5 class="card-title">Manage Your account ?</h5>
+                <a class="btn btn-info" href="#">
+                    <span class="mr-2"><i class="fas fa-pencil-alt"></i></span>Update
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- /Section informations du compte -->
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}

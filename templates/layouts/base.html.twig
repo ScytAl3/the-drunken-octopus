@@ -31,6 +31,8 @@
                 crossorigin="anonymous"></script>
 
         <link rel="stylesheet" href="{{ asset('css/_header.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/_footer.css') }}">
+
         <link rel="stylesheet" href="{{ asset('css/page-products.css') }}">
         {% endblock %}
 
@@ -46,6 +48,7 @@
         {{ include('layouts/partials/_flash_messages.html.twig') }}
         <!-- /Message flash area -->
 
+        
         <main role="main" class="container">
             {% block body %}{% endblock %}
         </main>
