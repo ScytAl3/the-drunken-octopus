@@ -1,67 +1,72 @@
 <!-- navbar -->
+{% if is_granted('ROLE_ADMIN') %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <!-- navbar brand & logo -->
-        <a class="navbar-brand" href="{{ path('app_home') }}">
-            <img class="d-inline-block align-center" src="{{ asset('images/header/octopus-logo.png') }}"
-                 width="50" height="50" alt="drunken octopus logo">
-            the drunken octopus
-        </a>
-        <!-- /navbar brand & logo -->
+    {% else %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+        {% endif %}
+        <div class="container">
+            <!-- navbar brand & logo -->
+            <a class="navbar-brand" href="{{ path('app_home') }}">
+                <img class="d-inline-block align-center" src="{{ asset('images/header/octopus-logo.png') }}" width="50"
+                     height="50" alt="drunken octopus logo">
+                the drunken octopus
+            </a>
+            <!-- /navbar brand & logo -->
 
-        <!-- collapse button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- /collapse button -->
+            <!-- collapse button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- /collapse button -->
 
-        <!-- collapsible content -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left side of the navigation bar -->
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link {% if  current_page is defined and current_page == 'products' %}active{% endif %}"
-                       href="{{ path('app_product_index') }}">Produits</a>
-                </li>
-                <!-- this link is only visible to an admin -->
-                {% if is_granted('ROLE_ADMIN') %}
-                <li class="nav-item">
-                    <a class="nav-link {% if  current_page is defined and current_page == 'admin' %}active{% endif %}"
-                       href="{{ path('app_admin_product') }}">GodMod</a>
-                </li>
-                {% endif %}
-            </ul>
-            <!-- /Left side of the navigation bar -->
+            <!-- collapsible content -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left side of the navigation bar -->
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if  current_page is defined and current_page == 'products' %}active{% endif %}"
+                           href="{{ path('app_product_index') }}">Produits</a>
+                    </li>
+                    <!-- this link is only visible to an admin -->
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if  current_page is defined and current_page == 'admin' %}active{% endif %}"
+                           href="{{ path('app_admin_product') }}">GodMod</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <!-- /Left side of the navigation bar -->
 
-            <!-- /Right side of the navigation bar -->
-            <ul class="navbar-nav ml-auto">
-                <!-- the links are only visible to a authenticated user -->
-                {% if is_granted('ROLE_USER') %}
-                <div class="nav-item dropdown">
-                    <button class="btn text-white dropdown-toggle btn-account-connected" id="navbarDropdownMenuLink"
-                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="{{ asset('images/header/default-user-image.svg') }}" alt="Default User Account Image">
-                        <span class="">{{ app.user.firstName }} {{ app.user.lastName }}</span>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ path('app_user_account') }}"><i class="fas fa-user-edit"
-                               aria-hidden="true"></i> Profile</a>
-                        <a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fas fa-user-slash"
-                               aria-hidden="true"></i> Logout</a>
+                <!-- /Right side of the navigation bar -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- the links are only visible to a authenticated user -->
+                    {% if is_granted('ROLE_USER') %}
+                    <div class="nav-item dropdown">
+                        <button class="btn text-white dropdown-toggle btn-account-connected" id="navbarDropdownMenuLink"
+                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="{{ asset('images/header/default-user-image.svg') }}"
+                                 alt="Default User Account Image">
+                            <span class="">{{ app.user.firstName }} {{ app.user.lastName }}</span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{ path('app_user_account') }}"><i class="fas fa-user-edit"
+                                   aria-hidden="true"></i> Profile</a>
+                            <a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fas fa-user-slash"
+                                   aria-hidden="true"></i> Logout</a>
+                        </div>
                     </div>
-                </div>
-                {% else %}
-                <li class="nav-item active"><a class="nav-link" href="{{ path('app_login') }}">Sign in <i
-                           class="fas fa-sign-in-alt" aria-hidden="true"></i></a>
-                </li>
-                <li class="nav-item active"><a class="nav-link" href="{{ path('app_register') }}">Sign Up <i
-                           class="fas fa-sign-out-alt" aria-hidden="true"></i></a>
-                </li>
-                {% endif %}
-            </ul>
-            <!-- /Right side of the navigation bar -->
+                    {% else %}
+                    <li class="nav-item active"><a class="nav-link" href="{{ path('app_login') }}">Sign in <i
+                               class="fas fa-sign-in-alt" aria-hidden="true"></i></a>
+                    </li>
+                    <li class="nav-item active"><a class="nav-link" href="{{ path('app_register') }}">Sign Up <i
+                               class="fas fa-sign-out-alt" aria-hidden="true"></i></a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <!-- /Right side of the navigation bar -->
+            </div>
         </div>
-    </div>
-</nav>
-<!-- /navbar -->
+    </nav>
+    <!-- /navbar -->
