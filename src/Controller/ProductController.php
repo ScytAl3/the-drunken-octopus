@@ -34,14 +34,6 @@ class ProductController extends AbstractController
 
         $products = $repo->findSearch($data);
 
-        // set an array of custom parameters
-        // $products->setCustomParameters([
-        //     'align' => 'center', # center|right (for template: twitter_bootstrap_v4_pagination)
-        //     'size' => 'small', # small|large (for template: twitter_bootstrap_v4_pagination)
-        //     'style' => 'bottom',
-        //     'span_class' => 'whatever',
-        // ]);
-
         return $this->render('product/index.html.twig', [
             'current_page' => 'products',
             'products' => $products,
