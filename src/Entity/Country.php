@@ -26,6 +26,14 @@ class Country
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 50,
+     *      minMessage = "The name of the country must be at least {{ limit }} characters long",
+     *      maxMessage = "The name of the country cannot be longer than {{ limit }} characters",
+     *      allowEmptyString = false
+     * )
      */
     private $label;
 

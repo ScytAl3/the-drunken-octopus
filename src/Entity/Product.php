@@ -30,15 +30,22 @@ class Product
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(min=3)
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 50,
+     *      minMessage = "The name of the product must be at least {{ limit }} characters long",
+     *      maxMessage = "The name of the product cannot be longer than {{ limit }} characters",
+     *      allowEmptyString = false
+     * )
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
      * @Assert\Length(
-     *      min=10,
-     *      minMessage="La description doit faire {{ limit }} caractères au minimum",
+     *      min = 10,
+     *      minMessage = "The description of the product must be at least {{ limit }} characters long",
      *      allowEmptyString = false
      * )
      */
@@ -57,24 +64,39 @@ class Product
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Positive
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $ibu;
 
     /**
      * @ORM\Column(type="decimal", precision=4, scale=2)
      * @Assert\NotBlank
+     * @Assert\Positive
      */
     private $alcohol;
 
     /**
      * @ORM\Column(type="decimal", precision=5, scale=2)
      * @Assert\NotBlank
+     * @Assert\Type(
+     *     type="number",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $price;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
+     * @Assert\PositiveOrZero
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $quantity;
 

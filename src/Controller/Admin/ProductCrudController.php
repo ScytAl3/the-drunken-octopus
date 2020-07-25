@@ -25,23 +25,28 @@ class ProductCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IntegerField::new('id'),
-            TextField::new('title'),
-            // TextEditorField::new('description'),
-            TextField::new('color'),
-            NumberField::new('ibu'),
-            PercentField::new('alcohol')
+            TextField::new('title', 'Beer name'),
+            TextEditorField::new('description', 'Description'),
+            // TextField::new('color'),
+            // NumberField::new('ibu', 'IBU'),
+            PercentField::new('alcohol', 'ABV')
                 ->setNumDecimals(2)
                 ->setStoredAsFractional(false),
-            MoneyField::new('price')->setCurrency('EUR')
+            MoneyField::new('price', '€')
+                ->setCurrency('EUR')
                 ->setNumDecimals(2)
                 ->setStoredAsCents(false),
-            NumberField::new('quantity'),
-            BooleanField::new('availability'),
-            AssociationField::new('style'),
-            AssociationField::new('country'),
-            AssociationField::new('brewery'),
-            AssociationField::new('bottle'),
+            NumberField::new('quantity', 'Quantity')
+                ->setTextAlign('right'),
+            BooleanField::new('availability', 'Availability'),
+            AssociationField::new('style')
+                ->setTextAlign('right'),
+            AssociationField::new('country')
+                ->setTextAlign('right'),
+            AssociationField::new('brewery')
+                ->setTextAlign('right'),
+            AssociationField::new('bottle')
+                ->setTextAlign('right'),
         ];
     }
     
