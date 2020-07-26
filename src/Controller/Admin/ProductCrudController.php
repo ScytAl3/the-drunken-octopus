@@ -6,6 +6,7 @@ use App\Entity\Product;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -14,6 +15,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\PercentField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProductCrudController extends AbstractCrudController
 {
@@ -22,10 +24,12 @@ class ProductCrudController extends AbstractCrudController
         return Product::class;
     }
 
-    
+
     public function configureFields(string $pageName): iterable
     {
         return [
+            ImageField::new('imageFile', 'Picture')
+                ->setFormType(VichImageType::class),
             TextField::new('title', 'Beer name'),
             TextEditorField::new('description', 'Description'),
             // TextField::new('color'),
@@ -51,12 +55,11 @@ class ProductCrudController extends AbstractCrudController
         ];
     }
 
-    /*
+
     public function configureCrud(Crud $crud): Crud
     {
-         return $crud
-            // used to format numbers before rendering them on templates
-             ->setNumberFormat('%.2d');
+        return $crud
+            // defines the initial sorting applied to the list of entities
+            ->setDefaultSort(['title' => 'ASC']);
     }
-    */
 }

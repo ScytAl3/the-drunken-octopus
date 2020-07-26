@@ -23,7 +23,7 @@
         <!-- Titre de la section -->
         <h2 class="text-center my-3">Products</h2>
 
-        <div class="row">
+        <div class="row row-cols-1 row-cols-md-3 mt-3">
             {% for product in products %}
             <!-- Import du template associé à un Product -->
             {% include 'product/_card.html.twig' with {product: product} only %}
