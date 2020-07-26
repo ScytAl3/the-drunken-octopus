@@ -82,10 +82,8 @@ class Product
     /**
      * @ORM\Column(type="decimal", precision=5, scale=2)
      * @Assert\NotBlank
-     * @Assert\Type(
-     *     type="number",
-     *     message="The value {{ value }} is not a valid {{ type }}."
-     * )
+     * @Assert\Positive
+     * 
      */
     private $price;
 

@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
@@ -32,7 +33,7 @@ class ProductCrudController extends AbstractCrudController
             PercentField::new('alcohol', 'ABV')
                 ->setNumDecimals(2)
                 ->setStoredAsFractional(false),
-            MoneyField::new('price', '€')
+            MoneyField::new('price', 'Price')
                 ->setCurrency('EUR')
                 ->setNumDecimals(2)
                 ->setStoredAsCents(false),
@@ -49,5 +50,13 @@ class ProductCrudController extends AbstractCrudController
                 ->setTextAlign('right'),
         ];
     }
-    
+
+    /*
+    public function configureCrud(Crud $crud): Crud
+    {
+         return $crud
+            // used to format numbers before rendering them on templates
+             ->setNumberFormat('%.2d');
+    }
+    */
 }
