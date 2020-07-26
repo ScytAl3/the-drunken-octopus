@@ -1,0 +1,31 @@
+// the ~ allows you to reference things in node_modules
+@import "~bootstrap";
+
+/* fontawesome 5 free */
+@import "~@fortawesome/fontawesome-free/css/all.css";
+@import "~@fortawesome/fontawesome-free/css/v4-shims.css";
+
+/* import external URL font - Google font */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+/* header & footer */
+@import "./layouts/header";
+@import "./layouts/footer";
+/* variables */
+@import "./shared/variables";
+
+/*------------------------------
+            Global
+-------------------------------*/
+body {
+  font-family: $primary-font, sans-serif;
+}
+
+/*------------------------------
+        Header & messages
+-------------------------------*/
+/*-- Banner Impersonate --*/
+.switch-user {
+  margin-top: 12px !important;
+  z-index: 1;
+}
