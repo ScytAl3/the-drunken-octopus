@@ -122,6 +122,11 @@ class Product
      * @ORM\ManyToOne(targetEntity=Bottle::class, inversedBy="products")
      */
     private $bottle;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageName;
     
     /*-----------------------------------------------------------------------------
                                     Getters - Setters 
@@ -287,6 +292,18 @@ class Product
     public function setBottle(?Bottle $bottle): self
     {
         $this->bottle = $bottle;
+
+        return $this;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): self
+    {
+        $this->imageName = $imageName;
 
         return $this;
     }
