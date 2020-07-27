@@ -4,7 +4,7 @@
 
 {% block body %}
 <!-- Titre de la page-->
-<h1 class="text-center my-4">Welcome to the shop</h1>
+<h1 class="text-center text-muted my-4">Welcome to the shop</h1>
 
 <!-- Liste des produits et filtre de recherche -->
 <div class="row">
@@ -20,6 +20,9 @@
 
     <!-- Section produits -->
     <div class="col-md-9">
+        {# Si il y a des produits #}
+        {% if products|length > 0 %}
+
         <!-- Titre de la section -->
         <h2 class="text-center my-3">Products</h2>
 
@@ -29,14 +32,17 @@
             {% include 'product/_card.html.twig' with {product: product} only %}
             {% endfor %}
         </div>
-        
+
         {# display pagination navigation #}
         <div class="navigation">
             {{ knp_pagination_render(products) }}
         </div>
+        {% else %}
+        <p class="h2 mt-5 text-center">No products yet.</p>
+        {% endif %}
     </div>
     <!-- /Section produits -->
-    
+
 </div>
 
 {% endblock %}
