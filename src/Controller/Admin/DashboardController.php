@@ -46,18 +46,19 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Dashboard', 'fa fa-table');
 
         // Section relative à la gestion des produits
-        yield MenuItem::subMenu('Products', 'fa fa-beer')->setSubItems([
-            MenuItem::linkToCrud('List Products', 'fa fa-th-list', Product::class)
-                ->setDefaultSort(['title' => 'ASC']),
-            MenuItem::linkToCrud('Style', 'fa fa-glass', Style::class)
-                ->setDefaultSort(['label' => 'ASC']),
-            MenuItem::linkToCrud('Country', 'fa fa-flag', Country::class)
-                ->setDefaultSort(['label' => 'ASC']),
-            MenuItem::linkToCrud('Brewery', 'fa fa-industry', Brewery::class)
-                ->setDefaultSort(['label' => 'ASC']),
-            MenuItem::linkToCrud('Bottle', 'fa fa-flask', Bottle::class)
-                ->setDefaultSort(['capacity' => 'ASC'])
-        ]);
+        yield MenuItem::subMenu('Products', 'fa fa-beer')
+            ->setSubItems([
+                MenuItem::linkToCrud('List Products', 'fa fa-th-list', Product::class)
+                    ->setDefaultSort(['title' => 'ASC']),
+                MenuItem::linkToCrud('Style', 'fa fa-glass', Style::class)
+                    ->setDefaultSort(['label' => 'ASC']),
+                MenuItem::linkToCrud('Country', 'fa fa-flag', Country::class)
+                    ->setDefaultSort(['label' => 'ASC']),
+                MenuItem::linkToCrud('Brewery', 'fa fa-industry', Brewery::class)
+                    ->setDefaultSort(['label' => 'ASC']),
+                MenuItem::linkToCrud('Bottle', 'fa fa-flask', Bottle::class)
+                    ->setDefaultSort(['capacity' => 'ASC'])
+            ]);
 
         // Section relative aux utilisateurs
         yield MenuItem::linkToCrud('User', 'fa fa-users', User::class);

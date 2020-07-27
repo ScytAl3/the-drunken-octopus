@@ -3,8 +3,8 @@
         {# Image du produit animée au survol de la souris #}
         <div class="mw-100 overflow-hidden">
             <a href="{{ path('app_product_show', {slug: product.slug, id: product.id}) }}">
-                <img src="{{ vich_uploader_asset(product) }}" class="card-img-top"
-                     alt="Image of {{product.title}} Pin">
+                <img src="{{ vich_uploader_asset(product) | imagine_filter("squared_thumb_medium") }}"
+                     class="card-img-top" alt="Image of {{product.title}} Pin">
             </a>
         </div>
         <div class="card-body">

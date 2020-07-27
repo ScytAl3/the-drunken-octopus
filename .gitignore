@@ -24,3 +24,7 @@ yarn-error.log
 ###> symfony/VichUploadBundle ###
 /public/uploads/
 ###< symfony/VichUploadBundle ###
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###
