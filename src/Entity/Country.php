@@ -18,6 +18,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Country
 {
     /**
+     * The identifier of the country
+     * 
+     * @var int
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -25,6 +28,9 @@ class Country
     private $id;
 
     /**
+     * The name of the country
+     * 
+     * @var string
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Length(
@@ -38,6 +44,9 @@ class Country
     private $label;
 
     /**
+     * Products from this country
+     * 
+     * @var Collection|Product[]
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="country")
      */
     private $products;

@@ -18,6 +18,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Bottle
 {
     /**
+     * The identifier of the bottle capacity.
+     * 
+     * @var int
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -25,15 +28,21 @@ class Bottle
     private $id;
 
     /**
+     * The capacity of the bottle.
+     * 
+     * @var float
      * @ORM\Column(type="float")
      * @Assert\NotBlank
      * @Assert\Positive
-     * @Assert\Type(type="float", message="La valeur {{ value }} doit être de type {{ type }}")
+     * @Assert\Type(type="float", message="The value {{ value }} must be {{ type }}")
      * 
      */
     private $capacity;
 
     /**
+     * Products in this capacity.
+     * 
+     * @var Collection|Product[]
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="bottle")
      */
     private $products;

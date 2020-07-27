@@ -23,8 +23,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Product
 {
     use Timestampable;
-    
+
     /**
+     * The identifier of the product.
+     * 
+     * @var int
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -32,6 +35,9 @@ class Product
     private $id;
 
     /**
+     * The name of the product.
+     * 
+     * @var string
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Length(
@@ -45,6 +51,9 @@ class Product
     private $title;
 
     /**
+     * The description of the product.
+     * 
+     * @var string
      * @ORM\Column(type="text")
      * @Assert\NotBlank
      * @Assert\Length(
@@ -56,6 +65,9 @@ class Product
     private $description;
 
     /**
+     * The color of the product.
+     * 
+     * @var string
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Regex(
@@ -67,6 +79,9 @@ class Product
     private $color;
 
     /**
+     * The ibu value of the product.
+     * 
+     * @var int
      * @ORM\Column(type="integer", nullable=true)
      * @Assert\Positive
      * @Assert\Type(
@@ -77,6 +92,9 @@ class Product
     private $ibu;
 
     /**
+     * Alcool By Volume of the product.
+     * 
+     * @var string
      * @ORM\Column(type="decimal", precision=4, scale=2)
      * @Assert\NotBlank
      * @Assert\Positive
@@ -84,6 +102,9 @@ class Product
     private $alcohol;
 
     /**
+     * The price of the product.
+     * 
+     * @var string
      * @ORM\Column(type="decimal", precision=5, scale=2)
      * @Assert\NotBlank
      * @Assert\Positive
@@ -92,6 +113,9 @@ class Product
     private $price;
 
     /**
+     * The stock quantity of the product.
+     * 
+     * @var int
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
      * @Assert\PositiveOrZero
@@ -103,26 +127,41 @@ class Product
     private $quantity;
 
     /**
+     * Product availability
+     * 
+     * @var bool
      * @ORM\Column(type="boolean", options={"default": true})
      */
     private $availability = true;
 
     /**
+     * Style of the product
+     * 
+     * @var Style
      * @ORM\ManyToOne(targetEntity=Style::class, inversedBy="products")
      */
     private $style;
 
     /**
+     * Country of the product
+     * 
+     * @var Country
      * @ORM\ManyToOne(targetEntity=Country::class, inversedBy="products")
      */
     private $country;
 
     /**
+     * Brewery of the product
+     * 
+     * @var Brewery
      * @ORM\ManyToOne(targetEntity=Brewery::class, inversedBy="products")
      */
     private $brewery;
 
     /**
+     * Bottle capacity yof the product
+     * 
+     * @var Bottle
      * @ORM\ManyToOne(targetEntity=Bottle::class, inversedBy="products")
      */
     private $bottle;
@@ -140,6 +179,9 @@ class Product
     private $imageFile;
 
     /**
+     * Image name of the product
+     * 
+     * @var string
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageName;

@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use App\Entity\Traits\Timestampable;
-use Symfony\Component\Security\Core\User\UserInterface;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\Validator\Constraints as Assert;
 // Validates that a particular field (or fields) in a Doctrine entity is (are) unique
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -19,8 +21,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class User implements UserInterface
 {
     use Timestampable;
-    
+
     /**
+     * The identifier of the user
+     * 
+     * @var int
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -28,6 +33,9 @@ class User implements UserInterface
     private $id;
 
     /**
+     * The email of the user 
+     * 
+     * @var string
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
      * @Assert\Email(
@@ -37,22 +45,33 @@ class User implements UserInterface
     private $email;
 
     /**
+     * The roles of the user
+     * 
+     * @var array
      * @ORM\Column(type="json")
      */
     private $roles = [];
 
     /**
+     * The password of the user
+     * 
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private $password;
 
     /**
+     * The verification status of the email address associated with the user
+     * 
+     * @var boolean
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
 
     /**
+     * The first name of the user
+     * 
+     * @var string
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Length(
@@ -66,6 +85,9 @@ class User implements UserInterface
     private $firstName;
 
     /**
+     * The last name of the user
+     * 
+     * @var string
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Length(
@@ -80,12 +102,16 @@ class User implements UserInterface
     private $lastName;
 
     /**
+     * The birth date of the user
+     * 
+     * @var DateTimeInterface
      * @ORM\Column(type="date", nullable=true)
-     * @Assert\Date
-     * @Assert\GreaterThanOrEqual(
-     *      "-18 years",
+     * @Assert\Type("\DateTimeInterface")
+     * @Assert\LessThanOrEqual(
+     *      "today -18 years",
      *      message="You must be of legal age"
      * )
+     * 
      */
     private $birthDate;
 

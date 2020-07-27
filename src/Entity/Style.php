@@ -18,6 +18,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Style
 {
     /**
+     * The identifier of the style
+     * 
+     * @var int
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -25,6 +28,9 @@ class Style
     private $id;
 
     /**
+     * The name of the style
+     * 
+     * @var string
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Length(
@@ -38,6 +44,9 @@ class Style
     private $label;
 
     /**
+     * Products in this style
+     * 
+     * @var Collection|Product[]
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="style")
      */
     private $products;

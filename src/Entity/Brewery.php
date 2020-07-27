@@ -18,6 +18,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Brewery
 {
     /**
+     * The identifier of the brewery
+     * 
+     * @var int
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -25,6 +28,9 @@ class Brewery
     private $id;
 
     /**
+     * The name of the brewery
+     * 
+     * @var string
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Length(
@@ -38,6 +44,9 @@ class Brewery
     private $label;
 
     /**
+     * Products of this brewery
+     * 
+     * @var Collection|Product[]
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="brewery")
      */
     private $products;
