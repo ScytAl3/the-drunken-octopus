@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\PercentField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -26,18 +27,18 @@ class ProductCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        $id = IntegerField::new('id', 'ID')->onlyOnIndex();
         // Product image
-        $image = ImageField::new('imageFile')
+        $imageFile = ImageField::new('imageFile')
+            ->setLabel('Image (JPEG or PNG file)')
             ->setFormType(VichImageType::class)->setFormTypeOptions([
-                'label' => 'Image (JPEG or PNG file)',
-                'required' => false,
                 'allow_delete' => true,
-                'download_uri' => false,
-                // 'imagine_pattern' => 'squared_thumb_small',
             ]);
+        $image = ImageField::new('imageName', 'image')->setBasePath('uploads/products');
         // Product basic information
         $name = TextField::new('title', 'Beer name');
-        $description = TextEditorField::new('description', 'Description');
+        $description = TextEditorField::new('description', 'Description')
+            ->setNumOfRows(7);
         $color = TextField::new('color');
         $ibu = NumberField::new('ibu', 'IBU');
         $abv = PercentField::new('alcohol', 'ABV')
@@ -62,12 +63,12 @@ class ProductCrudController extends AbstractCrudController
 
         // Si page index on affiche les informations que l'on souhaite
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$image, $name, $description, $price, $quantity, $availability, $style, $country, $brewery, $bottle];
+            return [$id, $image, $name, $description, $price, $quantity, $availability, $style, $country, $brewery, $bottle];
         }
 
         return [
             FormField::addPanel('Image'),
-            $image,
+            $imageFile,
             FormField::addPanel('Basic information'),
             $name, $description, $color, $ibu, $abv, $price, $quantity, $availability,
             FormField::addPanel('Categories'),
@@ -78,8 +79,6 @@ class ProductCrudController extends AbstractCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
-        return $crud
-            // defines the initial sorting applied to the list of entities
-            ->setDefaultSort(['title' => 'ASC']);
+        return $crud;
     }
 }

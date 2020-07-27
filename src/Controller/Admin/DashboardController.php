@@ -37,28 +37,35 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('The Drunken Octopus');
+            ->setTitle('The Drunken Octopus')
+            ->setFaviconPath('favicon/favicon.ico');
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::section('Dashboard', 'fa fa-table');
 
         // Section relative à la gestion des produits
-        yield MenuItem::section('Products management');
-        yield MenuItem::linkToCrud('Product', 'fa fa-beer', Product::class);
-
-        // Sous menu relatif à la gestion des "catégories"
-        yield MenuItem::subMenu('Categories', 'fa fa-tags')->setSubItems([
-            MenuItem::linkToCrud('Style', 'fa fa-glass', Style::class),
-            MenuItem::linkToCrud('Country', 'fa fa-flag', Country::class),
-            MenuItem::linkToCrud('Brewery', 'fa fa-industry', Brewery::class),
+        yield MenuItem::subMenu('Products', 'fa fa-beer')->setSubItems([
+            MenuItem::linkToCrud('List Products', 'fa fa-th-list', Product::class)
+                ->setDefaultSort(['title' => 'ASC']),
+            MenuItem::linkToCrud('Style', 'fa fa-glass', Style::class)
+                ->setDefaultSort(['label' => 'ASC']),
+            MenuItem::linkToCrud('Country', 'fa fa-flag', Country::class)
+                ->setDefaultSort(['label' => 'ASC']),
+            MenuItem::linkToCrud('Brewery', 'fa fa-industry', Brewery::class)
+                ->setDefaultSort(['label' => 'ASC']),
             MenuItem::linkToCrud('Bottle', 'fa fa-flask', Bottle::class)
+                ->setDefaultSort(['capacity' => 'ASC'])
         ]);
-        
-        // Section relative à la gestion des utilisateurs
-        yield MenuItem::section('Users management');
-        yield MenuItem::linkToCrud('User', 'fa fa-user', User::class);
+
+        // Section relative aux utilisateurs
+        yield MenuItem::linkToCrud('User', 'fa fa-users', User::class);
+
+        // Section relative à la navigation sur le site
+        yield MenuItem::section('Navigation', 'fa fa-folder-open');
+        yield MenuItem::linktoRoute('Homepage', 'fa fa-home', 'app_home', []);
+        yield MenuItem::linktoRoute('Products shop', 'fa fa-th', 'app_product_index', []);
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu
