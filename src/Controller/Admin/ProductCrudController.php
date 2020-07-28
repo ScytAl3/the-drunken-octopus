@@ -34,7 +34,7 @@ class ProductCrudController extends AbstractCrudController
             ->setFormType(VichImageType::class)->setFormTypeOptions([
                 'allow_delete' => true,
             ]);
-        $image = ImageField::new('imageName', 'image')->setBasePath('uploads/products');
+        $image = ImageField::new('imageName', 'Picture')->setBasePath('uploads/products');
         // Product basic information
         $name = TextField::new('title', 'Beer name');
         $description = TextEditorField::new('description', 'Description')
@@ -44,13 +44,13 @@ class ProductCrudController extends AbstractCrudController
         $abv = PercentField::new('alcohol', 'ABV')
             ->setNumDecimals(2)
             ->setStoredAsFractional(false);
-        $price = MoneyField::new('price', 'Price')
+        $price = MoneyField::new('price')
             ->setCurrency('EUR')
             ->setNumDecimals(2)
             ->setStoredAsCents(false);
-        $quantity = NumberField::new('quantity', 'Quantity')
+        $quantity = NumberField::new('quantity')
             ->setTextAlign('right');
-        $availability = BooleanField::new('availability', 'Availability');
+        $availability = BooleanField::new('availability');
         // Product relation
         $style = AssociationField::new('style')
             ->setTextAlign('right');
