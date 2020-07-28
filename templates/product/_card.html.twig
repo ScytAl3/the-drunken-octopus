@@ -1,13 +1,13 @@
-<div class="col-md-4">
+<div class="col-6 col-sm-6 col-md-6 col-lg-4 mb-3">
     <div class="card h-100 bg-white rounded shadow product">
         {# Image du produit animée au survol de la souris #}
-        <div class="mw-100 overflow-hidden">
+        <div class="card-img-top mw-100 overflow-hidden">
             <a href="{{ path('app_product_show', {slug: product.slug, id: product.id}) }}">
-                <img src="{{ (product.imageName ? vich_uploader_asset(product) : asset('build/images/default/placeholder.jpg')) | imagine_filter("squared_thumb_normal") }}"
+                <img src="{{ (product.imageName ? vich_uploader_asset(product) : asset('build/images/default/placeholder.jpg')) | imagine_filter("squared_thumb_medium") }}"
                      class="card-img-top" alt="Image of {{product.title}} Pin">
             </a>
         </div>
-        <div class="card-body px-0">
+        <div class="card-body px-0 pt-0">
             <a href="#" class="btn btn-warning btn-lg btn-block rounded-0">Ajouter au panier</a>
             <div class="text-center">
                 <h5 class="card-title mt-2 pl-3">{{ product.title }}</h5>

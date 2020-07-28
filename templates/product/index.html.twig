@@ -9,8 +9,8 @@
 <!-- Liste des produits et filtre de recherche -->
 <div class="row">
 
-    <!-- Section filtre -->
-    <div class="col-md-3">
+    <!-- Section du filtre -->
+    <div class="col-12 col-sm-3 col-md-3">
         <!-- Titre de la section -->
         <h2 class="text-center my-3">Filters</h2>
         <!-- Import du template assocée à formulaire de recherche -->
@@ -18,15 +18,15 @@
     </div>
     <!-- /Section filtre -->
 
-    <!-- Section produits -->
-    <div class="col-md-9">
+    <!-- Section des produits -->
+    <div class="col-sm-9 col-md-9">
         {# Si il y a des produits #}
         {% if products|length > 0 %}
 
         <!-- Titre de la section -->
         <h2 class="text-center my-3">Products</h2>
 
-        <div class="row row-cols-1 row-cols-md-3 mt-3">
+        <div class="row mt-3">
             {% for product in products %}
             <!-- Import du template associé à un Product -->
             {% include 'product/_card.html.twig' with {product: product} only %}
@@ -34,7 +34,7 @@
         </div>
 
         {# display pagination navigation #}
-        <div class="navigation">
+        <div class="navigation mt-4">
             {{ knp_pagination_render(products) }}
         </div>
         {% else %}
