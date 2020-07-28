@@ -83,7 +83,7 @@ class Product
      * 
      * @var int
      * @ORM\Column(type="integer", nullable=true)
-     * @Assert\Positive
+     * @Assert\PositiveOrZero
      * @Assert\Type(
      *     type="integer",
      *     message="The value {{ value }} is not a valid {{ type }}."

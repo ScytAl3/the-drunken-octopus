@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Bottle;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class BottleCrudController extends AbstractCrudController
@@ -25,6 +26,7 @@ class BottleCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            IntegerField::new('id', 'ID')->hideOnForm(),
             NumberField::new('capacity', 'Bottle capacity'),
         ];
     }

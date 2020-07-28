@@ -3,6 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
+use App\Repository\StyleRepository;
+use App\Repository\BottleRepository;
+use App\Repository\BreweryRepository;
+use App\Repository\CountryRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
@@ -53,12 +57,36 @@ class ProductCrudController extends AbstractCrudController
         $availability = BooleanField::new('availability');
         // Product relation
         $style = AssociationField::new('style')
+            ->setFormTypeOptions([
+                'query_builder' => function (StyleRepository $sr) {
+                    return $sr->createQueryBuilder('p')
+                        ->orderBy('p.label', 'ASC');
+                },
+            ])
             ->setTextAlign('right');
         $country = AssociationField::new('country')
+            ->setFormTypeOptions([
+                'query_builder' => function (CountryRepository $cr) {
+                    return $cr->createQueryBuilder('p')
+                        ->orderBy('p.label', 'ASC');
+                },
+            ])
             ->setTextAlign('right');
         $brewery = AssociationField::new('brewery')
+            ->setFormTypeOptions([
+                'query_builder' => function (BreweryRepository $br) {
+                    return $br->createQueryBuilder('p')
+                        ->orderBy('p.label', 'ASC');
+                },
+            ])
             ->setTextAlign('right');
         $bottle = AssociationField::new('bottle')
+            ->setFormTypeOptions([
+                'query_builder' => function (BottleRepository $br) {
+                    return $br->createQueryBuilder('p')
+                        ->orderBy('p.capacity', 'ASC');
+                },
+            ])
             ->setTextAlign('right');
 
         // Si page index on affiche les informations que l'on souhaite
