@@ -7,8 +7,8 @@
         <div class="container">
             <!-- navbar brand & logo -->
             <a class="navbar-brand" href="{{ path('app_home') }}">
-                <img class="d-inline-block align-center" src="{{ asset('build/images/header/octopus-logo.png') }}" width="50"
-                     height="50" alt="drunken octopus logo">
+                <img class="d-inline-block align-center" src="{{ asset('build/images/header/octopus-logo.png') }}"
+                     width="50" height="50" alt="drunken octopus logo">
                 the drunken octopus
             </a>
             <!-- /navbar brand & logo -->
@@ -65,6 +65,11 @@
                     </li>
                     {% endif %}
                 </ul>
+                <!-- affiche un lien vers le panier avec le nombre de produits ajoutes -->
+                <a class="btn btn-outline-success my-2 my-sm-0" href="#"><i class="fa fa-shopping-cart"
+                       aria-hidden="true"></i>
+                    <strong><span class="badge badge-light badge-pill">0</strong></span>
+                </a>
                 <!-- /Right side of the navigation bar -->
             </div>
         </div>

@@ -4,7 +4,7 @@
 
 {% block body %}
 <!-- Titre de la page-->
-<h1 class="text-center text-muted my-4">Welcome to the shop</h1>
+<h1 class="text-uppercase text-center border-bottom border-warning my-4">Products</h1>
 
 <!-- Liste des produits et filtre de recherche -->
 <div class="row">
@@ -12,7 +12,7 @@
     <!-- Section du filtre -->
     <div class="col-12 col-sm-3 col-md-3">
         <!-- Titre de la section -->
-        <h2 class="text-center my-3">Filters</h2>
+        <h2 class="text-center text-muted my-3">Filters</h2>
         <!-- Import du template assocée à formulaire de recherche -->
         {% include 'product/_filter.html.twig' with {form: form} only %}
     </div>
@@ -24,7 +24,7 @@
         {% if products|length > 0 %}
 
         <!-- Titre de la section -->
-        <h2 class="text-center my-3">Products</h2>
+        <h2 class="text-center text-muted my-3">The fizzy ones</h2>
 
         <div class="row mt-3">
             {% for product in products %}
