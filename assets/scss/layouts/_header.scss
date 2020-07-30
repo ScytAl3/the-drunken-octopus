@@ -1,9 +1,10 @@
-/*-- navbar --*/
-
+/*------------------------------
+        Header & messages
+-------------------------------*/
+/*-- Navbar --*/
 nav {
   &.bg-custom-navbar {
     background-color: #cc3423;
-    border-color: #94261a;
   }
 
   .btn-account-connected {
@@ -16,4 +17,10 @@ nav {
       border: 3px solid #e7887b;
     }
   }
+}
+
+/*-- Banner Impersonate --*/
+.switch-user {
+  margin-top: 12px !important;
+  z-index: 1;
 }

@@ -20,6 +20,7 @@
 body {
   font-family: $primary-font, sans-serif;
   background-color: #e4e4e4;
+  padding-top: 61px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -27,16 +28,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*------------------------------
-        Header & messages
--------------------------------*/
-/*-- Banner Impersonate --*/
-.switch-user {
-  margin-top: 12px !important;
-  z-index: 1;
-}
-
-/*------------------------------
-    Animation image product
+  Products page: Animation image
 -------------------------------*/
 .product img {
   transition: transform 0.3s ease-out;

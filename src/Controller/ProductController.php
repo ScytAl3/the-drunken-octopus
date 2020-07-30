@@ -33,7 +33,7 @@ class ProductController extends AbstractController
         // dd($data);
 
         $products = $repo->findSearch($data);
-
+        // dd($products);
         return $this->render('product/index.html.twig', [
             'current_page' => 'products',
             'products' => $products,

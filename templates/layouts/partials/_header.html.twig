@@ -1,12 +1,12 @@
 <!-- navbar -->
 {% if is_granted('ROLE_ADMIN') %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow fixed-top py-0">
     {% else %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-custom-navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-custom-navbar shadow fixed-top py-0">
         {% endif %}
         <div class="container">
             <!-- navbar brand & logo -->
-            <a class="navbar-brand" href="{{ path('app_home') }}">
+            <a class="navbar-brand text-uppercase" href="{{ path('app_home') }}">
                 <img class="d-inline-block align-center" src="{{ asset('build/images/header/octopus-logo.png') }}"
                      width="50" height="50" alt="drunken octopus logo">
                 the drunken octopus
@@ -26,7 +26,7 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link {% if  current_page is defined and current_page == 'products' %}active{% endif %}"
-                           href="{{ path('app_product_index') }}">Produits</a>
+                           href="{{ path('app_product_index') }}">Products</a>
                     </li>
                     <!-- this link is only visible to an admin -->
                     {% if is_granted('ROLE_ADMIN') %}
@@ -66,7 +66,7 @@
                     {% endif %}
                 </ul>
                 <!-- affiche un lien vers le panier avec le nombre de produits ajoutes -->
-                <a class="btn btn-outline-success my-2 my-sm-0" href="#"><i class="fa fa-shopping-cart"
+                <a class="btn btn-outline-success my-2 my-sm-0" href="{{ path('app_cart_index') }}"><i class="fa fa-shopping-cart"
                        aria-hidden="true"></i>
                     <strong><span class="badge badge-light badge-pill">0</strong></span>
                 </a>

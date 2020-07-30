@@ -76,13 +76,16 @@ class ProductRepository extends ServiceEntityRepository
         $query = $query->getQuery();
 
         $pagination = $this->paginator->paginate(
-            $query, /* query NOT result */
-            $searchdata->page, /*page number*/
-            12 /*limit per page*/
+            $query,             /* query NOT result */
+            $searchdata->page,  /* page number*/
+            12                  /* limit per page*/
         );
+        // Pour connaître le nombre total d'items, sinon le max = la limite par page
+        $pagination->getTotalItemCount();
+        // Mise en page du template de la pagination
         $pagination->setCustomParameters([
-            'align' => 'center', # center|right (for template: twitter_bootstrap_v4_pagination)
-            'size' => 'small', # small|large (for template: twitter_bootstrap_v4_pagination)
+            'align' => 'center',    // center|right (for template: twitter_bootstrap_v4_pagination)
+            'size' => 'small',      // small|large (for template: twitter_bootstrap_v4_pagination)
             'style' => 'bottom',
             'span_class' => 'whatever',
         ]);

@@ -4,11 +4,11 @@
         <div class="card-img-top mw-100 overflow-hidden">
             <a href="{{ path('app_product_show', {slug: product.slug, id: product.id}) }}">
                 <img src="{{ (product.imageName ? vich_uploader_asset(product) : asset('build/images/default/placeholder.jpg')) | imagine_filter("squared_thumb_medium") }}"
-                     class="card-img-top" alt="Image of {{product.title}} Pin">
+                     class="card-img-top" alt="Image of {{product.title}}">
             </a>
         </div>
         <div class="card-body px-0 pt-0">
-            <a href="#" class="btn btn-warning btn-lg btn-block rounded-0">Ajouter au panier</a>
+            <a href="{{path('app_cart_add', {id: product.id}) }}" class="btn btn-warning btn-lg btn-block rounded-0">Ajouter au panier</a>
             <div class="text-center">
                 <h5 class="card-title mt-2 pl-3">{{ product.title }}</h5>
                 <p class="card-text pl-3">{{ product.price  }} €</p>
