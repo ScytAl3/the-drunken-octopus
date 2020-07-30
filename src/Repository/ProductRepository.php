@@ -9,7 +9,9 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use InvalidArgumentException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
+use RuntimeException;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -32,52 +34,19 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
-     * Return a pagination with the products based on the search.
-     * @param SearchData $searchdata
+     * Retourne une pagination avec les produits en fonction de la recherche
+     * @param SearchData $searchData
      * 
      * @return PaginationInterface 
      */
-    public function findSearch(SearchData $searchdata): PaginationInterface
-    {
-        // Construction de la requête
-        $query = $this
-            ->createQueryBuilder('p')
-            ->addSelect('s')            // Ajout de la table Style
-            ->join('p.style', 's')
-            ->addSelect('c')            // Ajout de la table Country
-            ->join('p.country', 'c')
-            ->addSelect('b')            // Ajout de la table Brewery
-            ->join('p.brewery', 'b');
-        // Contrôle du champ de recherche
-        if (!empty($searchdata->q)) {
-            $query = $query
-                ->andWhere('p.title LIKE :q')
-                ->setParameter('q', "%{$searchdata->q}%");
-        }
-        // Contrôle du filtre sur les styles
-        if (!empty($searchdata->style)) {
-            $query = $query
-                ->andWhere('s.id IN (:style)')
-                ->setParameter('style', $searchdata->style);
-        }
-        // Contrôle du filtre sur les pays
-        if (!empty($searchdata->country)) {
-            $query = $query
-                ->andWhere('c.id IN (:country)')
-                ->setParameter('country', $searchdata->country);
-        }
-        // Contrôle du filtre sur les brasserie
-        if (!empty($searchdata->brewery)) {
-            $query = $query
-                ->andWhere('b.id IN (:brewery)')
-                ->setParameter('brewery', $searchdata->brewery);
-        }
-
-        $query = $query->getQuery();
+    public function findSearch(SearchData $searchData): PaginationInterface
+    {    
+        // Appelle de la methode privée qui construit la requête
+        $query = $this->getSearchQuery($searchData);
 
         $pagination = $this->paginator->paginate(
             $query,             /* query NOT result */
-            $searchdata->page,  /* page number*/
+            $searchData->page,  /* page number*/
             12                  /* limit per page*/
         );
         // Pour connaître le nombre total d'items, sinon le max = la limite par page
@@ -94,7 +63,7 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
-     * Return a query used for the paginator bundle
+     * Retourne une requête utilisée par paginator bundle
      * @return Query
      */
     public function findAllAvailableQuery(): Query
@@ -124,6 +93,8 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
+     * retourne la requête construite en fonction du booleen
+     * 
      * @return QueryBuilder
      */
     private function findAvailableQuery($boolean): QueryBuilder
@@ -131,6 +102,52 @@ class ProductRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->andWhere('p.availability = :val')
             ->setParameter('val', $boolean);
+    }
+
+    /**
+     * Retourne la requête construite en fonction du filtre
+     * @param SearchData $searchData
+     * 
+     * @return QueryBuilder 
+     * @throws InvalidArgumentException 
+     * @throws RuntimeException 
+     */
+    private function getSearchQuery(SearchData $searchData): QueryBuilder
+    {
+        // Construction de la requête
+        $query = $this
+            ->createQueryBuilder('p')
+            ->addSelect('s')            // Ajout de la table Style
+            ->join('p.style', 's')
+            ->addSelect('c')            // Ajout de la table Country
+            ->join('p.country', 'c')
+            ->addSelect('b')            // Ajout de la table Brewery
+            ->join('p.brewery', 'b');
+        // Contrôle du champ de recherche
+        if (!empty($searchData->q)) {
+            $query = $query
+                ->andWhere('p.title LIKE :q')
+                ->setParameter('q', "%{$searchData->q}%");
+        }
+        // Contrôle du filtre sur les styles
+        if (!empty($searchData->style)) {
+            $query = $query
+                ->andWhere('s.id IN (:style)')
+                ->setParameter('style', $searchData->style);
+        }
+        // Contrôle du filtre sur les pays
+        if (!empty($searchData->country)) {
+            $query = $query
+                ->andWhere('c.id IN (:country)')
+                ->setParameter('country', $searchData->country);
+        }
+        // Contrôle du filtre sur les brasserie
+        if (!empty($searchData->brewery)) {
+            $query = $query
+                ->andWhere('b.id IN (:brewery)')
+                ->setParameter('brewery', $searchData->brewery);
+        }
+        return $query;
     }
 
     // /**
