@@ -34,22 +34,29 @@
 
     <body>
 
-        <!-- header import -->
-        {{ include('layouts/partials/_header.html.twig') }}
-        <!-- /header import -->
+        {% block header %}
+            <header>
+                <!-- navbar import -->
+                {{ include('layouts/partials/_header.html.twig') }}
+                <!-- /navbar import -->
 
-        <!-- Message flash area -->
-        {{ include('layouts/partials/_flash_messages.html.twig') }}
-        <!-- /Message flash area -->
-
+                <!-- Message flash area -->
+                {{ include('layouts/partials/_flash_messages.html.twig') }}
+                <!-- /Message flash area -->
+            </header>
+        {% endblock %}
         
         <main role="main" class="container">
             {% block body %}{% endblock %}
         </main>
 
-        <!-- footer import -->
-        {{ include('layouts/partials/_footer.html.twig') }}
-        <!-- /footer import -->
+        {% block footer %}
+            <footer class="p-3 text-center">
+                <!-- footer import -->
+                {{ include('layouts/partials/_footer.html.twig') }}
+                <!-- /footer import -->
+            </footer>
+        {% endblock %}        
 
         {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
