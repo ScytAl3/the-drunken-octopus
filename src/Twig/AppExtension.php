@@ -61,9 +61,17 @@ class AppExtension extends AbstractExtension
         return "$count $string";
     }
 
-    public function setActiveRoute(string $route): string
+    /**
+     * Si la route courrante correspond à la route demandée retourne la class qui peut être
+     * passée en paramètres par défaut = active
+     * @param string $route 
+     * @param null|string $activeClass
+     * 
+     * @return string 
+     */
+    public function setActiveRoute(string $route, ?string $activeClass = 'active'): string
     {
         $currentRoute = $this->requestStack->getCurrentRequest()->attributes->get('_route');
-        return $currentRoute == $route ? 'active' : '' ;
+        return $currentRoute == $route ? $activeClass : '' ;
     }
 }
