@@ -30,8 +30,13 @@ class CartController extends AbstractController
      */
     public function add(int $id, CartService $cartService)
     {
-        // Appelle de la methode add() associé au cartService
-        $cartService->add($id);
+        // Appelle de la methode add() associé au cartService et récupération du message
+        $message = $cartService->add($id);
+        // Création du message flash
+        $this->addFlash(
+            $message['type'],
+            $message['text']
+        );
 
         return $this->redirectToRoute('app_cart_index');
     }
@@ -44,9 +49,14 @@ class CartController extends AbstractController
      */
     public function remove(int $id, CartService $cartService)
     {
-        // Appelle de la methode remove() associé au cartService
-        $cartService->remove($id);
-
+        // Appelle de la methode add() associé au cartService et récupération du message
+        $message = $cartService->remove($id);
+        // Création du message flash
+        $this->addFlash(
+            $message['type'],
+            $message['text']
+        );
+        
         return $this->redirectToRoute('app_cart_index');
     }
 }
