@@ -2,12 +2,29 @@
 
 namespace App\Twig;
 
-use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
+use Twig\Extension\AbstractExtension;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class AppExtension extends AbstractExtension
 {
+    /**
+     * 
+     * @var RequestStack
+     */
+    private $requestStack;
+
+    /**
+     * 
+     * @param RequestStack $requestStack 
+     * @return void 
+     */
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+
     public function getFilters(): array
     {
         return [
@@ -22,9 +39,17 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFunction('pluralize', [$this, 'pluralize']),
+            new TwigFunction('set_active_route', [$this, 'setActiveRoute']),
         ];
     }
 
+    /**
+     * Permet d'afficher le singulier ou le pluriel d'un mot en fonction du nombre
+     * @param int $count 
+     * @param string $singular 
+     * @param null|string $plural 
+     * @return string 
+     */
     public function pluralize(int $count, string $singular, ?string $plural = null): string
     {
         // Si un pluriel a été défini on l'utilise sinon on utilise le singulier en ajoutant un "s"
@@ -34,5 +59,11 @@ class AppExtension extends AbstractExtension
         $string = $count == 1 ? $singular : $plural;
         // Retourne le nombre avec la forme grammaticale correspondante
         return "$count $string";
+    }
+
+    public function setActiveRoute(string $route): string
+    {
+        $currentRoute = $this->requestStack->getCurrentRequest()->attributes->get('_route');
+        return $currentRoute == $route ? 'active' : '' ;
     }
 }

@@ -24,14 +24,14 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left side of the navigation bar -->
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link {% if  current_page is defined and current_page == 'products' %}active{% endif %}"
+                    <li class="nav-item {{ set_active_route('app_product_index') }}">
+                        <a class="nav-link"
                            href="{{ path('app_product_index') }}">Products</a>
                     </li>
                     <!-- this link is only visible to an admin -->
                     {% if is_granted('ROLE_ADMIN') %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if  current_page is defined and current_page == 'admin' %}active{% endif %}"
+                    <li class="nav-item {{ set_active_route('app_admin_dashboard') }}">
+                        <a class="nav-link"
                            href="{{ path('app_admin_dashboard') }}">GodMod</a>
                     </li>
                     {% endif %}
