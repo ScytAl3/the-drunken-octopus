@@ -1,22 +1,46 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %} Reset your password| {{ parent() }} {% endblock %}
 
 {% block body %}
+
+<!-- Titre et messages divers de la page demande reset password -->
+<div class="text-center">
     {% for flashError in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
-    <h1>Reset your password</h1>
+    <h1 class="text-uppercase border-bottom border-warning my-4">Reset your password</h1>
+</div>
+<!-- /Titre et messages divers de la page demande reset password -->
+
+<div class="col-md-6 mx-auto py-2 my-4">
+    <!-- Logo du site -->
+    <div class="text-center py-4">
+        <img src="{{ asset('build/images/default/octopus-logo-form.png') | imagine_filter("squared_thumb_smaller") }}"
+             alt="Logo {{ project.name }}">
+    </div>
+    <!-- /Logo du site -->
 
     {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
-        <div>
-            <small>
-                Enter your email address and we we will send you a
-                link to reset your password.
-            </small>
-        </div>
 
-        <button class="btn btn-primary">Send password reset email</button>
+    <!-- Input: email -->
+    <div class="mt-3">
+        {# {{ form_row(requestForm.email) }} #}
+        {{ form_label(requestForm.email) }}
+        {{ form_widget(requestForm.email) }}
+    </div>
+    <div class="mb-5">
+        <small>
+            Enter your email address and we we will send you a
+            link to reset your password.
+        </small>
+    </div>
+
+    <!-- Button: send reset email -->
+    <div class="mb-3">
+        <button class="btn btn-dark">Send password reset email</button>
+    </div>
+
     {{ form_end(requestForm) }}
+</div>
 {% endblock %}

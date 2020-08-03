@@ -23,11 +23,6 @@
         {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
 
-        <!-- font awesome stylesheet -->
-        {#<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"
-                integrity="sha512-M+hXwltZ3+0nFQJiVke7pqXY7VdtWW2jVG31zrml+eteTP7im25FdwtLhIBTWkaHRQyPrhO2uy8glLMHZzhFog=="
-                crossorigin="anonymous"></script>#}
-
         {% endblock %}
 
     </head>
@@ -37,13 +32,13 @@
         {% block header %}
             <header>
                 <!-- navbar import -->
-                {{ include('layouts/partials/_header.html.twig') }}
+                {{ include('layouts/partials/_nav.html.twig') }}
                 <!-- /navbar import -->
+            </header>
 
                 <!-- Message flash area -->
                 {{ include('layouts/partials/_flash_messages.html.twig') }}
                 <!-- /Message flash area -->
-            </header>
         {% endblock %}
         
         <main role="main" class="container">

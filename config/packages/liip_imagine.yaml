@@ -26,6 +26,12 @@ liip_imagine:
                     size: [180, 180]
                     mode: outbound
 
+        squared_thumb_smaller:
+            filters:
+                thumbnail:
+                    size: [100, 100]
+                    mode: outbound
+
         squared_thumb_xsmall:
             filters:
                 thumbnail:

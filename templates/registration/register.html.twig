@@ -4,13 +4,22 @@
 
 {% block body %}
 
-{% for flashError in app.flashes('verify_email_error') %}
-<div class="alert alert-danger" role="alert">{{ flashError }}</div>
-{% endfor %}
+<!-- Titre et messages divers de la page de création de compte -->
+<div class="text-center">
+    {% for flashError in app.flashes('verify_email_error') %}
+    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+    <h1 class="text-uppercase border-bottom border-warning my-4">Register</h1>
+</div>
+<!-- /Titre et messages divers de la page de création de compte -->
 
-<div class="mt-5 col-6 mx-auto">
-
-    <h1 class="h3 mb-3 text-muted">Register</h1>
+<div class="col-md-6 rounded shadow mx-auto py-2 my-4">
+    <!-- Logo du site -->
+    <div class="text-center py-4">
+        <img src="{{ asset('build/images/default/octopus-logo-form.png') | imagine_filter("squared_thumb_smaller") }}"
+             alt="Logo {{ project.name }}">
+    </div>
+    <!-- /Logo du site -->
 
     {{ form_start(registrationForm) }}
 
@@ -26,9 +35,12 @@
 
     {{ form_row(registrationForm.agreeTerms) }}
 
-    <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
-    {{ form_end(registrationForm) }}
+    <!-- Button: send reset email -->
+    <div class="mb-3">
+        <button type="submit" class="btn btn-dark btn-lg btn-block">Register</button>
+    </div>
 
+    {{ form_end(registrationForm) }}
 </div>
 
 {% endblock %}

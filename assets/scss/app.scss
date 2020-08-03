@@ -2,11 +2,13 @@
 @import "~bootstrap";
 
 /* fontawesome 5 free */
-@import "~@fortawesome/fontawesome-free/css/all.css";
-@import "~@fortawesome/fontawesome-free/css/v4-shims.css";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
 
 /* import external URL font - Google font */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap");
 
 /* header & footer */
 @import "./layouts/header";
@@ -23,7 +25,12 @@ body {
   padding-top: 61px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $title-font, sans-serif;
 }
 
@@ -32,8 +39,34 @@ h1, h2, h3, h4, h5, h6 {
 -------------------------------*/
 .product img {
   transition: transform 0.3s ease-out;
-  
+
   &:hover {
     transform: scale(1.075);
+  }
+}
+
+/*------------------------------
+      Login page: Form
+-------------------------------*/
+form {
+  .separator {
+    .border-separator {
+      border-bottom: 1px solid #adadad;
+    }
+    .bg-separator {
+      background-color: #e4e4e4;
+      padding: 15px;
+    }
+  }
+  #socialLoginList {
+    .is-disabled {
+      background-color: #faf9f5;
+      border-color: #000;
+      color: #757575;
+      font-size: 16px;
+    }
+  }
+  .privacy-policy {
+    font-size: 12px;
   }
 }

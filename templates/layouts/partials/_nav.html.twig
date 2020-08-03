@@ -7,8 +7,9 @@
         <div class="container">
             <!-- navbar brand & logo -->
             <a class="navbar-brand text-uppercase" href="{{ path('app_home') }}">
-                <img class="d-inline-block align-center" src="{{ asset('build/images/header/octopus-logo.png') }}"
-                     width="50" height="50" alt="drunken octopus logo">
+                <img class="d-inline-block align-center"
+                     src="{{ asset('build/images/header/octopus-logo.png') | imagine_filter("squared_thumb_xsmall") }}"
+                     alt="Logo {{ project.name }}">
                 {{ project.name }}
             </a>
             <!-- /navbar brand & logo -->
@@ -25,14 +26,12 @@
                 <!-- Left side of the navigation bar -->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item {{ set_active_route('app_product_index') }}">
-                        <a class="nav-link"
-                           href="{{ path('app_product_index') }}">Products</a>
+                        <a class="nav-link" href="{{ path('app_product_index') }}">Products</a>
                     </li>
                     <!-- this link is only visible to an admin -->
                     {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item {{ set_active_route('app_admin_dashboard') }}">
-                        <a class="nav-link"
-                           href="{{ path('app_admin_dashboard') }}">GodMod</a>
+                        <a class="nav-link" href="{{ path('app_admin_dashboard') }}">GodMod</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -57,11 +56,10 @@
                         </div>
                     </div>
                     {% else %}
-                    <li class="nav-item active"><a class="nav-link" href="{{ path('app_login') }}">Sign in <i
-                               class="fas fa-sign-in-alt" aria-hidden="true"></i></a>
-                    </li>
-                    <li class="nav-item active"><a class="nav-link" href="{{ path('app_register') }}">Sign Up <i
-                               class="fas fa-sign-out-alt" aria-hidden="true"></i></a>
+                    <li class="nav-item {{ set_active_route('app_login') }}">
+                        <a class="nav-link" href="{{ path('app_login') }}">
+                            <i class="far fa-user" aria-hidden="true"></i>
+                        </a>
                     </li>
                     {% endif %}
                 </ul>
