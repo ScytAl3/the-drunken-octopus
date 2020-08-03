@@ -38,41 +38,46 @@
                 <!-- /Left side of the navigation bar -->
 
                 <!-- /Right side of the navigation bar -->
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav justify-content-end">
                     <!-- the links are only visible to a authenticated user -->
                     {% if is_granted('ROLE_USER') %}
-                    <div class="nav-item dropdown">
-                        <button class="btn text-white dropdown-toggle btn-account-connected" id="navbarDropdownMenuLink"
-                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="{{ asset('build/images/header/default-user-image.svg') }}"
-                                 alt="Default User Account Image">
-                            <span class="">{{ app.user.firstName }} {{ app.user.lastName }}</span>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="{{ path('app_user_account') }}"><i class="fas fa-user-edit"
-                                   aria-hidden="true"></i> Profile</a>
-                            <a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fas fa-user-slash"
-                                   aria-hidden="true"></i> Logout</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white dropdown-toggle" id="navbarDropdownMenuAccount" role="button"
+                           data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i>
+                            <span class="ml-2">{{ app.user.firstName }} {{ app.user.lastName }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right user-account-connected"
+                             aria-labelledby="navbarDropdownMenuAccount">
+                            <a class="dropdown-item" href="{{ path('app_user_account') }}">
+                                <i class="fas fa-user-edit  mr-2" aria-hidden="true"></i>
+                                Profile
+                                </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">
+                                <i class="fas fa-door-open mr-2" aria-hidden="true"></i>
+                                Logout
+                            </a>
                         </div>
-                    </div>
+                    </li>
                     {% else %}
-                    <li class="nav-item {{ set_active_route('app_login') }}">
-                        <a class="nav-link" href="{{ path('app_login') }}">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ path('app_login') }}">
                             <i class="far fa-user" aria-hidden="true"></i>
                         </a>
                     </li>
                     {% endif %}
+                    <li class="nav-item">
+                        <!-- affiche un lien vers le panier avec le nombre de produits ajoutes -->
+                        <a class="nav-link text-white" href="{{ path('app_cart_index') }}" disabled>
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge badge-light badge-pill cart-badge-top-right">
+                                0
+                            </span>
+                        </a>
+                        <!-- /Right side of the navigation bar -->
+                    </li>
                 </ul>
-                <!-- affiche un lien vers le panier avec le nombre de produits ajoutes -->
-                <a class="btn btn-outline-success my-2 my-sm-0" href="{{ path('app_cart_index') }}"><i
-                       class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <strong>
-                        <span class="badge badge-light badge-pill">
-                            0
-                        </span>
-                    </strong>
-                </a>
-                <!-- /Right side of the navigation bar -->
             </div>
         </div>
     </nav>

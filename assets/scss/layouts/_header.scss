@@ -7,15 +7,14 @@ nav {
     background-color: #cc3423;
   }
 
-  .btn-account-connected {
-    padding-right: 25px;
-
-    img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50px;
-      border: 3px solid #e7887b;
-    }
+  .user-account-connected {
+    width: 200px;
+  }
+  .cart-badge-top-right {
+    background: yellow;
+    position: relative;
+    top: -10px;
+    right: -2px;
   }
 }
 
