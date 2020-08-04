@@ -47,6 +47,7 @@
                             <i class="fas fa-user-circle"></i>
                             <span class="ml-2">{{ app.user.firstName }} {{ app.user.lastName }}</span>
                         </a>
+                        <!-- Dropdown user connected menu -->
                         <div class="dropdown-menu dropdown-menu-right user-account-connected"
                              aria-labelledby="navbarDropdownMenuAccount">
                             <a class="dropdown-item" href="{{ path('app_user_account') }}">
@@ -61,14 +62,16 @@
                         </div>
                     </li>
                     {% else %}
+                    <!-- Login icon link -->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ path('app_login') }}">
                             <i class="far fa-user" aria-hidden="true"></i>
                         </a>
                     </li>
                     {% endif %}
+                    <!-- Cart icon link -->
                     <li class="nav-item">
-                        <!-- affiche un lien vers le panier avec le nombre de produits ajoutes -->
+                        <!-- Lien vers le panier avec le nombre de produits ajoutes -->
                         <a class="nav-link text-white" href="{{ path('app_cart_index') }}" disabled>
                             <i class="fas fa-shopping-cart"></i>
                             <span class="badge badge-light badge-pill cart-badge-top-right">

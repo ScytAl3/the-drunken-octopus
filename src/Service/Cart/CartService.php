@@ -106,7 +106,7 @@ class CartService
     public function getDataCart(): array
     {
         // Récupere le panier en cours
-        $cart = $this->session->get('cart');
+        $cart = $this->session->get('cart', []);
         // Initialisation d'un tableau pour stocker les données d'un produit et sa quantité
         $cartProductData = [];
         // Parcours du panier pour récuperer tous les produits qu'il contient
