@@ -35,7 +35,6 @@ class ProductController extends AbstractController
         $products = $repo->findSearch($data);
         // dd($products);
         return $this->render('product/index.html.twig', [
-            'current_page' => 'products',
             'products' => $products,
             'form' => $form->createView(),
         ]);
@@ -58,7 +57,6 @@ class ProductController extends AbstractController
         }
 
         return $this->render('product/show.html.twig', [
-            'current_page' => 'products',
             'product' => $product,
         ]);
     }

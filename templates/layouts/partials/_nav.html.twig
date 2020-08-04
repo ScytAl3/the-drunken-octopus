@@ -25,7 +25,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left side of the navigation bar -->
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item {{ set_active_route('app_product_index') }}">
+                    <li class="nav-item {{ set_active_route('app_product') }}">
                         <a class="nav-link" href="{{ path('app_product_index') }}">Products</a>
                     </li>
                     <!-- this link is only visible to an admin -->
@@ -63,7 +63,7 @@
                     </li>
                     {% else %}
                     <!-- Login icon link -->
-                    <li class="nav-item">
+                    <li class="nav-item {{ set_active_route('app_admin_dashboard') }}">
                         <a class="nav-link text-white" href="{{ path('app_login') }}">
                             <i class="far fa-user" aria-hidden="true"></i>
                         </a>
