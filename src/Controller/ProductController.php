@@ -9,6 +9,7 @@ use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProductController extends AbstractController
@@ -31,9 +32,16 @@ class ProductController extends AbstractController
         // Gestion de la requête qui est soumise par le formulaire de filtre
         $form->handleRequest($request);
         // dd($data);
-
         $products = $repo->findSearch($data);
         // dd($products);
+
+        // Si c'est une requête ajax
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse([
+                'content' => $this->renderView('product/_products.html.twig', ['products' => $products]),
+                'sorting' => $this->renderView('product/_sorting.html.twig', ['products' => $products]),
+            ]);
+        }
         return $this->render('product/index.html.twig', [
             'products' => $products,
             'form' => $form->createView(),

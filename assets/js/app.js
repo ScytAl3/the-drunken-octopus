@@ -11,8 +11,12 @@ import '../scss/app.scss';
 // the bootstrap module doesn't export/return anything
 import 'bootstrap';
 
-
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 import $ from 'jquery';
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+
+// Importing the file for ajax processing of the product filter
+import Filter from './modules/Filter';
+// Instanciation du filtre
+new Filter(document.querySelector('.js-filter'));

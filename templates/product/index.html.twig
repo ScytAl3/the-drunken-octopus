@@ -3,47 +3,54 @@
 {% block title %} The shop | {{ parent() }} {% endblock %}
 
 {% block body %}
-<!-- Titre de la page-->
-<h1 class="text-uppercase text-center border-bottom border-warning my-4">Products</h1>
+<div class="js-filter">
+    <!-- Titre de la page-->
+    <h1 class="text-uppercase text-center border-bottom border-warning my-4">Products</h1>
 
-<!-- Liste des produits et filtre de recherche -->
-<div class="row">
+    <!-- Liste des produits et filtre de recherche -->
+    <div class="row">
 
-    <!-- Section du filtre -->
-    <div class="col-12 col-sm-3 col-md-3 my-3">
-        <!-- Titre de la section -->
-        <h4 class="text-left bg-info pl-2 py-2"><i class="fas fa-sliders-h"></i> Filters</h4>
-        <!-- Import du template assocée à formulaire de recherche -->
-        {% include 'product/_filter.html.twig' with {form: form} only %}
-    </div>
-    <!-- /Section filtre -->
-
-    <!-- Section des produits -->
-    <div class="col-sm-9 col-md-9 mt-3">
-        {# Si il y a des produits #}
-        {% if products|length > 0 %}
-
-        <!-- Titre de la section -->
-        <h4 class="text-left pl-2 py-2">The fizzy ones</h4>
-        <p class="text-muted pl-2">They are {{ pluralize(products.getTotalItemCount(), 'product') }}</p>
-
-        <div class="row mt-3">
-            {% for product in products %}
-            <!-- Import du template associé à un Product -->
-            {% include 'product/_card.html.twig' with {product: product} only %}
-            {% endfor %}
+        <!-- Section du filtre -->
+        <div class="col-12 col-sm-3 col-md-3 my-3 js-filter-form">
+            <!-- Titre de la section -->
+            <h4 class="text-left bg-info pl-2 py-2"><i class="fas fa-sliders-h"></i> Filters</h4>
+            <!-- Import du template assocée à formulaire de recherche -->
+            {% include 'product/_filter.html.twig' with {form: form} only %}
         </div>
+        <!-- /Section filtre -->
 
-        {# display pagination navigation #}
-        <div class="navigation mt-4">
-            {{ knp_pagination_render(products) }}
+        <!-- Section des produits -->
+        <div class="col-sm-9 col-md-9 mt-3">
+            <!-- pagination sortable filter -->
+            <div class="d-flex justify-content-end mb-2 js-filter-sorting">
+                {% include 'product/_sorting.html.twig' %}
+            </div>
+
+            {# Si il y a des produits #}
+            {% if products|length > 0 %}
+
+                <!-- Titre de la section -->
+                <h4 class="text-left pl-2 py-2">The fizzy ones</h4>
+                <p class="text-muted pl-2">They are {{ pluralize(products.getTotalItemCount(), 'product') }}</p>
+
+                <div class="row mt-3 js-filter-content">
+                    
+                    {% include 'product/_products.html.twig' %}
+                    
+                </div>
+
+                {# display pagination navigation #}
+                <div class="navigation mt-4 js-filter-pagination">
+                    {{ knp_pagination_render(products) }}
+                </div>
+
+            {% else %}
+                <p class="h2 mt-5 text-center">No products yet.</p>
+            {% endif %}
         </div>
-        {% else %}
-        <p class="h2 mt-5 text-center">No products yet.</p>
-        {% endif %}
+        <!-- /Section produits -->
+
     </div>
-    <!-- /Section produits -->
 
 </div>
-
 {% endblock %}
