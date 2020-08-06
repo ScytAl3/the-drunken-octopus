@@ -85,6 +85,8 @@ export default class Filter {
      * @param {*} url 
      */
     async loadUrl(url) {
+        // Appelle de la methode qui affiche le spinner-loader
+        this.showLoader();
         // Fix le problème de l'url du fichier json en cache: ajoute le suffixe ajax à l'url
         const ajaxUrl = url + '&ajax=1';
         // Passage de l'url préfixée dans le fetch
@@ -104,6 +106,8 @@ export default class Filter {
         } else {
             console.error(response);
         }
+        // Appelle de la methode qui masque le spinner-loader
+        this.hideLoader();
     }
 
     /**
@@ -113,8 +117,11 @@ export default class Filter {
     flipContent(content) {
         // Choix d'un préréglage spring
         const springPreset = 'veryGentle';
-        /*
-        Initialisation de spring pour l'animation ressort - Exit
+       /**
+        * Initialisation de spring pour l'animation ressort - Exit
+        * @param {*} element 
+        * @param {*} index 
+        * @param {*} onComplete 
         */
         const onExitSpring = function (element, index, onComplete) {
             spring({
@@ -133,8 +140,11 @@ export default class Filter {
                 }
             });
         };
-        /*
-        Initialisation de spring pour l'animation ressort - Appear
+
+       /**
+        * Initialisation de spring pour l'animation ressort - Appear
+        * @param {*} element 
+        * @param {*} index 
         */
         const onAppearSpring = function (element, index) {
             spring({
@@ -150,11 +160,17 @@ export default class Filter {
                 delay: index * 15,
             });
         };
-        // Initialisation de Flipper en lui passnat le container
+        
+       /**
+        * Initialisation de Flipper en lui passnat le container
+        */
         const flipper = new Flipper({
             element: this.content
         });
-        // Parcours tous les enfants directs du content
+
+        /*
+        Parcours tous les enfants directs du content
+        */
         this.content.children.forEach(element => {
             // add flipped children to the parent
             flipper.addFlipped({
@@ -172,7 +188,10 @@ export default class Filter {
         flipper.recordBeforeUpdate();
         // Affichage du resultat
         this.content.innerHTML = content;
-        // Parcours pour trouver la position des nouveaux éléments
+        
+        /*
+        Parcours pour trouver la position des nouveaux éléments
+        */
         this.content.children.forEach(element => {
             // add flipped children to the parent
             flipper.addFlipped({
@@ -185,5 +204,37 @@ export default class Filter {
         });
         // Enregistrer les nouvelles positions, et démarrer les animations
         flipper.update();
+    }
+
+    /**
+     * Permet d'afficher le spinner-loader
+     */
+    showLoader() {
+        this.form.classList.add('is-loading');
+        const spinnerLoader = this.form.querySelector('.js-spinner-loading');
+        // Si le loader n'existe pas on ne fait rien et on sort
+        if (spinnerLoader == null) {
+            return;
+        }
+        // S'il existe on passe la valeur du aria-hidden à false
+        spinnerLoader.setAttribute('aria-hidden', 'false');
+        // On rend l'élément visible
+        spinnerLoader.style.display = null;
+    }
+
+    /**
+     * Permet de cacher et masquer le spinner-loader
+     */
+    hideLoader() {
+        this.form.classList.remove('is-loading');
+        const spinnerLoader = this.form.querySelector('.js-spinner-loading');
+        // Si le loader n'existe pas on ne fait rien et on sort
+        if (spinnerLoader == null) {
+            return;
+        }
+        // S'il existe on passe la valeur du aria-hidden à true
+        spinnerLoader.setAttribute('aria-hidden', 'true');
+        // On rend l'élément visible
+        spinnerLoader.style.display = 'none';
     }
 }

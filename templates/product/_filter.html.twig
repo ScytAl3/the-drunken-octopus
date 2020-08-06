@@ -1,29 +1,34 @@
 {{ form_start(form, {attr: {class: 'filter js-filter-form'}}) }}
 
-<!-- champ search -->
+{# Icone spinner pour indiqué la prise en compte du filtre #}
+<div class="spinner-border js-spinner-loading" role="status" aria-hidden="true" style="display: none;">
+    <span class="sr-only">Loading...</span>
+</div>
+
+{# champ search #}
 <div class="form-group">
     {{ form_row(form.q) }}
 </div>
 
-<!-- champ style -->
+{# champ style #}
 <h4 class=" border-bottom border-info">Beer style</h4>
 <div class="form-group">
     {{ form_row(form.style) }}
 </div>
 
-<!-- champ country -->
+{# champ country #}
 <h4 class=" border-bottom border-info">Beer country</h4>
 <div class="form-group">
     {{ form_row(form.country) }}
 </div>
 
-<!-- champ brewery -->
+{# champ brewery #}
 <h4 class=" border-bottom border-info">Beer Brewery</h4>
 <div class="form-group">
     {{ form_row(form.brewery) }}
 </div>
 
-<!-- Bouton pour filtrer -->
+{# Bouton pour filtrer #}
 <button class="btn btn-primary w-100" type="submit">Filtrer</button>
 
 {{ form_end(form) }}
