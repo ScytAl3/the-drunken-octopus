@@ -1,5 +1,5 @@
 // Imports
-import { Flipper } from 'flip-toolkit'
+import { Flipper, spring } from 'flip-toolkit'
 
 /**
  * 
@@ -111,6 +111,45 @@ export default class Filter {
      * @param {string} content 
      */
     flipContent(content) {
+        // Choix d'un préréglage spring
+        const springPreset = 'veryGentle';
+        /*
+        Initialisation de spring pour l'animation ressort - Exit
+        */
+        const onExitSpring = function (element, index, onComplete) {
+            spring({
+                config: 'stiff',
+                values: {
+                    translateY: [0, -20],
+                    opacity: [1, 0]
+                },
+                onUpdate: ({ translateY, opacity }) => {
+                    element.style.opacity = opacity;
+                    element.style.transform = `translateY(${translateY}px)`;
+                },
+                // delay: i * 25,
+                onComplete: () => {
+                    // add callback logic here if necessary
+                }
+            });
+        };
+        /*
+        Initialisation de spring pour l'animation ressort - Appear
+        */
+        const onAppearSpring = function (element, index) {
+            spring({
+                config: 'stiff',
+                values: {
+                    translateY: [20, 0],
+                    opacity: [0, 1]
+                },
+                onUpdate: ({ translateY, opacity }) => {
+                    element.style.opacity = opacity;
+                    element.style.transform = `translateY(${translateY}px)`;
+                },
+                delay: index * 15,
+            });
+        };
         // Initialisation de Flipper en lui passnat le container
         const flipper = new Flipper({
             element: this.content
@@ -120,16 +159,13 @@ export default class Filter {
             // add flipped children to the parent
             flipper.addFlipped({
                 element,
+                spring: springPreset, /* préréglage spring choisi */
                 flipId: element.id,
                 /* Éléments déjà présents dans le DOM et qui ne vont pas changer */
                 shouldFlip: false,
-                /* Appelé lorsque l'élément est retiré du DOM: appelle la fonction remove()
+                /* Appelé lorsque l'élément est retiré du DOM: appelle la fonction removeElement()
                     lorsque la transition de sortie est terminée */
-                onExit: (element, index, removeElement) => {
-                    window.setTimeout(() => {
-                        removeElement();
-                    }, 2000);
-                },
+                onExit: onExitSpring,
             });
         });
         // Mémorisation de la position de tous les éléments avant le changement
@@ -141,7 +177,10 @@ export default class Filter {
             // add flipped children to the parent
             flipper.addFlipped({
                 element,
+                spring: springPreset, /* préréglage spring choisi */
                 flipId: element.id,
+            /* Appelé lorsque l'élément apparaît pour la première fois dans le DOM */
+                onAppear: onAppearSpring,
             });
         });
         // Enregistrer les nouvelles positions, et démarrer les animations
