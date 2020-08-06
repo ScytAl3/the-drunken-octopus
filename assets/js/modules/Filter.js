@@ -1,3 +1,6 @@
+// Imports
+import { Flipper } from 'flip-toolkit'
+
 /**
  * 
  * @property {HTMLElement} pagination
@@ -93,7 +96,7 @@ export default class Filter {
         if (response.status >= 200 && response.status < 300) {
             const data = await response.json();
             // Remplace les contenus par la réponse
-            this.content.innerHTML = data.content;
+            this.flipContent(data.content); /* Utilisation du package flip-toolkit de la librairie */
             this.sorting.innerHTML = data.sorting;
             this.pagination.innerHTML = data.pagination;
             // Si le traitement c'est bien déroulé les changement sont reflété dans l'url (ex: pour un partage)
@@ -101,5 +104,47 @@ export default class Filter {
         } else {
             console.error(response);
         }
+    }
+
+    /**
+     * Remplace les éléments cards produits avec un effet d'animation flip
+     * @param {string} content 
+     */
+    flipContent(content) {
+        // Initialisation de Flipper en lui passnat le container
+        const flipper = new Flipper({
+            element: this.content
+        });
+        // Parcours tous les enfants directs du content
+        this.content.children.forEach(element => {
+            // add flipped children to the parent
+            flipper.addFlipped({
+                element,
+                flipId: element.id,
+                /* Éléments déjà présents dans le DOM et qui ne vont pas changer */
+                shouldFlip: false,
+                /* Appelé lorsque l'élément est retiré du DOM: appelle la fonction remove()
+                    lorsque la transition de sortie est terminée */
+                onExit: (element, index, removeElement) => {
+                    window.setTimeout(() => {
+                        removeElement();
+                    }, 2000);
+                },
+            });
+        });
+        // Mémorisation de la position de tous les éléments avant le changement
+        flipper.recordBeforeUpdate();
+        // Affichage du resultat
+        this.content.innerHTML = content;
+        // Parcours pour trouver la position des nouveaux éléments
+        this.content.children.forEach(element => {
+            // add flipped children to the parent
+            flipper.addFlipped({
+                element,
+                flipId: element.id,
+            });
+        });
+        // Enregistrer les nouvelles positions, et démarrer les animations
+        flipper.update();
     }
 }
