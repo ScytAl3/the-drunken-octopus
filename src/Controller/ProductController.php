@@ -38,9 +38,10 @@ class ProductController extends AbstractController
         // Si c'est une requête ajax
         if ($request->get('ajax')) {
             return new JsonResponse([
-                'content' => $this->renderView('product/_products.html.twig', ['products' => $products]),
-                'sorting' => $this->renderView('product/_sorting.html.twig', ['products' => $products]),
-                'pagination' => $this->renderView('product/_pagination.html.twig', ['products' => $products]),
+                'content' => $this->renderView('product/filter/_products.html.twig', ['products' => $products]),
+                'sorting' => $this->renderView('product/filter/_sorting.html.twig', ['products' => $products]),
+                'pagination' => $this->renderView('product/filter/_pagination.html.twig', ['products' => $products]),
+                'result' => $this->renderView('product/filter/_result.html.twig', ['products' => $products]),
             ]);
         }
         return $this->render('product/index.html.twig', [

@@ -7,6 +7,7 @@ import { Flipper, spring } from 'flip-toolkit'
  * @property {HTMLElement} content
  * @property {HTMLElement} sorting
  * @property {HTMLFormElement} form
+ * @property {HTMLElement} result
  */
 export default class Filter {
 
@@ -18,11 +19,13 @@ export default class Filter {
         if (element === null) {
             return
         }
-        // Recuperation de tous les éléments à modifier qui composent la page du filtre produits
+        // Recuperation de tous les éléments à modifier qui composent la page filtre + produits
         this.pagination = element.querySelector('.js-filter-pagination');
         this.content = element.querySelector('.js-filter-content');
         this.sorting = element.querySelector('.js-filter-sorting');
         this.form = element.querySelector('.js-filter-form');
+        // Modification dynamique du résultat
+        this.result = element.querySelector('.js-filter-result');
 
         this.bindEvents()
     }
@@ -87,22 +90,29 @@ export default class Filter {
     async loadUrl(url) {
         // Appelle de la methode qui affiche le spinner-loader
         this.showLoader();
-        // Fix le problème de l'url du fichier json en cache: ajoute le suffixe ajax à l'url
-        const ajaxUrl = url + '&ajax=1';
-        // Passage de l'url préfixée dans le fetch
-        const response = await fetch(ajaxUrl, {
+        /*
+        Contruction d'une url pour la requête ajax
+        */
+        // Recupère la partie droite de l'url: les paramètres de la recherche
+        const params = new URLSearchParams(url.split('?')[1] || '');
+        params.set('ajax', 1); // Ajout de la clé ajax à l'url
+        // Création de la requête: partie gauche  partie droite
+        const response = await fetch(url.split('?')[0] + '?' + params.toString(), {
             headers: {
                 'X-Requested-with': 'XMLHttpRequest'
             }
-        })
+        });
         if (response.status >= 200 && response.status < 300) {
             const data = await response.json();
+            console.log(data);
             // Remplace les contenus par la réponse
-            this.flipContent(data.content); /* Utilisation du package flip-toolkit de la librairie */
+            this.flipContent(data.content); /* Utilisation du package flip-toolkit */
             this.sorting.innerHTML = data.sorting;
             this.pagination.innerHTML = data.pagination;
+            this.result.innerHTML = data.result;
             // Si le traitement c'est bien déroulé les changement sont reflété dans l'url (ex: pour un partage)
-            history.replaceState({}, '', url)
+            params.delete('ajax'); // Suppression de la clé ajax de l'url
+            history.replaceState({}, '', url.split('?')[0] + '?' + params.toString());
         } else {
             console.error(response);
         }
@@ -116,13 +126,10 @@ export default class Filter {
      */
     flipContent(content) {
         // Choix d'un préréglage spring
-        const springPreset = 'veryGentle';
-       /**
-        * Initialisation de spring pour l'animation ressort - Exit
-        * @param {*} element 
-        * @param {*} index 
-        * @param {*} onComplete 
-        */
+        const springPreset = 'gentle';
+        /**
+         * Initialisation de spring pour l'animation ressort - Exit
+         */
         const onExitSpring = function (element, index, onComplete) {
             spring({
                 config: 'stiff',
@@ -135,17 +142,13 @@ export default class Filter {
                     element.style.transform = `translateY(${translateY}px)`;
                 },
                 // delay: i * 25,
-                onComplete: () => {
-                    // add callback logic here if necessary
-                }
+                onComplete,
             });
         };
 
-       /**
-        * Initialisation de spring pour l'animation ressort - Appear
-        * @param {*} element 
-        * @param {*} index 
-        */
+        /**
+         * Initialisation de spring pour l'animation ressort - Appear
+         */
         const onAppearSpring = function (element, index) {
             spring({
                 config: 'stiff',
@@ -160,10 +163,10 @@ export default class Filter {
                 delay: index * 15,
             });
         };
-        
-       /**
-        * Initialisation de Flipper en lui passnat le container
-        */
+
+        /**
+         * Initialisation de Flipper en lui passnat le container
+         */
         const flipper = new Flipper({
             element: this.content
         });
@@ -188,7 +191,7 @@ export default class Filter {
         flipper.recordBeforeUpdate();
         // Affichage du resultat
         this.content.innerHTML = content;
-        
+
         /*
         Parcours pour trouver la position des nouveaux éléments
         */
@@ -198,7 +201,7 @@ export default class Filter {
                 element,
                 spring: springPreset, /* préréglage spring choisi */
                 flipId: element.id,
-            /* Appelé lorsque l'élément apparaît pour la première fois dans le DOM */
+                /* Appelé lorsque l'élément apparaît pour la première fois dans le DOM */
                 onAppear: onAppearSpring,
             });
         });
