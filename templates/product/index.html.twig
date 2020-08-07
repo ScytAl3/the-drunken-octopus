@@ -64,9 +64,14 @@
             <p class="h3 text-center mt-5">No products yet.</p>
             {% endif %}
         </div>
-        {# /Section produits #}
+        {# /Section des produits #}
 
     </div>
 
 </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{{ encore_entry_script_tags('filter') }}
 {% endblock %}

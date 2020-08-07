@@ -16,7 +16,3 @@ import $ from 'jquery';
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 
-// Importing the file for ajax processing of the product filter
-import Filter from './modules/Filter';
-// Instanciation du filtre
-new Filter(document.querySelector('.js-filter'));
