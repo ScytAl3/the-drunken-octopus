@@ -6,29 +6,29 @@
 </div>
 
 {# champ search #}
-<div class="form-group">
+<div>
     {{ form_row(form.q) }}
 </div>
 
 {# champ style #}
 <h4 class=" border-bottom border-info">Beer style</h4>
-<div class="form-group">
+<div>
     {{ form_row(form.style) }}
 </div>
 
 {# champ country #}
 <h4 class=" border-bottom border-info">Beer country</h4>
-<div class="form-group">
+<div>
     {{ form_row(form.country) }}
 </div>
 
 {# champ brewery #}
 <h4 class=" border-bottom border-info">Beer Brewery</h4>
-<div class="form-group">
+<div>
     {{ form_row(form.brewery) }}
 </div>
 
 {# Bouton pour filtrer #}
-<button class="btn btn-primary w-100" type="submit">Filtrer</button>
+{# <button class="btn btn-primary w-100 js-filter-reset">Reset filtrer</button> #}
 
 {{ form_end(form) }}

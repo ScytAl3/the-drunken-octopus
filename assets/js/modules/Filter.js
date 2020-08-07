@@ -24,8 +24,10 @@ export default class Filter {
         this.content = element.querySelector('.js-filter-content');
         this.sorting = element.querySelector('.js-filter-sorting');
         this.form = element.querySelector('.js-filter-form');
-        // Modification dynamique du résultat
+        // Modification du résultat suivant le filtre
         this.result = element.querySelector('.js-filter-result');
+        // Bouton pour reset les filtres
+        this.reset = element.querySelector('.js-filter-reset')
 
         this.bindEvents()
     }
@@ -104,7 +106,9 @@ export default class Filter {
         });
         if (response.status >= 200 && response.status < 300) {
             const data = await response.json();
-            console.log(data);
+            //
+            // console.log(data);
+            //
             // Remplace les contenus par la réponse
             this.flipContent(data.content); /* Utilisation du package flip-toolkit */
             this.sorting.innerHTML = data.sorting;
@@ -141,7 +145,7 @@ export default class Filter {
                     element.style.opacity = opacity;
                     element.style.transform = `translateY(${translateY}px)`;
                 },
-                // delay: i * 25,
+                // delay: index * 25,
                 onComplete,
             });
         };

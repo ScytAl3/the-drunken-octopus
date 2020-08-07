@@ -19,6 +19,9 @@
             </h4>
             {# Import du template assocée à formulaire de recherche #}
             {% include 'product/_filter.html.twig' with {form: form} only %}
+            {# Bouton pour filtrer #}
+            <a class="btn btn-primary w-100 js-filter-reset" href="{{ path('app_product_index') }}" role="button">Reset
+                filtrer</a>
         </div>
         {# /Section filtre #}
 
