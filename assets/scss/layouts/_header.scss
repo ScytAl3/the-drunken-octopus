@@ -1,5 +1,5 @@
 /*------------------------------
-        Header & messages
+  Header: Navbar
 -------------------------------*/
 /*-- Navbar --*/
 nav {
@@ -18,8 +18,10 @@ nav {
   }
 }
 
-/*-- Banner Impersonate --*/
+/*--------------------------------
+  Header: Banner Impersonate
+----------------------------------*/
 .switch-user {
-  margin-top: 12px !important;
   z-index: 1;
+  margin-bottom: -1rem !important;
 }
