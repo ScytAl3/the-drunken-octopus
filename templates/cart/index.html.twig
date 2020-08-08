@@ -3,60 +3,97 @@
 {% block title %} Cart | {{ parent() }} {% endblock %}
 
 {% block body %}
-<!-- Titre de la page-->
-<h1 class="text-uppercase text-center border-bottom border-warning my-4">Your cart</h1>
 
-{% if items|length > 0 %}
-<table class="table table-striped table-sm">
-    <thead class="thead-dark">
-        <tr>
-            <th colspan="2">Product</th>
-            <th>Price</th>
-            <th class="text-center">Quantity</th>
-            <th>Total</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in items %}
-        <tr>
-            <!-- Photo du produit -->
-            <td>
-                <a href="{{ path('app_product_show', {slug: item.product.slug, id: item.product.id}) }}"><img
-                         src="{{ (item.product.imageName ? vich_uploader_asset(item.product) : asset('build/images/default/placeholder.jpg')) | imagine_filter("squared_thumb_xsmall") }}"
-                         alt="Image of {{item.product.title}}"></a></td>
-            <!-- Nom du produit -->
-            <td class="align-middle">{{ item.product.title }}</td>
-            <!-- Prix du produit -->
-            <td class="align-middle">{{ item.product.price }} €</td>
-            <!-- Selection quantite -->
-            <td class="align-middle quantity-modifier text-center js-quantity-modifier"><a class="quantity-down"
-                   href="#" data-direction="down"><i class="fas fa-minus-square"></i></a>
-                <!-- Passage de data pour le traitement de la quantite et le message de modification-->
-                <span class="mx-2" id="js-quantity-product-{{ item.product.id }}" data-itemid="{{ item.product.id }}"
-                      data-itemname="{{ item.product.title }}">{{ item.quantity }}</span>
-                <!-- Selection quantite -->
-                <a class="quantity-up" href="#" data-direction="up"><i class="fas fa-plus-circle"></i></a>
-            </td>
-            <!-- Montant total de la quantité du produit -->
-            <td class="align-middle" id="js-montant-product-{{ item.product.id }}">
-                {{ item.product.price * item.quantity }} €</td>
-            <!-- Bouton pour supprimer un produit du panier -->
-            <td class="align-middle"><a class="btn btn-danger"
-                   href="{{ path('app_cart_remove', {id: item.product.id}) }}"><i class="fas fa-trash"
-                       aria-hidden="true"></i></a></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="4" class="text-right">Total :</td>
-            <td>{{ total }} €</td>
-            <td></td>
-        </tr>
-    </tfoot>
-</table>
-{% else %}
-<p>You don't have any products in your shopping cart yet.</p>
-{% endif %}
+    {% if items|length > 0 %}
+
+        {# Titre de la page#}
+        <h1 class="text-uppercase text-center my-3">Your cart</h1>
+        {# Ajax: product counter template #}
+        <p class="text-muted text-center border-bottom border-warning pb-2" id="js-cart-quantity">
+            {% include 'cart/_quantity.html.twig' %}
+        </p>
+
+        <table class="table table-striped table-sm" id="js_shopping_cart">
+            <thead class="thead-dark">
+                <tr>
+                    <th colspan="2">Product</th>
+                    <th>Price</th>
+                    <th class="text-center">Quantity</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    {# Photo du produit #}
+                    <td>
+                        <a href="{{ path('app_product_show', {slug: item.product.slug, id: item.product.id}) }}">
+                            <img src="{{ (item.product.imageName ? vich_uploader_asset(item.product) : asset('build/images/default/placeholder.jpg')) | imagine_filter("squared_thumb_xsmall") }}"
+                                alt="Image of {{item.product.title}}">
+                        </a>
+                    </td>
+                    {# Nom du produit #}
+                    <td class="align-middle">
+                        {{ item.product.title }}
+                    </td>
+                    {# Prix du produit #}
+                    <td class="align-middle">
+                        {{ item.product.price }} €
+                    </td>
+                    {# Quantité du produit #}
+                    <td class="align-middle quantity-modifier text-center js-quantity-modifier" data-itemid="{{ item.product.id }}">
+                        {# Ajouter quantité #}
+                        <a class="quantity-down text-decoration-none" href="#" data-direction="down">
+                            <i class="fas fa-minus-square"></i>
+                        </a>
+                        {# Passage de data pour le traitement de la quantite et le message de modification#}
+                        <span class="mx-2" id="js-quantity-product-{{ item.product.id }}">
+                            {{ item.quantity }}
+                        </span>
+                        {# Retirer quantité #}
+                        <a class="quantity-up text-decoration-none" href="#" data-direction="up">
+                            <i class="fas fa-plus-circle"></i>
+                        </a>
+                    </td>
+                    {# Montant total de la quantité du produit #}
+                    <td class="align-middle" id="js-montant-product-{{ item.product.id }}">
+                        {{ item.product.price * item.quantity }} €
+                    </td>
+                    {# Bouton pour supprimer un produit du panier #}
+                    <td class="align-middle">
+                        <a class="btn btn-danger" href="{{ path('app_cart_remove', {id: item.product.id}) }}">
+                            <i class="fas fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right">Total :</td>
+                    <td id="">BLI</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-right">Total :</td>
+                    <td id="">BLO</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-right">Total :</td>
+                    <td id="js-cart-total">{{ total }} €</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    {% else %}
+        <p>You don't have any products in your shopping cart yet.</p>
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('cart') }}
 {% endblock %}

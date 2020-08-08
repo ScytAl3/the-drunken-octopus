@@ -39,7 +39,7 @@ h6 {
 -------------------------------*/
 .is-loading {
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -68,7 +68,7 @@ h6 {
 }
 
 /*------------------------------
-      Login page: Form
+  Login page: Form
 -------------------------------*/
 form {
   .separator {
@@ -90,5 +90,28 @@ form {
   }
   .privacy-policy {
     font-size: 12px;
+  }
+}
+
+/*------------------------------
+  Cart page: quantity
+-------------------------------*/
+.js-quantity-modifier {
+  font-size: 1.3rem;
+
+  span {
+    font-size: 1.7rem;
+  }
+
+  a {
+    color: #444;
+  }
+
+  .quantity-up:hover {
+    color: #07d43a;
+  }
+  
+  .quantity-down:hover {
+    color: #ff4136;
   }
 }

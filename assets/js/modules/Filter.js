@@ -41,8 +41,8 @@ export default class Filter {
             // Si l'événement est sur un lien
             if (e.target.tagName === 'A') {
                 e.preventDefault();
-
-            } this.loadUrl(e.target.getAttribute('href'));
+                this.loadUrl(e.target.getAttribute('href'));
+            }             
         };
         /*
         Écoute sur l'élément sorting (js-filter-sorting)

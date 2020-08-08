@@ -25,7 +25,6 @@ class CartService
      * injection de dépendance
      * @param SessionInterface $session 
      * @param ProductRepository $productRepository 
-     * @param FlashBagInterface $flashBag
      * 
      * @return void 
      */
@@ -98,6 +97,28 @@ class CartService
         return $message;
     }
 
+    public function updateQuantity(int $id, string $direction)
+    {
+        // Récupération du panier de la session s'il existe - la valeur par défaut est un tableau vide
+        $cart = $this->session->get('cart', []);
+
+        // Verifie si l'identifiant du produit est déjà dans le panier - si oui modifie la quantité
+        if (!empty($cart[$id])) {
+            // Suivant la direction la quantité augmente ou diminue de 1
+            $qte = ($direction === "up") ? 1 : -1;
+            // Met à jour la quantité du produit
+            $cart[$id] += $qte;
+            // Si la quantité devient égale à zéro le produit est retiré du panier
+            if ($cart[$id] < 1) {
+                // Suppression de cette variable de session
+                $cart[$id] = 1;
+            }
+        }
+        // Sauvegarde le panier en cours dans la session
+        $this->session->set('cart', $cart);
+        return $cart[$id];
+    }
+
     /**
      * Renvoie les informations concernant les produits contenus dans le panier
      * 
@@ -136,4 +157,30 @@ class CartService
         }
         return $total;
     }
+
+    public function getQuantityCart()
+    {
+        // Initialisation du montant du panier
+        $count = 0;
+        // Boucle sur le panier
+        foreach ($this->getDataCart() as $productData) {
+            // Calcul du montant du panier avant de l'envoyer sur la page twig
+            $count += $productData['quantity'];
+        }
+        return $count;
+    }
+
+    public function getTotalProduct(int $id)
+    {
+        // Récupere le panier en cours
+        $cart = $this->session->get('cart', []);
+        // Initialisation du montant de la ligne produit
+        $total = 0;
+        // Recupère le prix du produit
+        $price = $this->productRepository->find($id)->getPrice();
+        $total = $price * $cart[$id];
+        return $total;
+    }
+
+    
 }
