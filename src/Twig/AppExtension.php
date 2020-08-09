@@ -6,6 +6,7 @@ use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class AppExtension extends AbstractExtension
 {
@@ -17,12 +18,19 @@ class AppExtension extends AbstractExtension
 
     /**
      * 
+     * @var SessionInterface
+     */
+    private $session;
+
+    /**
      * @param RequestStack $requestStack 
+     * @param SessionInterface $session
      * @return void 
      */
-    public function __construct(RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack, SessionInterface $session)
     {
         $this->requestStack = $requestStack;
+        $this->session = $session;
     }
 
     public function getFilters(): array
@@ -40,6 +48,7 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFunction('pluralize', [$this, 'pluralize']),
             new TwigFunction('set_active_route', [$this, 'setActiveRoute']),
+            new TwigFunction('set_cart_counter', [$this, 'setCartCount']),
         ];
     }
 
@@ -73,5 +82,26 @@ class AppExtension extends AbstractExtension
     {
         $currentRoute = $this->requestStack->getCurrentRequest()->attributes->get('_route');
         return (strpos($currentRoute, $route, 0) !== false)? $activeClass : '' ;
+    }
+
+    /**
+     * Si un panier existe renvoie le nombre total de produits
+     * @return int 
+     */
+    public function setCartCount(): int
+    {
+        // Récupération du panier de la session s'il existe - la valeur par défaut est un tableau vide
+        $cart = $this->session->get('cart', []);
+        // Initialisation du compteur
+        $count = 0;
+        // Si le panier n'est pas vide
+        if (!empty($cart)) {
+            // Pour chaque couple ajoute la quantité correspondante
+            foreach ($cart as $key => $value) {
+                $count += $value;
+            }
+        }
+        // retourne la quantité totale - sinon 0
+        return $count;
     }
 }
