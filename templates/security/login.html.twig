@@ -5,7 +5,8 @@
 {% block body %}
 
 <!-- Titre et messages divers de la page du login -->
-<div class="text-center">
+<div class="text-center py-5">
+
     <!-- Affiche un message d'erreur lors d'un mauvais login : pseudo inexistant ou erreur password -->
     {% if error %}
     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -18,16 +19,21 @@
         You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
     </div>
     {% endif %}
-    <!-- Afficher un lien: nom de l'utilisateur, pour le logout si déjà loggé -->
-    <h1 class="text-uppercase border-bottom border-warning my-4">Please login to continue</h1>
+    <!-- /Afficher un lien: nom de l'utilisateur, pour le logout si déjà loggé -->
+
+    <h1 class="text-uppercase border-bottom border-warning pb-2">Please login to continue</h1>
+
 </div>
 <!-- /Titre et messages divers de la page du login -->
 
-<div class="col col-md-8 col-lg-6 rounded shadow mx-auto py-2 my-4">
+<div class="col-md-8 rounded shadow mx-auto py-2 my-4">
+
     <!-- Logo du site -->
     <div class="text-center py-4">
         <img src="{{ asset('build/images/default/octopus-logo-form.png') | imagine_filter("squared_thumb_smaller") }}"
              alt="Logo {{ project.name }}">
+        <h2 class="h6 text-muted">Sign in using email</h2>
+        <hr class="mb-3">
     </div>
     <!-- /Logo du site -->
 
@@ -35,56 +41,62 @@
     <form method="post">
 
         <!-- Content top -->
-        <section id="loginForm">
+        <div id="loginForm">
 
-            <h2 class="h6 text-center text-muted">Sign in using email</h2>
-            <hr class="mb-3">
             <!-- Input: email -->
-            <label class="sr-only" for="inputEmail">Email</label>
-            <div class="input-group mb-4 mr-sm-2">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
-                </div>
+            <div class="mb-4">
+                <label class="sr-only" for="inputEmail">Email</label>
+                <div class="input-group mr-sm-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-envelope fa-fw" aria-hidden="true"></i>
+                        </span>
+                    </div>
 
-                <input class="form-control" type="email" value="{{ last_username }}" name="email" id="inputEmail"
-                       placeholder="Your email address" required autofocus>
+                    <input class="form-control" type="email" value="{{ last_username }}" name="email" id="inputEmail"
+                           placeholder="Your email address" required autofocus>
+                </div>
             </div>
 
             <!-- Input: password -->
-
-            <label class="sr-only" for="inputPassword">Password</label>
-            <div class="input-group mr-sm-2">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
+            <div class="mb-4">
+                <label class="sr-only" for="inputPassword">Password</label>
+                <div class="input-group mr-sm-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
+                    </div>
+                    <input class="form-control" type="password" name="password" id="inputPassword"
+                           placeholder="Password" required>
                 </div>
-                <input class="form-control" type="password" name="password" id="inputPassword" placeholder="Password"
-                       required>
-            </div>
-            <!-- Link: password forgot -->
-            <div class="text-right">
-                <p class="font-weight-light">
-                    <small>
-                        <a href="{{ path('app_forgot_password_request') }}">Forgot your password?</a>
-                    </small>
-                </p>
+                <!-- Link: password forgot -->
+                <div class="text-right">
+                    <p class="font-weight-light">
+                        <small>
+                            <a href="{{ path('app_forgot_password_request') }}">Forgot your password?</a>
+                        </small>
+                    </p>
+                </div>
             </div>
 
             <!-- Input: hidden csrf token -->
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
             <!-- Checkbox: remember me -->
-            <div class="form-group form-check pl-0">
-                <label>
-                    <input type="checkbox" name="_remember_me"> Remember me
-                </label>
+            <div class="mb-4">
+                <div class="form-group form-check pl-0">
+                    <label>
+                        <input type="checkbox" name="_remember_me"> Remember me
+                    </label>
+                </div>
             </div>
 
             <!-- Button & link: login & register-->
-            <div class="login-links">
-                <button class="btn btn-lg btn-dark btn-block mb-2 text-uppercase" type="submit">LOG IN</button>
+            <div class="mb-4">
+                <button class="btn btn-dark btn-lg btn-block text-uppercase mb-2" type="submit">LOG IN</button>
                 <p class="font-weight-light"><a href="{{ path('app_register') }}">Register as a new user</a></p>
             </div>
-        </section>
+
+        </div>
         <!-- /Content top -->
 
         <!-- Content separator -->
@@ -95,56 +107,62 @@
         </div>
         <!-- Content separator -->
 
+
         <!-- Content bottom -->
-        <section id="socialLoginForm">
-            <h2 class="h6 text-center text-muted mb-3">Use another service to log in</h2>
+        <div id="socialLoginForm">
+
             <div id="socialLoginList">
                 <!-- Button: Google -->
                 <div class="mb-2">
-                    <button class="btn btn-lg btn-secondary is-disabled w-100" aria-describedby="aria-privacy-policy"
-                            data-google-button="" type="button" disabled="">
-                        <span data-google-button-icon="" aria-hidden="true">
-                            <i class="fab fa-google text-danger mr-2"></i>
+                    <button class="btn btn-secondary btn-lg btn-block is-disabled"
+                            aria-describedby="aria-privacy-policy" data-google-button="" type="button">
+                        <i class="fab fa-google align-middle text-danger mr-2"></i>
+                        <span class="align-middle" data-google-button-icon="" aria-hidden="true">
+                            Continue with Google
                         </span>
-                        Continue with Google
                     </button>
                 </div>
+
                 <!-- Button: Facebook -->
                 <div class="mb-2">
-                    <button class="btn btn-lg btn-secondary is-disabled w-100" aria-describedby="aria-privacy-policy"
-                            data-facebook-button="" type="button" disabled="">
-                        <span data-facebook-button-icon="" aria-hidden="true">
-                            <i class="fab fa-facebook-square text-primary mr-2"></i>
+                    <button class="btn btn-secondary btn-lg btn-block is-disabled"
+                            aria-describedby="aria-privacy-policy" data-facebook-button="" type="button">
+                        <i class="fab fa-facebook-square align-middle text-primary mr-2"></i>
+                        <span class="align-middle" data-facebook-button-icon="" aria-hidden="true">
+                            Continue with Facebook
                         </span>
-                        Continue with Facebook
                     </button>
                 </div>
+
                 <!-- Button: Apple -->
                 <div class="mb-2">
-                    <button class="btn btn-lg btn-secondary is-disabled w-100" aria-describedby="aria-privacy-policy"
-                            data-apple-button="" type="button" disabled="">
-                        <span data-apple-button-icon="" aria-hidden="true">
-                            <i class="fab fa-apple text-dark mr-2"></i>
+                    <button class="btn btn-secondary btn-lg btn-block is-disabled"
+                            aria-describedby="aria-privacy-policy" data-apple-button="" type="button">
+                        <i class="fab fa-apple align-middle text-dark mr-2"></i>
+                        <span class="align-middle" data-apple-button-icon="" aria-hidden="true">
+                            Continue with Apple
                         </span>
-                        Continue with Apple
                     </button>
                 </div>
-                <!-- Condition utilisation & confidentialité -->
-                <p id="aria-privacy-policy" class="privacy-policy text-muted mt-3">
-                    By clicking Sign In or Continue with Google, Facebook or Apple, you agree to {{ project.name }}'s
-                    <a target="_blank" href="#" title="Conditions d'utilisation">
-                        Terms of Use
-                    </a>
-                    and
-                    <a target="_blank" href="#" title="Règlement concernant la  confidentialité">
-                        Privacy Policy
-                    </a>
-                    . {{ project.name }} may send you messages; you can change your preferences in your account
-                    settings. We will never post without your
-                    permission.
-                </p>
             </div>
-        </section>
+
+            <!-- Condition utilisation & confidentialité -->
+            <p id="aria-privacy-policy" class="privacy-policy text-muted mt-3">
+                By clicking Sign In or Continue with Google, Facebook or Apple, you agree to
+                {{ project.name }}'s
+                <a target="_blank" href="#" title="Conditions d'utilisation">
+                    Terms of Use
+                </a>
+                and
+                <a target="_blank" href="#" title="Règlement concernant la  confidentialité">
+                    Privacy Policy
+                </a>
+                . {{ project.name }} may send you messages; you can change your preferences in your account
+                settings. We will never post without your
+                permission.
+            </p>
+
+        </div>
         <!-- /Content bottom -->
 
     </form>

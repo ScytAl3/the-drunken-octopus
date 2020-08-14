@@ -2,14 +2,13 @@
 <html lang="{{ app.request.locale }}">
 
     <head>
-        <!-- default meta tags -->
+        {# Default meta tags #}
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="author" content="Franck Jakubowski">
         <meta name="description"
               content="Un mini site pour administrer des produits et permettre un affichage suivant des filtres.">
-        <!-- /default meta tags -->
-        <!--  favicons -->
+        {#  Favicons #}
         <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon.png') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon/favicon-16x16.png') }}">
@@ -17,25 +16,23 @@
         <link rel="mask-icon" href="{{ asset('favicon/safari-pinned-tab.svg') }}" color="#5bbad5">
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="theme-color" content="#ffffff">
-
+        {# Title #}
         <title>{% block title %} {{ project.name }} {% endblock %}</title>
 
         {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
 
         {% endblock %}
-
     </head>
 
     <body>
 
         {% block header %}
             <header>
-                <!-- navbar import -->
+                {# Navbar import #}
                 {{ include('layouts/partials/_nav.html.twig') }}
-                <!-- /navbar import -->
 
-                <!-- Adding a banner when impersonating someone else -->
+                {# Adding a banner when impersonating someone else #}
                 {% if is_granted('IS_IMPERSONATOR') %}
                 <div class="w-100 switch-user">
                     <div class="alert alert-warning">
@@ -44,12 +41,15 @@
                     </div>
                 </div>
                 {% endif %}
+
+                {# Header background #}
+                {{ include('layouts/partials/_header-bg.html.twig') }}
             </header>                
         {% endblock %}
 
-        <!-- Message flash area -->
+        {# Message flash area #}
         {{ include('layouts/partials/_flash_messages.html.twig') }}
-        <!-- /Message flash area -->
+        {# /Message flash area #}
         
         <main role="main" class="container">
             {% block body %}{% endblock %}
@@ -57,9 +57,9 @@
 
         {% block footer %}
             <footer class="p-3 text-center">
-                <!-- footer import -->
+                {# footer import #}
                 {{ include('layouts/partials/_footer.html.twig') }}
-                <!-- /footer import -->
+                {# /footer import #}
             </footer>
         {% endblock %}        
 

@@ -25,3 +25,16 @@ nav {
   z-index: 1;
   margin-bottom: -1rem !important;
 }
+
+/*--------------------------------
+  Header: Background img
+----------------------------------*/
+header {
+  .my-header-bg {
+    height: 75vh;
+    min-height: 500px;
+    background: url("../../images/header/bar-beer.jpg");
+    background-size: cover;
+    color: #fc9816;
+  }
+}

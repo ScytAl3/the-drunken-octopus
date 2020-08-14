@@ -4,12 +4,16 @@
 
 {% block body %}
 
+<div>
+    {# Titre de la page #}
+    <div class="text-center py-5">
+        <h1 class="text-uppercase text-center border-bottom">Your cart</h1>
+    </div>    
+
     {% if items|length > 0 %}
 
-        {# Titre de la page#}
-        <h1 class="text-uppercase text-center my-3">Your cart</h1>
         {# Ajax: product counter template #}
-        <p class="text-muted text-center border-bottom border-warning pb-2" id="js-cart-quantity">
+        <p class="text-muted text-center border-bottom border-warning pb-3" id="js-cart-quantity">
             {% include 'cart/_quantity.html.twig' %}
         </p>
 
@@ -87,9 +91,16 @@
                 </tr>
             </tfoot>
         </table>
+
     {% else %}
-        <p>You don't have any products in your shopping cart yet.</p>
+
+        <div class="alert alert-info text-center" role="alert">
+            <p class="mb-0">You don't have any products in your shopping cart yet.</p>
+        </div>
+        
     {% endif %}
+
+</div>
 
 {% endblock %}
 
