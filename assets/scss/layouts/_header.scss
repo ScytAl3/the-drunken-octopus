@@ -35,6 +35,20 @@ header {
     min-height: 400px;
     background-image: url("../../images/header/bar-beer.jpg");
     background-size: cover;
+    background-position: center;
     color: #fc9816;
+  }
+  hr {
+    border-top: 1px solid #fc9816 !important;
+  }
+  .line {
+    padding-top: 65px;
+  }
+  .logo {
+    padding-top: 35px;
+    text-align: center;
+  }
+  .quote-text {
+    text-shadow: 2px 2px 3px #000;
   }
 }
