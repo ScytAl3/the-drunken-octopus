@@ -4,46 +4,38 @@
 
 {% block body %}
 
-<!-- Titre et messages divers de la page du login -->
+{# Titre et messages divers de la page du login #}
 <div class="text-center py-5">
-
-    <!-- Affiche un message d'erreur lors d'un mauvais login : pseudo inexistant ou erreur password -->
-    {% if error %}
-    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-    <!-- /Affiche un message d'erreur lors d'un mauvais login : pseudo inexistant ou erreur password -->
-
-    <!-- Afficher un lien: nom de l'utilisateur, pour le logout si déjà loggé -->
-    {% if app.user %}
-    <div class="mb-3">
-        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-    </div>
-    {% endif %}
-    <!-- /Afficher un lien: nom de l'utilisateur, pour le logout si déjà loggé -->
-
+    {# Titre de la page #}
     <h1 class="text-uppercase border-bottom border-warning pb-2">Please login to continue</h1>
 
 </div>
-<!-- /Titre et messages divers de la page du login -->
+{# /Titre et messages divers de la page du login #}
 
 <div class="col-md-8 rounded shadow mx-auto py-2 my-4">
 
-    <!-- Logo du site -->
+    {# Logo du site #}
     <div class="text-center py-4">
         <img src="{{ asset('build/images/default/octopus-logo-form.png') | imagine_filter("squared_thumb_smaller") }}"
              alt="Logo {{ project.name }}">
-        <h2 class="h6 text-muted">Sign in using email</h2>
+        <h2 class="h6 text-muted mt-3">Sign in using email</h2>
         <hr class="mb-3">
     </div>
-    <!-- /Logo du site -->
+    {# /Logo du site #}
 
-    <!-- Formulaire pour les informations de login -->
+    {# Formulaire pour les informations de login #}
     <form method="post">
 
-        <!-- Content top -->
+        {# Affiche un message d'erreur lors d'un mauvais login : pseudo inexistant ou erreur password #}
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        {# /Affiche un message d'erreur lors d'un mauvais login : pseudo inexistant ou erreur password #}
+
+        {# Content top #}
         <div id="loginForm">
 
-            <!-- Input: email -->
+            {# Input: email #}
             <div class="mb-4">
                 <label class="sr-only" for="inputEmail">Email</label>
                 <div class="input-group mr-sm-2">
@@ -58,7 +50,7 @@
                 </div>
             </div>
 
-            <!-- Input: password -->
+            {# Input: password #}
             <div class="mb-4">
                 <label class="sr-only" for="inputPassword">Password</label>
                 <div class="input-group mr-sm-2">
@@ -68,7 +60,7 @@
                     <input class="form-control" type="password" name="password" id="inputPassword"
                            placeholder="Password" required>
                 </div>
-                <!-- Link: password forgot -->
+                {# Link: password forgot #}
                 <div class="text-right">
                     <p class="font-weight-light">
                         <small>
@@ -78,41 +70,42 @@
                 </div>
             </div>
 
-            <!-- Input: hidden csrf token -->
+            {# Input: hidden csrf token #}
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-            <!-- Checkbox: remember me -->
+            {# Checkbox: remember me #}
             <div class="mb-4">
-                <div class="form-group form-check pl-0">
-                    <label>
-                        <input type="checkbox" name="_remember_me"> Remember me
+                <div class="form-group form-check">
+                    <input class="form-check-input" type="checkbox" name="_remember_me" id="_remember_me">
+                    <label class="form-check-label" for="_remember_me">
+                        Remember me
                     </label>
                 </div>
             </div>
 
-            <!-- Button & link: login & register-->
+            {# Button & link: login & register#}
             <div class="mb-4">
                 <button class="btn btn-dark btn-lg btn-block text-uppercase mb-2" type="submit">LOG IN</button>
                 <p class="font-weight-light"><a href="{{ path('app_register') }}">Register as a new user</a></p>
             </div>
 
         </div>
-        <!-- /Content top -->
+        {# /Content top #}
 
-        <!-- Content separator -->
+        {# Content separator #}
         <div class="separator">
             <div class="border-separator text-center my-4" style="line-height:0;">
                 <span class="bg-separator vertical-align-bottom text-muted" style="line-height:0;">OR</span>
             </div>
         </div>
-        <!-- Content separator -->
+        {# Content separator #}
 
 
-        <!-- Content bottom -->
+        {# Content bottom #}
         <div id="socialLoginForm">
 
             <div id="socialLoginList">
-                <!-- Button: Google -->
+                {# Button: Google #}
                 <div class="mb-2">
                     <button class="btn btn-secondary btn-lg btn-block is-disabled"
                             aria-describedby="aria-privacy-policy" data-google-button="" type="button">
@@ -123,7 +116,7 @@
                     </button>
                 </div>
 
-                <!-- Button: Facebook -->
+                {# Button: Facebook #}
                 <div class="mb-2">
                     <button class="btn btn-secondary btn-lg btn-block is-disabled"
                             aria-describedby="aria-privacy-policy" data-facebook-button="" type="button">
@@ -134,7 +127,7 @@
                     </button>
                 </div>
 
-                <!-- Button: Apple -->
+                {# Button: Apple #}
                 <div class="mb-2">
                     <button class="btn btn-secondary btn-lg btn-block is-disabled"
                             aria-describedby="aria-privacy-policy" data-apple-button="" type="button">
@@ -146,7 +139,7 @@
                 </div>
             </div>
 
-            <!-- Condition utilisation & confidentialité -->
+            {# Condition utilisation & confidentialité #}
             <p id="aria-privacy-policy" class="privacy-policy text-muted mt-3">
                 By clicking Sign In or Continue with Google, Facebook or Apple, you agree to
                 {{ project.name }}'s
@@ -163,10 +156,10 @@
             </p>
 
         </div>
-        <!-- /Content bottom -->
+        {# /Content bottom #}
 
     </form>
-    <!-- /Formulaire pour les informations de login -->
+    {# /Formulaire pour les informations de login #}
 </div>
 
 {% endblock %}
