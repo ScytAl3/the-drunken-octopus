@@ -21,9 +21,9 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
-###> symfony/VichUploadBundle ###
-/public/uploads/
-###< symfony/VichUploadBundle ###
+###> symfony/VichUploaderBundle ###
+# /public/uploads/
+###< symfony/VichUploaderBundle ###
 
 ###> liip/imagine-bundle ###
 /public/media/cache/
