@@ -1,4 +1,6 @@
 {
+    "name": "symfony/symfony",
+    "description": "web shop",
     "type": "project",
     "license": "proprietary",
     "require": {
@@ -60,6 +62,9 @@
         "symfony/web-profiler-bundle": "^5.1"
     },
     "config": {
+        "platform": {
+            "php": "7.4.1"
+        },
         "optimize-autoloader": true,
         "preferred-install": {
             "*": "dist"
