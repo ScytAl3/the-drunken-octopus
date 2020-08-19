@@ -23,7 +23,7 @@ Encore
 
         // if versioning is enabled, add the file hash too
         to: '[path][name].[hash:8].[ext]',
-        context: './assets/'
+        // context: './assets/'
 
         // only copy files matching this pattern
         //pattern: /\.(png|jpg|jpeg)$/

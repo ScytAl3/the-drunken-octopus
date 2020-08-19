@@ -23,6 +23,9 @@ body {
   font-family: $primary-font, sans-serif;
   background-color: #e4e4e4;
   padding-top: 60px;
+  &#homepage {
+    background-color: #c98224;
+  }
 }
 
 h1,
@@ -32,6 +35,64 @@ h4,
 h5,
 h6 {
   font-family: $title-font, sans-serif;
+}
+
+/*------------------------------
+  Home page: parallax 
+-------------------------------*/
+section {
+  .text-light-bg {
+    text-align: center;
+    padding: 50px 80px;
+    text-align: justify;
+  }
+  .text-dark-bg {
+    color: #ddd;
+    background-color: #282e34;
+    text-align: center;
+    padding: 50px 80px;
+    text-align: justify;
+  }
+  .parallax {
+    position: relative;
+    opacity: 0.85;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .caption {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    color: #000;
+    span.border {
+      background-color: #111;
+      color: #fff;
+      padding: 18px;
+      font-size: 25px;
+      letter-spacing: 10px;
+    }
+  }
+  .bgimg-1 {
+    background-image: url($bg-img-1);
+    min-height: 700px;
+  }
+  .bgimg-2 {
+    background-image: url($bg-img-2);
+    min-height: 400px;
+  }
+  .bgimg-3 {
+    background-image: url($bg-img-3);
+    min-height: 400px;
+  }
+  .bgimg-4 {
+    background-image: url($bg-img-4);
+    min-height: 400px;
+  }
 }
 
 /*------------------------------
@@ -122,7 +183,7 @@ form {
   .quantity-up:hover {
     color: #07d43a;
   }
-  
+
   .quantity-down:hover {
     color: #ff4136;
   }

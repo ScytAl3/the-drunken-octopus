@@ -2,6 +2,206 @@
 
 {% block title %} Homepage | {{ parent() }} {% endblock %}
 
+{# application d'un style particulier au body de la homepage #}
+{% block body_id 'homepage' %}
+
 {% block body %}
-    <h1>Bienvenue sur la page d'accueil de la boutique</h1>
+
+<article>
+    <section>
+        {# titre de la page & presentation #}
+        <div class="mt-5 p-3 text-center">
+            <h1 class="display-4 font-weight-bold">Présentation</h1>
+            <div class="container text-light-bg">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit expedita, laborum accusamus optio ex
+                    quas.
+                    Modi
+                    dolores, fuga blanditiis corrupti quam laudantium delectus velit ducimus eos? Maxime cupiditate
+                    laborum
+                    cumque?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur perferendis, sit quas rerum
+                    ipsum
+                    corporis
+                    quod tenetur magni mollitia veniam, rem quo fugiat cupiditate, exercitationem quisquam. Quo dolorum
+                    mollitia
+                    cumque. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit sed quidem odio accusamus
+                    error
+                    debitis
+                    consequuntur quam harum, recusandae dolorum expedita quo dolore laboriosam veniam culpa. Quia nam
+                    quasi
+                    labore?
+                </p>
+            </div>
+        </div>
+        {# /titre de la page & presentation #}
+    </section>
+
+    <section>
+        <div class="bgimg-1 parallax">
+            <div class="caption">
+                <span class="border">LOREM CAPTION 1</span>
+            </div>
+        </div>
+        <div class="container text-light-bg">
+            <h3 class="text-center">Lorem ipsum</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit expedita, laborum accusamus optio ex quas.
+                Modi
+                dolores, fuga blanditiis corrupti quam laudantium delectus velit ducimus eos? Maxime cupiditate laborum
+                cumque?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur perferendis, sit quas rerum ipsum
+                corporis
+                quod tenetur magni mollitia veniam, rem quo fugiat cupiditate, exercitationem quisquam. Quo dolorum
+                mollitia
+                cumque. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit sed quidem odio accusamus error
+                debitis
+                consequuntur quam harum, recusandae dolorum expedita quo dolore laboriosam veniam culpa. Quia nam quasi
+                labore?
+            </p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non autem hoc: igitur ne illud quidem. Inde
+                igitur,
+                inquit, ordiendum est. Vitiosum est enim in dividendo partem in genere numerare. Quae tamen a te agetur
+                non
+                melior, quam illae sunt, quas interdum optines. Nec vero sum nescius esse utilitatem in historia, non
+                modo
+                voluptatem. Cuius ad naturam apta ratio vera illa et summa lex a philosophis dicitur. Sit enim idem
+                caecus,
+                debilis. Duo Reges: constructio interrete. Nobis Heracleotes ille Dionysius flagitiose descivisse
+                videtur a
+                Stoicis propter oculorum dolorem. At enim hic etiam dolore. Quae fere omnia appellantur uno ingenii
+                nomine,
+                easque virtutes qui habent, ingeniosi vocantur. Habent enim et bene longam et satis litigiosam
+                disputationem.
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <div class="bgimg-2 parallax">
+            <div class="caption">
+                <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">LOREM CAPTION
+                    2</span>
+            </div>
+        </div>
+        <div class="text-dark-bg">
+            <div class="container">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur nihil fuga molestiae atque adipisci.
+                    Id
+                    adipisci cupiditate aliquam impedit vel quae harum optio explicabo qui blanditiis! Perspiciatis
+                    porro
+                    excepturi laborum. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus qui voluptate
+                    ipsa
+                    veniam perferendis quo eveniet sed quidem exercitationem minima perspiciatis ad possimus ut odio,
+                    cupiditate
+                    porro, a repellendus dolor.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Haec dicuntur inconstantissime. Aufert enim
+                    sensus
+                    actionemque tollit omnem. Tanta vis admonitionis inest in locis; Illa videamus, quae a te de
+                    amicitia
+                    dicta
+                    sunt. </p>
+                <p>Tum mihi Piso: Quid ergo? Qui convenit? Nam quid possumus facere melius? Quod cum dixissent, ille
+                    contra.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="bgimg-3 parallax">
+            <div class="caption">
+                <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">LOREM CAPTION
+                    3</span>
+            </div>
+        </div>
+        <div class="container text-light-bg">
+            <h3 class="text-center">Lorem ipsum</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit expedita, laborum accusamus optio ex quas.
+                Modi
+                dolores, fuga blanditiis corrupti quam laudantium delectus velit ducimus eos? Maxime cupiditate laborum
+                cumque?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur perferendis, sit quas rerum ipsum
+                corporis
+                quod tenetur magni mollitia veniam, rem quo fugiat cupiditate, exercitationem quisquam. Quo dolorum
+                mollitia
+                cumque. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit sed quidem odio accusamus error
+                debitis
+                consequuntur quam harum, recusandae dolorum expedita quo dolore laboriosam veniam culpa. Quia nam quasi
+                labore?
+            </p>
+        </div>
+        <div class="bgimg-4 parallax">
+            <div class="container">
+                <div class="row pt-5 pb-5">
+                    <div class="col-md-4 py-2">
+                        <div class="card border-light card-body" style="background-color:transparent;color: #f7f7f7;">
+                            <h3>Nihilo magis.</h3>
+                            <p>Vide, ne etiam menses! nisi forte eum dicis, qui, simul atque arripuit, interficit. Magni
+                                enim
+                                aestimabat pecuniam non modo non contra leges, sed etiam legibus partam. In motu et in
+                                statu
+                                corporis nihil inest, quod animadvertendum esse ipsa natura iudicet? Istam voluptatem
+                                perpetuam
+                                quis potest praestare sapienti? Quia nec honesto quic quam honestius nec turpi turpius.
+                                Praeclare Laelius, et recte sofñw, illudque vere: O Publi, o gurges, Galloni! es homo
+                                miser,
+                                inquit.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 py-2">
+                        <div class="card border-light card-body" style="background-color:transparent;color: #f7f7f7;">
+                            <h3>Nihil illinc huc pervenit.</h3>
+                            <p>Quis Aristidem non mortuum diligit? De vacuitate doloris eadem sententia erit. Quid, si
+                                etiam
+                                iucunda memoria est praeteritorum malorum? Refert tamen, quo modo. Quis istud possit,
+                                inquit,
+                                negare? Quid de Pythagora? Id adipisci cupiditate aliquam impedit vel quae harum optio
+                                explicabo
+                                qui blanditiis! Perspiciatis porro excepturi laborum.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 py-2">
+                        <div class="card border-light card-body" style="background-color:transparent;color: #f7f7f7;">
+                            <h3>Quare attende, quaeso.</h3>
+                            <p>Graccho, eius fere, aequalí? Cur deinde Metrodori liberos commendas? Compensabatur,
+                                inquit,
+                                cum
+                                summis doloribus laetitia. Illa tamen simplicia, vestra versuta. Paria sunt igitur. Modi
+                                dolores, fuga blanditiis corrupti quam laudantium delectus velit ducimus eos? Maxime
+                                cupiditate
+                                laborum cumque? Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="text-dark-bg">
+            <div class="container">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur nihil fuga molestiae atque adipisci.
+                    Id
+                    adipisci cupiditate aliquam impedit vel quae harum optio explicabo qui blanditiis! Perspiciatis
+                    porro
+                    excepturi laborum. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus qui voluptate
+                    ipsa
+                    veniam perferendis quo eveniet sed quidem exercitationem minima perspiciatis ad possimus ut odio,
+                    cupiditate
+                    porro, a repellendus dolor.</p>
+                <p>Sed nimis multa. Sed ad bona praeterita redeamus. Cur deinde Metrodori liberos commendas? Quid autem
+                    habent
+                    admirationis, cum prope accesseris? </p>
+                <p>Non semper, inquam; Ita fit cum gravior, tum etiam splendidior oratio. Immo videri fortasse. Quare
+                    attende,
+                    quaeso. Quo tandem modo? </p>
+            </div>
+        </div>
+        <div class="bgimg-1 parallax">
+            <div class="caption">
+                <span class="border">LOREM CAPTION FINAL</span>
+            </div>
+        </div>
+    </section>
+</article>
+
 {% endblock %}
