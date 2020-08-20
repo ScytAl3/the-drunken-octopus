@@ -1,45 +1,62 @@
-<!-- navbar -->
+{# navbar #}
 {% if is_granted('ROLE_ADMIN') %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow fixed-top py-0">
     {% else %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-custom-navbar shadow fixed-top py-0">
         {% endif %}
         <div class="container">
-            <!-- navbar brand & logo -->
+            {# navbar brand & logo #}
             <a class="navbar-brand text-uppercase" href="{{ path('app_home') }}">
                 <img class="d-inline-block align-center"
                      src="{{ asset('build/images/header/octopus-logo.png') | imagine_filter("squared_thumb_xsmall") }}"
                      alt="Logo {{ project.name }}">
                 {{ project.name }}
             </a>
-            <!-- /navbar brand & logo -->
+            {# /navbar brand & logo #}
 
-            <!-- collapse button -->
+            {# collapse button #}
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <!-- /collapse button -->
+            {# /collapse button #}
 
-            <!-- collapsible content -->
+            {# collapsible content #}
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left side of the navigation bar -->
+                {# Left side of the navigation bar #}
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item {{ set_active_route('app_product') }}">
                         <a class="nav-link" href="{{ path('app_product_index') }}">Products</a>
                     </li>
-                    <!-- this link is only visible to an admin -->
+                    {# this link is only visible to an admin #}
                     {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item {{ set_active_route('app_admin_dashboard') }}">
                         <a class="nav-link" href="{{ path('app_admin_dashboard') }}">GodMod</a>
                     </li>
                     {% endif %}
                 </ul>
-                <!-- /Left side of the navigation bar -->
+                {# /Left side of the navigation bar #}
 
-                <!-- /Right side of the navigation bar -->
+                {# /Right side of the navigation bar #}
                 <ul class="navbar-nav justify-content-end">
-                    <!-- the links are only visible to a authenticated user -->
+                    {# Country language selector #}
+                    <li class="nav-item active dropdown">
+                        <a class="nav-link dropdown-toggle" id="language_switcher" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-globe"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="language_switcher">
+                            <a class="dropdown-item"
+                               href="{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({'_locale': 'fr'})) }}">
+                                <span class="flag-icon flag-icon-fr flag-icon-squared mr-2"> </span> Français
+                            </a>
+                            <a class="dropdown-item"
+                               href="{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">
+                                <span class="flag-icon flag-icon-us flag-icon-squared mr-2"> </span> English
+                            </a>
+                        </div>
+                    </li>
+                    {# the links are only visible to a authenticated user #}
                     {% if is_granted('ROLE_USER') %}
                     <li class="nav-item dropdown">
                         <a class="nav-link text-white dropdown-toggle" id="navbarDropdownMenuAccount" role="button"
@@ -47,7 +64,7 @@
                             <i class="fas fa-user-circle"></i>
                             <span class="ml-2">{{ app.user.firstName }} {{ app.user.lastName }}</span>
                         </a>
-                        <!-- Dropdown user connected menu -->
+                        {# Dropdown user connected menu #}
                         <div class="dropdown-menu dropdown-menu-right user-account-connected"
                              aria-labelledby="navbarDropdownMenuAccount">
                             <a class="dropdown-item" href="{{ path('app_user_account') }}">
@@ -62,26 +79,26 @@
                         </div>
                     </li>
                     {% else %}
-                    <!-- Login icon link -->
+                    {# Login icon link #}
                     <li class="nav-item {{ set_active_route('app_admin_dashboard') }}">
                         <a class="nav-link text-white" href="{{ path('app_login') }}">
                             <i class="far fa-user" aria-hidden="true"></i>
                         </a>
                     </li>
                     {% endif %}
-                    <!-- Cart icon link -->
+                    {# Cart icon link #}
                     <li class="nav-item">
-                        <!-- Lien vers le panier avec le nombre de produits ajoutes -->
+                        {# Lien vers le panier avec le nombre de produits ajoutes #}
                         <a class="nav-link text-white" href="{{ path('app_cart_index') }}" disabled>
                             <i class="fas fa-shopping-cart"></i>
                             <span class="badge badge-light badge-pill cart-badge-top-right" id="js-cart-count">
                                 {{ set_cart_counter() }}
                             </span>
                         </a>
-                        <!-- /Right side of the navigation bar -->
+                        {# /Right side of the navigation bar #}
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <!-- /navbar -->
+    {# /navbar #}

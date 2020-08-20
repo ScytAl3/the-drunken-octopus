@@ -3,7 +3,6 @@
 namespace App\Service\Cart;
 
 use App\Repository\ProductRepository;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService
