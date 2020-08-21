@@ -23,7 +23,7 @@
                     <th colspan="2">Product</th>
                     <th>Price</th>
                     <th class="text-center">Quantity</th>
-                    <th>Total</th>
+                    <th class="text-right">Total</th>
                     <th></th>
                 </tr>
             </thead>
@@ -43,7 +43,7 @@
                     </td>
                     {# Prix du produit #}
                     <td class="align-middle">
-                        {{ item.product.price }} €
+                        {{ item.product.price|format_currency('EUR', {fraction_digit: 2}) }}
                     </td>
                     {# Quantité du produit #}
                     <td class="align-middle quantity-modifier text-center js-quantity-modifier" data-itemid="{{ item.product.id }}">
@@ -60,12 +60,12 @@
                             <i class="fas fa-plus-circle"></i>
                         </a>
                     </td>
-                    {# Montant total de la quantité du produit #}
-                    <td class="align-middle" id="js-montant-product-{{ item.product.id }}">
-                        {{ item.product.price * item.quantity }} €
+                    {# Montant total pour la quantité du produit #}
+                    <td class="align-middle text-right" id="js-montant-product-{{ item.product.id }}">
+                        {{ (item.product.price * item.quantity)|format_currency('EUR', {fraction_digit: 2}) }}
                     </td>
                     {# Bouton pour supprimer un produit du panier #}
-                    <td class="align-middle">
+                    <td class="align-middle text-right pr-3">
                         <a class="btn btn-danger" href="{{ path('app_cart_remove', {id: item.product.id}) }}">
                             <i class="fas fa-trash" aria-hidden="true"></i>
                         </a>
@@ -73,20 +73,12 @@
                 </tr>
                 {% endfor %}
             </tbody>
-            <tfoot>
+            <tfoot class="text-right">
+                <tr class="table-info" style="height:20px;">
+                </tr>                
                 <tr>
-                    <td colspan="4" class="text-right">Total :</td>
-                    <td id="">BLI</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="text-right">Total :</td>
-                    <td id="">BLO</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="text-right">Total :</td>
-                    <td id="js-cart-total">{{ total }} €</td>
+                    <td colspan="4">Total :</td>
+                    <td id="js-cart-total">{{ total|format_currency('EUR', {fraction_digit: 2}) }}</td>
                     <td></td>
                 </tr>
             </tfoot>

@@ -36,11 +36,11 @@ $(document).ready(function () {
 
                 // mise à jour du produit modifié
                 $("#js-quantity-product-" + $productid).text(data.newQuantity);
-                $("#js-montant-product-" + $productid).text(data.newTotal + ' €');
+                $("#js-montant-product-" + $productid).html(data.newTotal);
 
                 // mise a jour de la quantite et du montant total du panier
                 $("#js-cart-quantity").html(data.newProductCount);
-                $("#js-cart-total").text('€ ' + data.panierNewTotal);
+                $("#js-cart-total").html(data.panierNewTotal);
 
                 // mise a jour du compteurpanier du header
                 $("#js-cart-count").text(data.productCoundHeader);

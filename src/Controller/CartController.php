@@ -75,8 +75,12 @@ class CartController extends AbstractController
     {
         return $this->json([
             'newQuantity' => $cartService->updateQuantity($id, $direction),
-            'newTotal' => $cartService->getTotalProduct($id),
-            'panierNewTotal' => $cartService->getTotalCart(),
+            'newTotal' => $this->renderView('cart/_newTotalProduct.html.twig', [
+                'montantProduct' => $cartService->getTotalProduct($id)
+            ]),
+            'panierNewTotal' => $this->renderView('cart/_newTotalCart.html.twig', [
+                'montantCart' => $cartService->getTotalCart()
+            ]) ,
             'newProductCount' => $this->renderView('cart/_quantity.html.twig', [
                 'count' => $cartService->getQuantityCart()
             ]),
