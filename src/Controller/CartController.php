@@ -65,7 +65,7 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/cart/{id<\d+>}/quantity/{direction<up|down>}", methods="POST")
+     * @Route("/cart/{id<\d+>}/quantity/{direction<up|down>}", name="app_cart_update", methods="POST")
      * @param int $id 
      * @param string $direction
      * 

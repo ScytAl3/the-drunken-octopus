@@ -14,13 +14,17 @@ $(document).ready(function () {
         var $productid = $link.parent().data('itemid');
         // Recupère la direction - up: ajouter, down: enlever
         var $direction = $link.data('direction');
+        // Récupère l'url préfixé avec la locale
+        const $url = new URL(window.location.href);
 
-        console.log($link);
-        console.log($productid);
-        console.log($direction);
+        // console.log($link);
+        // console.log($productid);
+        // console.log($direction);
+        // console.log($url);
 
         $.ajax({
-            url: '/cart/' + $productid + '/quantity/' + $direction,
+            // Construction de l'url
+            url: $url + '/' + $productid + '/quantity/' + $direction,
             type: 'POST',
             data: {
                 "id": $productid,
@@ -37,7 +41,7 @@ $(document).ready(function () {
                 // mise a jour de la quantite et du montant total du panier
                 $("#js-cart-quantity").html(data.newProductCount);
                 $("#js-cart-total").text('€ ' + data.panierNewTotal);
-                
+
                 // mise a jour du compteurpanier du header
                 $("#js-cart-count").text(data.productCoundHeader);
             }
