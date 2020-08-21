@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Service\Cart\CartService;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CartController extends AbstractController
@@ -80,11 +82,30 @@ class CartController extends AbstractController
             ]),
             'panierNewTotal' => $this->renderView('cart/_newTotalCart.html.twig', [
                 'montantCart' => $cartService->getTotalCart()
-            ]) ,
+            ]),
             'newProductCount' => $this->renderView('cart/_quantity.html.twig', [
                 'count' => $cartService->getQuantityCart()
             ]),
             'productCoundHeader' => $cartService->getQuantityCart(),
         ]);
+    }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route("/cart/checkout", name="app_cart_checkout", methods="GET")
+     * @return Response 
+     */
+    public function checkout(): Response
+    {
+        return $this->render('cart/checkout.html.twig', []);
+    }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route("/cart/order", name="app_cart_order", methods="GET")
+     * @return Response 
+     */
+    public function confirmOrder()
+    {
     }
 }

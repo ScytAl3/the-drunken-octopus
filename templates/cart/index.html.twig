@@ -10,6 +10,7 @@
         <h1 class="text-uppercase text-center border-bottom">Your cart</h1>
     </div>    
 
+    {# Si le panier n'est pas vide #}
     {% if items|length > 0 %}
 
         {# Ajax: product counter template #}
@@ -74,23 +75,29 @@
                 {% endfor %}
             </tbody>
             <tfoot class="text-right">
-                <tr class="table-info" style="height:20px;">
+                <tr style="height:20px;">
                 </tr>                
-                <tr>
+                <tr  class="table-info">
                     <td colspan="4">Total :</td>
-                    <td id="js-cart-total">{{ total|format_currency('EUR', {fraction_digit: 2}) }}</td>
+                    <td id="js-cart-total">
+                        {{ total|format_currency('EUR', {fraction_digit: 2}) }}
+                    </td>
                     <td></td>
                 </tr>
             </tfoot>
         </table>
 
-    {% else %}
-
+    {# Message si le panier est vide #}
+    {% else %}        
         <div class="alert alert-info text-center" role="alert">
             <p class="mb-0">You don't have any products in your shopping cart yet.</p>
-        </div>
-        
+        </div>        
     {% endif %}
+
+        <hr class="mb-4">
+        <a class="btn btn-primary btn-lg btn-block mb-5" href="{{ path('app_cart_checkout') }}" type="submit">
+            Continue to checkout
+        </a>
 
 </div>
 
