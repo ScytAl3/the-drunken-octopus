@@ -102,9 +102,9 @@ class CartService
      * @param int $id 
      * @param string $direction 
      * 
-     * @return array 
+     * @return int 
      */
-    public function updateQuantity(int $id, string $direction): array
+    public function updateQuantity(int $id, string $direction): int
     {
         // Récupération du panier de la session s'il existe - la valeur par défaut est un tableau vide
         $cart = $this->session->get('cart', []);
