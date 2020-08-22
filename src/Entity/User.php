@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use App\Entity\Traits\Timestampable;
@@ -115,9 +116,15 @@ class User implements UserInterface
      */
     private $birthDate;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PurchaseOrder::class, mappedBy="user")
+     */
+    private $purchaseOrders;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->purchaseOrders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -242,6 +249,37 @@ class User implements UserInterface
     public function setBirthDate(?\DateTimeInterface $birthDate): self
     {
         $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PurchaseOrder[]
+     */
+    public function getPurchaseOrders(): Collection
+    {
+        return $this->purchaseOrders;
+    }
+
+    public function addPurchaseOrder(PurchaseOrder $purchaseOrder): self
+    {
+        if (!$this->purchaseOrders->contains($purchaseOrder)) {
+            $this->purchaseOrders[] = $purchaseOrder;
+            $purchaseOrder->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseOrder(PurchaseOrder $purchaseOrder): self
+    {
+        if ($this->purchaseOrders->contains($purchaseOrder)) {
+            $this->purchaseOrders->removeElement($purchaseOrder);
+            // set the owning side to null (unless already changed)
+            if ($purchaseOrder->getUser() === $this) {
+                $purchaseOrder->setUser(null);
+            }
+        }
 
         return $this;
     }
