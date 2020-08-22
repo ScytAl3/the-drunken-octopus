@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\Timestampable;
 use App\Repository\ProductRepository;
@@ -185,6 +187,16 @@ class Product
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageName;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PurchaseProduct::class, mappedBy="product")
+     */
+    private $purchaseProducts;
+
+    public function __construct()
+    {
+        $this->purchaseProducts = new ArrayCollection();
+    }
     
     /*-----------------------------------------------------------------------------
                                     Getters - Setters 
@@ -387,6 +399,37 @@ class Product
     public function setImageName(?string $imageName): self
     {
         $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PurchaseProduct[]
+     */
+    public function getPurchaseProducts(): Collection
+    {
+        return $this->purchaseProducts;
+    }
+
+    public function addPurchaseProduct(PurchaseProduct $purchaseProduct): self
+    {
+        if (!$this->purchaseProducts->contains($purchaseProduct)) {
+            $this->purchaseProducts[] = $purchaseProduct;
+            $purchaseProduct->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseProduct(PurchaseProduct $purchaseProduct): self
+    {
+        if ($this->purchaseProducts->contains($purchaseProduct)) {
+            $this->purchaseProducts->removeElement($purchaseProduct);
+            // set the owning side to null (unless already changed)
+            if ($purchaseProduct->getProduct() === $this) {
+                $purchaseProduct->setProduct(null);
+            }
+        }
 
         return $this;
     }

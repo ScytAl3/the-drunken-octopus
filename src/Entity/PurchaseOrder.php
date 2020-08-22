@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\Timestampable;
 use App\Repository\PurchaseOrderRepository;
@@ -32,6 +34,16 @@ class PurchaseOrder
      */
     private $user;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PurchaseProduct::class, mappedBy="purchaseOrder")
+     */
+    private $purchaseProducts;
+
+    public function __construct()
+    {
+        $this->purchaseProducts = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -57,6 +69,37 @@ class PurchaseOrder
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PurchaseProduct[]
+     */
+    public function getPurchaseProducts(): Collection
+    {
+        return $this->purchaseProducts;
+    }
+
+    public function addPurchaseProduct(PurchaseProduct $purchaseProduct): self
+    {
+        if (!$this->purchaseProducts->contains($purchaseProduct)) {
+            $this->purchaseProducts[] = $purchaseProduct;
+            $purchaseProduct->setPurchaseOrder($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseProduct(PurchaseProduct $purchaseProduct): self
+    {
+        if ($this->purchaseProducts->contains($purchaseProduct)) {
+            $this->purchaseProducts->removeElement($purchaseProduct);
+            // set the owning side to null (unless already changed)
+            if ($purchaseProduct->getPurchaseOrder() === $this) {
+                $purchaseProduct->setPurchaseOrder(null);
+            }
+        }
 
         return $this;
     }
