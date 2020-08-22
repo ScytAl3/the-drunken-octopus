@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
+use App\Entity\OrderItem;
 use App\Service\Cart\CartService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -97,6 +100,9 @@ class CartController extends AbstractController
      */
     public function checkout(): Response
     {
+        // L'utilisateur doit être authentifié
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->render('cart/checkout.html.twig', []);
     }
 
@@ -105,7 +111,24 @@ class CartController extends AbstractController
      * @Route("/cart/order", name="app_cart_order", methods="GET")
      * @return Response 
      */
-    public function confirmOrder()
+    public function confirmOrder(EntityManagerInterface $em, CartService $cartService)
     {
+        // L'utilisateur doit être authentifié
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        // Récupère l'utilisateur authentifié
+        $user = $this->getUser();
+        // Appelle de la méthode qui retourne les informations associées au produit du panier
+        $cartProductData = $cartService->getDataCart();
+        // Instanciation d'une nouvelle commande
+        // $order = new Order;
+        // Instanciation d'une nouvelle ligne commande
+        // $orderItem = new OrderItem;
+        // Passage des paramètres
+        // $order->setUser($user);
+        // $em->persist($order);
+        // $em->flush();
+
+        // redirige vers la page d'accueil
+        return $this->redirectToRoute('app_home');
     }
 }

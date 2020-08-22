@@ -3,6 +3,7 @@
 namespace App\Service\Cart;
 
 use App\Repository\ProductRepository;
+use PhpParser\Node\Expr\Cast\Int_;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService
@@ -96,7 +97,14 @@ class CartService
         return $message;
     }
 
-    public function updateQuantity(int $id, string $direction)
+    /**
+     * Ajoute ou enlève 1 à la quantité du produit
+     * @param int $id 
+     * @param string $direction 
+     * 
+     * @return array 
+     */
+    public function updateQuantity(int $id, string $direction): array
     {
         // Récupération du panier de la session s'il existe - la valeur par défaut est un tableau vide
         $cart = $this->session->get('cart', []);
@@ -157,7 +165,12 @@ class CartService
         return $total;
     }
 
-    public function getQuantityCart()
+    /**
+     * Renvoie la quantité de produit dans le panier
+     * 
+     * @return int 
+     */
+    public function getQuantityCart(): int
     {
         // Initialisation du montant du panier
         $count = 0;
@@ -169,7 +182,13 @@ class CartService
         return $count;
     }
 
-    public function getTotalProduct(int $id)
+    /**
+     * Renvoie le montant total d'un article
+     * @param int $id
+     * 
+     * @return float 
+     */
+    public function getTotalProduct(int $id): float
     {
         // Récupere le panier en cours
         $cart = $this->session->get('cart', []);
@@ -181,5 +200,9 @@ class CartService
         return $total;
     }
 
-    
+    public function validCart()
+    {
+        // Récupere le panier en cours
+        $cart = $this->session->get('cart', []);
+    }
 }
