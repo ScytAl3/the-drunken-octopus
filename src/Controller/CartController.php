@@ -2,15 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\Order;
-use App\Entity\OrderItem;
+use App\Entity\PurchaseOrder;
+use App\Entity\PurchaseProduct;
 use App\Service\Cart\CartService;
 use Doctrine\ORM\EntityManagerInterface;
+use LogicException;
+use PhpParser\Node\Stmt\TryCatch;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use UnexpectedValueException;
 
 class CartController extends AbstractController
 {
@@ -19,7 +24,7 @@ class CartController extends AbstractController
      */
     public function index(CartService $cartService)
     {
-        // Appelle de la méthode qui retourne les informations associées au produit du panier
+        // Appelle de la méthode qui retourne les informations associées aux produits du panier
         $cartProductData = $cartService->getDataCart();
         // Appelle de la méthode qui calcul le nombre total de produit dans le panier
         $count = $cartService->getQuantityCart();
@@ -94,9 +99,30 @@ class CartController extends AbstractController
     }
 
     /**
+     * @Route("/cart/clear", name="app_cart_clear", methods="GET")
+     * @param CartService $cartService 
+     * @return RedirectResponse 
+     * @throws LogicException 
+     */
+    public function emptyTheCart(CartService $cartService)
+    {
+        $cartService->clearCart();
+        // Création du message flash pour informer que tout c'est bien déroulé
+        $this->addFlash(
+            'success',
+            'The basket has been emptied successfully.'
+        );
+        // redirige vers la page du panier
+        return $this->redirectToRoute('app_product_index');
+    }
+    
+    /**
      * @IsGranted("ROLE_USER")
      * @Route("/cart/checkout", name="app_cart_checkout", methods="GET")
      * @return Response 
+     * @throws AccessDeniedException 
+     * @throws LogicException 
+     * @throws UnexpectedValueException 
      */
     public function checkout(): Response
     {
@@ -109,26 +135,59 @@ class CartController extends AbstractController
     /**
      * @IsGranted("ROLE_USER")
      * @Route("/cart/order", name="app_cart_order", methods="GET")
-     * @return Response 
+     * @param EntityManagerInterface $em 
+     * @param CartService $cartService 
+     * @return RedirectResponse 
+     * @throws AccessDeniedException 
+     * @throws LogicException 
      */
     public function confirmOrder(EntityManagerInterface $em, CartService $cartService)
     {
         // L'utilisateur doit être authentifié
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         // Récupère l'utilisateur authentifié
         $user = $this->getUser();
         // Appelle de la méthode qui retourne les informations associées au produit du panier
         $cartProductData = $cartService->getDataCart();
-        // Instanciation d'une nouvelle commande
-        // $order = new Order;
-        // Instanciation d'une nouvelle ligne commande
-        // $orderItem = new OrderItem;
-        // Passage des paramètres
-        // $order->setUser($user);
-        // $em->persist($order);
-        // $em->flush();
 
-        // redirige vers la page d'accueil
-        return $this->redirectToRoute('app_home');
+        // Instanciation d'une nouvelle commande
+        $order = new PurchaseOrder;
+
+        try {
+            // Passage des paramètres pour la création de la commande
+            $order
+                ->setUser($user)
+                ->setPayement(false);
+            $em->persist($order);
+            $em->flush();
+
+            // Parcours la liste des produits dans la panier
+            foreach ($cartProductData as $productData) {
+                // Instanciation d'une nouvelle ligne de commade associée au produit et à la commande
+                // à chaque boucle
+                $orderItem = new PurchaseProduct;
+                $orderItem
+                    ->setPurchaseOrder($order)
+                    ->setProduct($productData['product'])
+                    ->setQuantity($productData['quantity']);
+                $em->persist($orderItem);
+                $em->flush();
+            }
+            // Création du message flash pour informer que tout c'est bien déroulé
+            $this->addFlash(
+                'success',
+                'Checkout completed. Your order will be shipped soon.'
+            );
+            // Vidage du panier de la session
+            $cartService->clearCart();
+        } catch (\Throwable $th) {
+            $this->addFlash(
+                'danger',
+                'Checkout error: ' . $th
+            );
+        }
+        // redirige vers la page du panier
+        return $this->redirectToRoute('app_cart_index');
     }
 }

@@ -200,9 +200,12 @@ class CartService
         return $total;
     }
 
-    public function validCart()
+    /**
+     * Vide le panier - enlève la variable de session
+     * @return void 
+     */
+    public function clearCart()
     {
-        // Récupere le panier en cours
-        $cart = $this->session->get('cart', []);
+        $this->session->remove('cart');
     }
 }
