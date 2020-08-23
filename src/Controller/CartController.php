@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Entity\PurchaseOrder;
 use App\Entity\PurchaseProduct;
 use App\Service\Cart\CartService;
 use Doctrine\ORM\EntityManagerInterface;
 use LogicException;
-use PhpParser\Node\Stmt\TryCatch;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -83,7 +83,7 @@ class CartController extends AbstractController
      */
     public function updateQuantity(int $id, string $direction, CartService $cartService): JsonResponse
     {
-        return $this->json([
+        return $this->json([            
             'newQuantity' => $cartService->updateQuantity($id, $direction),
             'newTotal' => $this->renderView('cart/_newTotalProduct.html.twig', [
                 'montantProduct' => $cartService->getTotalProduct($id)
@@ -163,7 +163,7 @@ class CartController extends AbstractController
             $em->flush();
 
             // Parcours la liste des produits dans la panier
-            foreach ($cartProductData as $productData) {
+            foreach ($cartProductData as $productData) {                
                 // Instanciation d'une nouvelle ligne de commade associée au produit et à la commande
                 // à chaque boucle
                 $orderItem = new PurchaseProduct;
@@ -172,6 +172,15 @@ class CartController extends AbstractController
                     ->setProduct($productData['product'])
                     ->setQuantity($productData['quantity']);
                 $em->persist($orderItem);
+                $em->flush();
+
+                // Instanciation d'un produit pour la mise à jour du stock
+                $stockProduct = new Product;            
+                // Récupère les données du produit
+                $stockProduct = $productData['product'];
+                // Mise à jour du stock
+                $stockProduct->setQuantity($stockProduct->getQuantity() - $productData['quantity']);
+                $em->persist($stockProduct);
                 $em->flush();
             }
             // Création du message flash pour informer que tout c'est bien déroulé

@@ -2,8 +2,8 @@
 
 namespace App\Service\Cart;
 
+use App\Entity\Product;
 use App\Repository\ProductRepository;
-use PhpParser\Node\Expr\Cast\Int_;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService
@@ -48,12 +48,22 @@ class CartService
         $message = [];
         // Verifie si l'identifiant du produit est déjà dans le panier - si oui ajoute 1 à la quantité
         if (!empty($cart[$id])) {
-            $cart[$id]++;
-            // Ajout d'un message de confirmation
-            $message = [
-                'type' => 'success',
-                'text' => 'The quantity of the product has been increased by 1 successfully!'
-            ];
+            // Si la quantité en stock - (quantité déjà dans le panier +1) est supérieur à 0
+            if ($this->getStockProduct($id, 1)) {
+                // Ajout 1 à la quantité à commander
+                $cart[$id]++;
+                // Ajout d'un message de confirmation
+                $message = [
+                    'type' => 'success',
+                    'text' => 'The quantity of the product has been increased by 1 successfully!'
+                ];
+            } else {
+                // Sinon creation d'un message pour stock insuffisant
+                $message = [
+                    'type' => 'danger',
+                    'text' => "We don't have enough of this product in stock!"
+                ];
+            }
         } else {
             // Sinon ajoute au panier l'identifiant du produit associé à la quantité 1
             $cart[$id] = 1;
@@ -108,13 +118,15 @@ class CartService
     {
         // Récupération du panier de la session s'il existe - la valeur par défaut est un tableau vide
         $cart = $this->session->get('cart', []);
-
         // Verifie si l'identifiant du produit est déjà dans le panier - si oui modifie la quantité
         if (!empty($cart[$id])) {
             // Suivant la direction la quantité augmente ou diminue de 1
             $qte = ($direction === "up") ? 1 : -1;
-            // Met à jour la quantité du produit
-            $cart[$id] += $qte;
+            // Si la quantité en stock - (quantité déjà dans le panier +1) est supérieur à 0
+            if ($this->getStockProduct($id, $qte)) {
+                // Met à jour la quantité du produit
+                $cart[$id] += $qte;
+            }            
             // Si la quantité devient égale à zéro le produit est retiré du panier
             if ($cart[$id] < 1) {
                 // Suppression de cette variable de session
@@ -124,6 +136,27 @@ class CartService
         // Sauvegarde le panier en cours dans la session
         $this->session->set('cart', $cart);
         return $cart[$id];
+    }
+
+    /**
+     * Vérifie la quantité du produit en stock
+     * @param int $id 
+     * @param int $q 
+     * @return bool 
+     */
+    private function getStockProduct(int $id, int $requiredQuantity): bool
+    {
+        // Récupération du panier de la session
+        $cart = $this->session->get('cart');
+        // Quantité en stock
+        $stockQuantity = $this->productRepository->find($id)->getQuantity();
+        // Quantité déjà dans le panier
+        $cartQuantity = $cart[$id];
+
+        if (($stockQuantity - ($cartQuantity + $requiredQuantity)) < 0) {
+            return false;
+        }
+        return true;
     }
 
     /**
