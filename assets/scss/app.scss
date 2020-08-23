@@ -172,22 +172,27 @@ form {
 /*------------------------------
   Cart page: quantity
 -------------------------------*/
-.js-quantity-modifier {
-  font-size: 1.3rem;
+#js_shopping_cart {
+  table-layout: fixed;
+  width: 100%;
 
-  span {
-    font-size: 1.7rem;
-  }
+  .js-quantity-modifier {
+    font-size: 1.3rem;
 
-  a {
-    color: #444;
-  }
+    span {
+      font-size: 1.7rem;
+    }
 
-  .quantity-up:hover {
-    color: #07d43a;
-  }
+    a {
+      color: #444;
+    }
 
-  .quantity-down:hover {
-    color: #ff4136;
+    .quantity-up:hover {
+      color: #07d43a;
+    }
+
+    .quantity-down:hover {
+      color: #ff4136;
+    }
   }
 }

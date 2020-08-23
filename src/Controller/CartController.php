@@ -52,7 +52,7 @@ class CartController extends AbstractController
             $message['text']
         );
 
-        return $this->redirectToRoute('app_cart_index');
+        return $this->redirectToRoute('app_cart_index', ['_fragment' => 'password']);
     }
 
     /**
