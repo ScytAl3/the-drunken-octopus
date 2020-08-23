@@ -51,8 +51,8 @@ class CartController extends AbstractController
             $message['type'],
             $message['text']
         );
-
-        return $this->redirectToRoute('app_cart_index', ['_fragment' => 'password']);
+        // Redirection vers le panier et focus sur le dernier produit ajouté
+        return $this->redirectToRoute('app_cart_index', ['_fragment' => 'anchor-' . $id]);
     }
 
     /**
@@ -83,7 +83,7 @@ class CartController extends AbstractController
      */
     public function updateQuantity(int $id, string $direction, CartService $cartService): JsonResponse
     {
-        return $this->json([            
+        return $this->json([
             'newQuantity' => $cartService->updateQuantity($id, $direction),
             'newTotal' => $this->renderView('cart/_newTotalProduct.html.twig', [
                 'montantProduct' => $cartService->getTotalProduct($id)
@@ -115,7 +115,7 @@ class CartController extends AbstractController
         // redirige vers la page du panier
         return $this->redirectToRoute('app_product_index');
     }
-    
+
     /**
      * @IsGranted("ROLE_USER")
      * @Route("/cart/checkout", name="app_cart_checkout", methods="GET")
@@ -163,7 +163,7 @@ class CartController extends AbstractController
             $em->flush();
 
             // Parcours la liste des produits dans la panier
-            foreach ($cartProductData as $productData) {                
+            foreach ($cartProductData as $productData) {
                 // Instanciation d'une nouvelle ligne de commade associée au produit et à la commande
                 // à chaque boucle
                 $orderItem = new PurchaseProduct;
@@ -175,7 +175,7 @@ class CartController extends AbstractController
                 $em->flush();
 
                 // Instanciation d'un produit pour la mise à jour du stock
-                $stockProduct = new Product;            
+                $stockProduct = new Product;
                 // Récupère les données du produit
                 $stockProduct = $productData['product'];
                 // Mise à jour du stock
