@@ -17,7 +17,9 @@
                     </li>
                     <li>
                         <i class="fa fa-envelope-o pr-1 text-default"></i>
-                        <a href="#">Contact Us</a>
+                        <a href="#">
+                            {{ 'footer.link.contact_us' | trans ({}, 'navigation') }}
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -40,7 +42,9 @@
                     </li>
                     <li>
                         <i class="fa fa-envelope-o pr-1 text-default"></i>
-                        <a href="#">Contact Us</a>
+                        <a href="#">
+                            {{ 'footer.link.contact_us' | trans ({}, 'navigation') }}
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -97,25 +101,34 @@
         <div class="row">
             <div class="col-md-12 text-white text-center">
                 <p class="">
-                    Enjoy New Gallifrey Responsibly &copy; {{ 'now'|date('Y') }} &middot; New Gallifrey Brewing Company
+                    {{ 'footer.link.enjoy' | trans ({}, 'navigation') }} &copy; {{ 'now'|date('Y') }} &middot; New
+                    Gallifrey Brewing Company
                 </p>
                 <p>
-                    <a class="footer-link" href="#">Contact The Doctor</a>
+                    <a class="footer-link" href="#">
+                        {{ 'footer.link.the-doctor' | trans ({}, 'navigation') }}
+                    </a>
                     |
-                    <a class="footer-link" href="https://www.pole-emploi.fr/accueil/">Jobs</a>
+                    <a class="footer-link" href="https://www.pole-emploi.fr/accueil/">
+                        {{ 'footer.link.jobs' | trans ({}, 'navigation') }}
+                    </a>
                     |
-                    <a class="footer-link" href="#">Contest Rules</a>
+                    <a class="footer-link" href="#">
+                        {{ 'footer.link.terms' | trans ({}, 'navigation') }}
+                    </a>
                     |
-                    <a class="footer-link" href="#">Privacy Policy</a>
+                    <a class="footer-link" href="#">
+                        {{ 'footer.link.privacy' | trans ({}, 'navigation') }}
+                    </a>
                 </p>
             </div>
         </div>
     </div>
 
     <p class="text-center text-muted">
-        Made with
+        {{ 'footer.link.copyright' | trans ({}, 'navigation') }}
         <small class="text-danger">&#10084;</small>
-        by {{ project.name }}
+        {{ 'footer.link.by' | trans ({}, 'navigation') }} {{ project.name }}
     </p>
 </div>
 {# /Footer: Bottom #}

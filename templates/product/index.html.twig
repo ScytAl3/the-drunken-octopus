@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% block title %} The shop | {{ parent() }} {% endblock %}
+{% block title %} {{ 'title.productspage' | trans ({}, 'navigation') }} | {{ parent() }} {% endblock %}
 
 {% block body %}
 <div class="js-filter">

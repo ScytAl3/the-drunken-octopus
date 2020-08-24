@@ -26,7 +26,9 @@
                 {# Left side of the navigation bar #}
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item {{ set_active_route('app_product') }}">
-                        <a class="nav-link" href="{{ path('app_product_index') }}">Products</a>
+                        <a class="nav-link" href="{{ path('app_product_index') }}">
+                            {{ 'navbar.link.products' | trans ({}, 'navigation') }}
+                        </a>
                     </li>
                     {# this link is only visible to an admin #}
                     {% if is_granted('ROLE_ADMIN') %}
@@ -69,12 +71,12 @@
                              aria-labelledby="navbarDropdownMenuAccount">
                             <a class="dropdown-item" href="{{ path('app_user_account') }}">
                                 <i class="fas fa-user-edit  mr-2" aria-hidden="true"></i>
-                                Profile
+                                {{ 'navbar.link.user.profile' | trans ({}, 'navigation') }}
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ path('app_logout') }}">
                                 <i class="fas fa-door-open mr-2" aria-hidden="true"></i>
-                                Logout
+                                {{ 'navbar.link.user.logout' | trans ({}, 'navigation') }}
                             </a>
                         </div>
                     </li>

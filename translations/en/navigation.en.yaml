@@ -1,0 +1,36 @@
+#-----------------------------------------------------------------
+#           catalogue de traduction de la navigation
+#-----------------------------------------------------------------
+
+# title of the pages
+title:
+    homepage: Homepage
+    productspage: The shop
+    cartpage: Your cart
+    loginpage: Login
+    registerpage: S'inscrire
+    resetpage: 
+      request: Reset your password
+      checkemail: Envoi Courriel Réinitialisation Mot de passe
+      reset: Reset your password
+
+    
+# navbar
+navbar:
+  link:
+    products: Our beers
+    user:
+        profile: Profile
+        logout: Logout
+
+# footer
+footer:
+  link:
+    contact_us: Contact us
+    enjoy: Enjoy The Drunken Octopus Responsibly
+    the-doctor: Contact The Doctor
+    jobs: Jobs
+    terms: Terms and Conditions
+    privacy: Privacy policy    
+    copyright: Made with
+    by: by

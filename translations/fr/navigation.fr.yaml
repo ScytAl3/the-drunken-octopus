@@ -1,0 +1,35 @@
+#-----------------------------------------------------------------
+#           catalogue de traduction de la navigation
+#-----------------------------------------------------------------
+
+# titre des pages
+title:
+    homepage: Accueil
+    productspage: La boutique
+    cartpage: Votre panier
+    loginpage: Connexion
+    registerpage:
+    resetpage:
+      request: Réinitialiser votre mot de passe
+      checkemail: Password Reset Email Sent
+      reset: Réinitialiser votre mot de passe
+
+# navbar
+navbar:
+  link:
+    products: Nos bières
+    user:
+        profile: Profil
+        logout: Se déconnecter
+
+# footer
+footer:
+  link:
+    contact_us: Nous contacter
+    enjoy: Savourer Le Poulpe Ivre de manière responsable
+    the-doctor: Contacter le Docteur
+    jobs: Emplois
+    terms: Conditions générales
+    privacy: Politique de confidentialité    
+    copyright: Fait avec
+    by: par
