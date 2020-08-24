@@ -7,7 +7,9 @@
 
     {# Titre de la page #}
     <div class="text-center py-5">
-        <h1 class="text-uppercase text-center border-bottom border-warning pb-2">Products</h1>
+        <h1 class="text-uppercase text-center border-bottom border-warning pb-2" id="anchor-product-start">
+            Products
+        </h1>
     </div>
 
     {# Liste des produits et filtre de recherche #}
@@ -29,7 +31,7 @@
         {# /Section filtre #}
 
         {# Section des produits #}
-        <div class="col-sm-9 col-md-9 mt-3" id="anchor-products">
+        <div class="col-sm-9 col-md-9 mt-3">
 
             {# Si il y a des produits #}
             {% if products|length > 0 %}

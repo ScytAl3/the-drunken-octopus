@@ -104,7 +104,7 @@ class CartController extends AbstractController
      * @return RedirectResponse 
      * @throws LogicException 
      */
-    public function emptyTheCart(CartService $cartService)
+    public function clearAction(CartService $cartService)
     {
         $cartService->clearCart();
         // Création du message flash pour informer que tout c'est bien déroulé
