@@ -7,7 +7,9 @@
 {# Titre et messages divers de la page du login #}
 <div class="text-center py-5">
     {# Titre de la page #}
-    <h1 class="text-uppercase border-bottom border-warning pb-2">Please login to continue</h1>
+    <h1 class="text-uppercase border-bottom border-warning pb-2">
+        {{ 'login.titlepage' | trans ({}, 'pagecontent') }}
+    </h1>
 
 </div>
 {# /Titre et messages divers de la page du login #}
@@ -18,7 +20,9 @@
     <div class="text-center py-4">
         <img src="{{ asset('build/images/default/octopus-logo-form.png') | imagine_filter("squared_thumb_smaller") }}"
              alt="Logo {{ project.name }}">
-        <h2 class="h6 text-muted mt-3">Sign in using email</h2>
+        <h2 class="h6 text-muted mt-3">
+            {{ 'login.titleform' | trans ({}, 'pagecontent') }}
+        </h2>
         <hr class="mb-3">
     </div>
     {# /Logo du site #}
@@ -28,7 +32,9 @@
 
         {# Affiche un message d'erreur lors d'un mauvais login : pseudo inexistant ou erreur password #}
         {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="alert alert-danger">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
         {% endif %}
         {# /Affiche un message d'erreur lors d'un mauvais login : pseudo inexistant ou erreur password #}
 
@@ -37,7 +43,9 @@
 
             {# Input: email #}
             <div class="mb-4">
-                <label class="sr-only" for="inputEmail">Email</label>
+                <label class="sr-only" for="inputEmail">
+                    {{ 'login.form.email' | trans ({}, 'pagecontent') }}
+                </label>
                 <div class="input-group mr-sm-2">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
@@ -46,25 +54,29 @@
                     </div>
 
                     <input class="form-control" type="email" value="{{ last_username }}" name="email" id="inputEmail"
-                           placeholder="Your email address" required autofocus>
+                           placeholder="{{ 'login.form.email' | trans ({}, 'pagecontent') }}" required autofocus>
                 </div>
             </div>
 
             {# Input: password #}
             <div class="mb-4">
-                <label class="sr-only" for="inputPassword">Password</label>
+                <label class="sr-only" for="inputPassword">
+                    {{ 'login.form.password' | trans ({}, 'pagecontent') }}
+                </label>
                 <div class="input-group mr-sm-2">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
                     </div>
                     <input class="form-control" type="password" name="password" id="inputPassword"
-                           placeholder="Password" required>
+                           placeholder="{{ 'login.form.password' | trans ({}, 'pagecontent') }}" required>
                 </div>
                 {# Link: password forgot #}
                 <div class="text-right">
                     <p class="font-weight-light">
                         <small>
-                            <a href="{{ path('app_forgot_password_request') }}">Forgot your password?</a>
+                            <a href="{{ path('app_forgot_password_request') }}">
+                                {{ 'login.forgotpassword' | trans ({}, 'pagecontent') }}
+                            </a>
                         </small>
                     </p>
                 </div>
@@ -78,15 +90,21 @@
                 <div class="form-group form-check">
                     <input class="form-check-input" type="checkbox" name="_remember_me" id="_remember_me">
                     <label class="form-check-label" for="_remember_me">
-                        Remember me
+                        {{ 'login.form.remember' | trans ({}, 'pagecontent') }}
                     </label>
                 </div>
             </div>
 
             {# Button & link: login & register#}
             <div class="mb-4">
-                <button class="btn btn-dark btn-lg btn-block text-uppercase mb-2" type="submit">LOG IN</button>
-                <p class="font-weight-light"><a href="{{ path('app_register') }}">Register as a new user</a></p>
+                <button class="btn btn-dark btn-lg btn-block text-uppercase mb-2" type="submit">
+                    {{ 'login.form.button' | trans ({}, 'pagecontent') }}
+                </button>
+                <p class="font-weight-light">
+                    <a href="{{ path('app_register') }}">
+                        {{ 'login.newuser' | trans ({}, 'pagecontent') }}
+                    </a>
+                </p>
             </div>
 
         </div>
@@ -94,8 +112,10 @@
 
         {# Content separator #}
         <div class="separator">
-            <div class="border-separator text-center my-4" style="line-height:0;">
-                <span class="bg-separator vertical-align-bottom text-muted" style="line-height:0;">OR</span>
+            <div class="border-separator  text-uppercase text-center my-4" style="line-height:0;">
+                <span class="bg-separator vertical-align-bottom text-muted" style="line-height:0;">
+                    {{ 'login.separator' | trans ({}, 'pagecontent') }}
+                </span>
             </div>
         </div>
         {# Content separator #}
@@ -111,7 +131,7 @@
                             aria-describedby="aria-privacy-policy" data-google-button="" type="button">
                         <i class="fab fa-google align-middle text-danger mr-2"></i>
                         <span class="align-middle" data-google-button-icon="" aria-hidden="true">
-                            Continue with Google
+                            {{ 'login.socialbtn.google' | trans ({}, 'pagecontent') }}
                         </span>
                     </button>
                 </div>
@@ -122,7 +142,7 @@
                             aria-describedby="aria-privacy-policy" data-facebook-button="" type="button">
                         <i class="fab fa-facebook-square align-middle text-primary mr-2"></i>
                         <span class="align-middle" data-facebook-button-icon="" aria-hidden="true">
-                            Continue with Facebook
+                            {{ 'login.socialbtn.facebook' | trans ({}, 'pagecontent') }}
                         </span>
                     </button>
                 </div>
@@ -133,7 +153,7 @@
                             aria-describedby="aria-privacy-policy" data-apple-button="" type="button">
                         <i class="fab fa-apple align-middle text-dark mr-2"></i>
                         <span class="align-middle" data-apple-button-icon="" aria-hidden="true">
-                            Continue with Apple
+                            {{ 'login.socialbtn.apple' | trans ({}, 'pagecontent') }}
                         </span>
                     </button>
                 </div>
@@ -141,18 +161,16 @@
 
             {# Condition utilisation & confidentialité #}
             <p id="aria-privacy-policy" class="privacy-policy text-muted mt-3">
-                By clicking Sign In or Continue with Google, Facebook or Apple, you agree to
-                {{ project.name }}'s
+                {{ 'login.contrat.byclicking' | trans ({}, 'pagecontent') }}                
                 <a target="_blank" href="#" title="Conditions d'utilisation">
-                    Terms of Use
+                    {{ 'login.contrat.terms' | trans ({}, 'pagecontent') }}
                 </a>
-                and
+                {{ 'login.contrat.and' | trans ({}, 'pagecontent') }}
                 <a target="_blank" href="#" title="Règlement concernant la  confidentialité">
-                    Privacy Policy
+                    {{ 'login.contrat.policy' | trans ({}, 'pagecontent') }}
                 </a>
-                . {{ project.name }} may send you messages; you can change your preferences in your account
-                settings. We will never post without your
-                permission.
+                {{ 'login.contrat.of' | trans ({}, 'pagecontent') }} {{ project.name }}.
+                {{ project.name }} {{ 'login.contrat.preferences' | trans ({}, 'pagecontent') }}
             </p>
 
         </div>

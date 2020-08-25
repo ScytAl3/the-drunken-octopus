@@ -26,8 +26,6 @@ export default class Filter {
         this.form = element.querySelector('.js-filter-form');
         // Modification du résultat suivant le filtre
         this.result = element.querySelector('.js-filter-result');
-        // Bouton pour reset les filtres
-        this.reset = element.querySelector('.js-filter-reset')
 
         this.bindEvents()
     }
@@ -53,10 +51,6 @@ export default class Filter {
         Écoute sur l'élément pagination (js-filter-pagination)
         */
         this.pagination.addEventListener('click', aClickListener);
-        /*
-        Écoute sur l'élément reset filter (js-filter-reset)
-        */
-        this.reset.addEventListener('click', this.loadForm.bind(this));
         /*
         Écoute sur l'élément form du filtre (js-filter-form)
         */

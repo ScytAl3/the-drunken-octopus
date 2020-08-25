@@ -1,0 +1,126 @@
+#-----------------------------------------------------------------
+#  catalogue de traduction de la page du formulaire de connexion
+#-----------------------------------------------------------------
+
+# élement HTML
+login:
+    titlepage: Veuillez vous connecter pour continuer
+    titleform: Connectez-vous en utilisant votre adresse email
+    forgotpassword: Mot de passe oublié ?
+    newuser: S'inscrire en tant que nouvel utilisateur
+    separator: ou
+
+    socialbtn:
+        google: Continuer avec Google
+        facebook: Continuer avec Facebook
+        apple: Continuer avec Apple
+
+    contrat:
+        byclicking: En cliquant sur Se connecter ou Continuer avec Google, Facebook ou Apple, vous acceptez
+        terms: les Conditions d'utilisation
+        and: et
+        policy: la Politique de confidentialité
+        of: de
+        preferences: peut vous envoyer des messages ; vous pouvez modifier vos préférences dans les paramètres de votre compte. Nous ne publierons jamais de messages sans votre autorisation.
+
+# element form
+    form:
+        email: Votre adresse email
+        password: Mot de pass        
+        remember: Se souvenir de moi
+        button: S'identifier
+
+#-------------------------------------------------------------------
+#  catalogue de traduction de la page du formulaire d'inscription
+#-------------------------------------------------------------------
+
+#element HTML
+register:
+    titlepage: S'inscrire
+
+# element form
+    form:
+        firstname: Prénom
+        lastname: Nom
+        email: Adresse email
+        password: Mot de passe
+        agree: Accepter les conditions
+        button: S'inscrire
+
+#--------------------------------------------------------------------------------
+#     catalogue de traduction de la page de réinitialisation du mot de passe
+#--------------------------------------------------------------------------------
+
+#element HTML
+reset_password:
+    title_request_page: Réinitialiser votre mot de passe
+    information: Saisissez votre adresse électronique et nous vous enverrons un lien pour réinitialiser votre mot de passe.
+    request_button: Envoyer un courriel de réinitialisation du mot de passe
+    reset_button: Réinitialisation du mot de passe
+
+# element form
+    form:
+        email: Votre adresse email
+        constraint: Veuillez entrer votre adresse électronique
+
+#------------------------------------------------------------------------------
+#     catalogue de traduction de la page de vérification de l'adresse email
+#------------------------------------------------------------------------------
+
+#element HTML
+email_check:
+    titlepage: "Réinitialisation du mot de passe : envoi d'un courriel"
+    expire: Un courriel a été envoyé, contenant un lien sur lequel vous pouvez cliquer pour réinitialiser votre mot de passe. Ce lien expirera dans
+    time: heure(s).
+    spam: Si vous ne recevez pas de courrier électronique, veuillez vérifier votre dossier de courrier indésirable ou
+    retry: essayer à nouveau
+
+#-------------------------------------------------------------------
+#           catalogue de traduction de la page des produits
+#-------------------------------------------------------------------
+
+#element HTML
+products:
+    titlepage: Nos produits
+    no_db_result: Aucun produit pour le moment.
+    filters:
+        title: Filtres
+        spinner: Chargement...
+        style: Style de la bière
+        country: Pays de la bière
+        brewery: Brasserie de bière
+        reset_button: Effacer les filtres
+    result:
+        title: Les pétillantes
+        count: Nous avons trouvé
+        pluralize: bière
+    sort:
+        price: Prix
+        new: Nouveautés
+    card_product:
+        add_button: Ajouter au panier
+
+#-------------------------------------------------------------------
+#             catalogue de traduction de la page du panier
+#-------------------------------------------------------------------
+
+#element HTML
+cart:
+    titlepage: Votre panier
+    no_db_result: Vous n'avez pas encore de produits dans votre panier.
+    result:
+        count: Votre panier contient
+        pluralize: produit
+    action_link:
+        continue: Continuer à faire des achats
+        clear: Vider le panier
+    table_header:
+        product: Produit
+        price: Prix
+        quantity: Quantité
+    button:
+        checkout: Poursuivre la commande
+
+    checkout:
+        titlepage: Confirmer la commande
+        button: Confirmer

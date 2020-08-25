@@ -1,1 +1,4 @@
-They are <b>{{ pluralize(count, 'product') }}</b> in
+<p class="text-muted text-center py-3" id="js-cart-quantity">
+    {{ 'cart.result.count' | trans ({}, 'pagecontent') }}
+    <b>{{ pluralize(count, 'cart.result.pluralize' | trans ({}, 'pagecontent')) }}</b>
+</p>

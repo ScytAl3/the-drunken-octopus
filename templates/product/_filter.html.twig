@@ -2,7 +2,9 @@
 
 {# Icone spinner pour indiqué la prise en compte du filtre #}
 <div class="spinner-border js-spinner-loading" role="status" aria-hidden="true" style="display: none;">
-    <span class="sr-only">Loading...</span>
+    <span class="sr-only">
+        {{ 'products.filters.spinner' | trans ({}, 'pagecontent') }}
+    </span>
 </div>
 
 {# champ search #}
@@ -11,24 +13,27 @@
 </div>
 
 {# champ style #}
-<h4 class=" border-bottom border-info">Beer style</h4>
+<h4 class=" border-bottom border-info">
+    {{ 'products.filters.style' | trans ({}, 'pagecontent') }}
+</h4>
 <div>
     {{ form_row(form.style) }}
 </div>
 
 {# champ country #}
-<h4 class=" border-bottom border-info">Beer country</h4>
+<h4 class=" border-bottom border-info">
+    {{ 'products.filters.country' | trans ({}, 'pagecontent') }}
+</h4>
 <div>
     {{ form_row(form.country) }}
 </div>
 
 {# champ brewery #}
-<h4 class=" border-bottom border-info">Beer Brewery</h4>
+<h4 class=" border-bottom border-info">
+    {{ 'products.filters.brewery' | trans ({}, 'pagecontent') }}
+</h4>
 <div>
     {{ form_row(form.brewery) }}
 </div>
-
-{# Bouton pour filtrer #}
-{# <button class="btn btn-primary w-100 js-filter-reset">Reset filtrer</button> #}
 
 {{ form_end(form) }}

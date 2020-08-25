@@ -4,24 +4,32 @@
 
 {% block body %}
 
-<!-- Titre et messages divers de la page de création de compte -->
-<div class="text-center">
-    {% for flashError in app.flashes('verify_email_error') %}
-    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
-    <h1 class="text-uppercase border-bottom border-warning my-4">Register</h1>
+{# Titre et messages divers de la page de création de compte #}
+<div class="text-center py-5">
+    {# Titre de la page #}
+    <h1 class="text-uppercase border-bottom border-warning pb-2">
+        {{ 'register.titlepage' | trans ({}, 'pagecontent') }}
+    </h1>
 </div>
-<!-- /Titre et messages divers de la page de création de compte -->
+{# /Titre et messages divers de la page de création de compte #}
 
 <div class="col-md-6 rounded shadow mx-auto py-2 my-4">
-    <!-- Logo du site -->
+
+    {# Logo du site #}
     <div class="text-center py-4">
         <img src="{{ asset('build/images/default/octopus-logo-form.png') | imagine_filter("squared_thumb_smaller") }}"
              alt="Logo {{ project.name }}">
     </div>
-    <!-- /Logo du site -->
+    {# /Logo du site #}
 
+    {# Formulaire pour les informations d'inscription #}
     {{ form_start(registrationForm) }}
+
+        {# Affiche les messages d'erreurs lors de l'inscription #}
+        {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+        {% endfor %}
+        {# /Affiche les messages d'erreurs lors de l'inscription #}
 
     {{ form_row(registrationForm.firstName) }}
 
@@ -35,12 +43,15 @@
 
     {{ form_row(registrationForm.agreeTerms) }}
 
-    <!-- Button: send reset email -->
+    {# Button: send reset email #}
     <div class="mb-3">
-        <button type="submit" class="btn btn-dark btn-lg btn-block">Register</button>
+        <button type="submit" class="btn btn-dark btn-lg btn-block">
+            {{ 'register.form.button' | trans ({}, 'pagecontent') }}
+        </button>
     </div>
 
     {{ form_end(registrationForm) }}
+    {# /Formulaire pour les informations d'inscription #}
 </div>
 
 {% endblock %}

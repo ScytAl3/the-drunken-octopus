@@ -52,7 +52,7 @@ class CartController extends AbstractController
             $message['text']
         );
         // Redirection vers le panier et focus sur le dernier produit ajouté
-        return $this->redirectToRoute('app_cart_index', ['_fragment' => 'anchor-' . $id]);
+        return $this->redirectToRoute('app_cart_index');
     }
 
     /**

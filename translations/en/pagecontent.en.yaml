@@ -1,0 +1,127 @@
+#-----------------------------------------------------------------
+#          translation catalog of the login form page
+#-----------------------------------------------------------------
+
+# element HTML
+login:
+    titlepage:          Please login to continue
+    titleform:          Sign in using email
+    forgotpassword:     Forgot your password?
+    newuser:            Register as a new user
+    separator:          or
+
+    socialbtn:
+        google:         Continue with Google
+        facebook:       Continue with Facebbok
+        apple:          Continue with Apple
+
+    contrat:
+        byclicking:      By clicking Sign In or Continue with Google, Facebook or Apple, you agree to
+        terms:           Terms of Use
+        and:             and
+        policy:          Privacy Policy
+        of :             of
+        preferences: may send you messages; you can change your preferences in your account settings. We will never post without your permission.
+
+# element form
+    form:
+        email:          Your email address
+        password:       Password
+        remember:       Remember me
+        button:         Log in
+
+#-----------------------------------------------------------------
+#          translation catalog of the register form page
+#-----------------------------------------------------------------
+
+#element HTML
+register:
+    titlepage: Register
+
+# element form
+    form:        
+        firstname: First name
+        lastname: Name
+        email: Email address
+        password: Password
+        agree: Agree terms
+        button: Register
+
+#-----------------------------------------------------------------
+#     translation catalog of the reset password request page
+#-----------------------------------------------------------------
+
+#element HTML
+reset_password:
+    title_request_page:     Reset your password
+    information:            Enter your email address and we we will send you a link to reset your password.
+    request_button:         Send password reset email
+    title_reset_page:       Reset your password
+    reset_button:           Reset password
+
+# element form
+    form:
+        email:              Your email
+        constraint:         Please enter your email
+
+#-----------------------------------------------------------------
+#            translation catalog of the email check page
+#-----------------------------------------------------------------
+
+#element HTML
+email_check:
+    titlepage: "Password reset: email sent"
+    expire: An email has been sent that contains a link that you can click to reset your password. This link will expire in
+    time: hour(s).
+    spam: If you don't receive an email please check your spam folder or
+    retry: try again
+
+#-----------------------------------------------------------------
+#             translation catalog of the products page
+#-----------------------------------------------------------------
+
+#element HTML
+products:
+    titlepage: Our products
+    no_db_result: No products yet.
+    filters:
+        title: Filters
+        spinner: Loading...
+        style: Beer style
+        country: Beer country
+        brewery: Beer brewery
+        reset_button: Reset filters
+    result:
+        title: The fizzy ones
+        count: We found
+        pluralize: beer
+    sort:
+        price: Price
+        new: New products
+    card_product:
+        add_button: Add to cart
+
+#-----------------------------------------------------------------
+#             translation catalog of the cart page
+#-----------------------------------------------------------------
+
+#element HTML
+cart:
+    titlepage: Your cart
+    no_db_result: You don't have any products in your shopping cart yet.
+    result:
+        count: Your shopping cart contains
+        pluralize: product
+    action_link:
+        continue: Continue shopping
+        clear: Clear the cart
+    table_header:
+        product: Product
+        price: Price
+        quantity: Quantity
+    button:
+        checkout: Continue to checkout
+
+    checkout:
+        titlepage: Confirm order
+        button: Confirm

@@ -14,13 +14,14 @@ class ResetPasswordRequestFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
+                'label' => 'reset_password.form.email',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter your email',
                     ]),
                 ],
-            ])
-        ;
+                'translation_domain' => 'pagecontent',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

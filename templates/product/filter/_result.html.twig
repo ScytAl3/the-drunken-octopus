@@ -1,1 +1,4 @@
-<p class="text-muted js-filter-result pl-2">They are {{ pluralize(products.getTotalItemCount(), 'product') }}</p>
+<p class="text-muted js-filter-result pl-2">
+    {{ 'products.result.count' | trans ({}, 'pagecontent') }}
+    {{ pluralize(products.getTotalItemCount(), 'products.result.pluralize' | trans ({}, 'pagecontent')) }}
+</p>

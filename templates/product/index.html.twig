@@ -8,7 +8,7 @@
     {# Titre de la page #}
     <div class="text-center py-5">
         <h1 class="text-uppercase text-center border-bottom border-warning pb-2" id="anchor-product-start">
-            Products
+            {{ 'products.titlepage' | trans ({}, 'pagecontent') }}
         </h1>
     </div>
 
@@ -20,13 +20,12 @@
             {# Titre de la section #}
             <h4 class="text-left bg-info pl-2 py-2">
                 <i class="fas fa-sliders-h"></i>
-                Filters
+                {{ 'products.filters.title' | trans ({}, 'pagecontent') }}
             </h4>
+
             {# Import du template assocée à formulaire de recherche #}
             {% include 'product/_filter.html.twig' with {form: form} only %}
-            {# Bouton pour filtrer #}
-            <a class="btn btn-primary w-100 js-filter-reset" href="{{ path('app_product_index') }}" role="button">Reset
-                filtrer</a>
+            
         </div>
         {# /Section filtre #}
 
@@ -37,13 +36,15 @@
             {% if products|length > 0 %}
 
             <div class="row justify-content-between pr-3">
-                <div>
-                    {# Titre de la section et nombre de résultat #}
-                    <h4 class="text-left pl-2 py-2">The fizzy ones</h4>
+                {# Titre de la section et nombre de résultat #}
+                <div>                    
+                    <h4 class="text-left pl-2 py-2">
+                        {{ 'products.result.title' | trans ({}, 'pagecontent') }}
+                    </h4>
                     {# Ajax: result filter template #}
                     {% include 'product/filter/_result.html.twig' %}
-
                 </div>
+                
                 {# pagination sortable filter #}
                 <div class="d-flex justify-content-end align-self-end js-filter-sorting">
                     {# Ajax: sorting filter template #}
@@ -68,7 +69,9 @@
             {% else %}
 
                 <div class="alert alert-info text-center" role="alert">
-                    <p class="h3 text-center mb-0">No products yet.</p>
+                    <p class="h3 text-center mb-0">
+                        {{ 'products.no_db_result' | trans ({}, 'pagecontent') }}
+                    </p>
                 </div>
 
             {% endif %}

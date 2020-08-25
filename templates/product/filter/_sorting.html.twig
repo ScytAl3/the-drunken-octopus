@@ -1,2 +1,2 @@
-{{ knp_pagination_sortable(products, 'Price', 'p.price') }}
-{{ knp_pagination_sortable(products, 'New Products', 'p.createdAt') }}
+{{ knp_pagination_sortable(products, 'products.sort.price' | trans ({}, 'pagecontent'), 'p.price') }}
+{{ knp_pagination_sortable(products, 'products.sort.new' | trans ({}, 'pagecontent'), 'p.createdAt') }}

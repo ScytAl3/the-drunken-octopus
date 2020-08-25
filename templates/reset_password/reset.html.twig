@@ -6,7 +6,9 @@
 
 <!-- Titre de la page reset password -->
 <div class="text-center">
-    <h1 class="text-uppercase border-bottom border-warning my-4">Reset your password</h1>
+    <h1 class="text-uppercase border-bottom border-warning my-4">
+        {{ 'reset_password.title_reset_page' | trans ({}, 'pagecontent') }}
+    </h1>
 </div>
 
 <div class="col-md-6 mx-auto py-2 my-4">
@@ -19,7 +21,9 @@
 
     {{ form_start(resetForm) }}
     {{ form_row(resetForm.plainPassword) }}
-    <button class="btn btn-dark">Reset password</button>
+    <button class="btn btn-dark">
+        {{ 'reset_password.reset_button' | trans ({}, 'pagecontent') }}
+    </button>
     {{ form_end(resetForm) }}
 
 </div>

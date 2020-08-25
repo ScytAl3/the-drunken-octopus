@@ -4,26 +4,28 @@
 
 {% block body %}
 
-<!-- Titre et messages divers de la page demande reset password -->
+{# Titre et messages divers de la page demande reset password #}
 <div class="text-center">
     {% for flashError in app.flashes('reset_password_error') %}
     <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
-    <h1 class="text-uppercase border-bottom border-warning my-4">Reset your password</h1>
+    <h1 class="text-uppercase border-bottom border-warning my-4">
+        {{ 'reset_password.title_request_page' | trans ({}, 'pagecontent') }}
+    </h1>
 </div>
-<!-- /Titre et messages divers de la page demande reset password -->
+{# /Titre et messages divers de la page demande reset password #}
 
 <div class="col-md-6 mx-auto py-2 my-4">
-    <!-- Logo du site -->
+    {# Logo du site #}
     <div class="text-center py-4">
         <img src="{{ asset('build/images/default/octopus-logo-form.png') | imagine_filter("squared_thumb_smaller") }}"
              alt="Logo {{ project.name }}">
     </div>
-    <!-- /Logo du site -->
+    {# /Logo du site #}
 
     {{ form_start(requestForm) }}
 
-    <!-- Input: email -->
+    {# Input: email #}
     <div class="mt-3">
         {# {{ form_row(requestForm.email) }} #}
         {{ form_label(requestForm.email) }}
@@ -31,14 +33,15 @@
     </div>
     <div class="mb-5">
         <small>
-            Enter your email address and we we will send you a
-            link to reset your password.
+            {{ 'reset_password.information' | trans ({}, 'pagecontent') }}
         </small>
     </div>
 
-    <!-- Button: send reset email -->
+    {# Button: send reset email #}
     <div class="mb-3">
-        <button class="btn btn-dark">Send password reset email</button>
+        <button class="btn btn-dark">
+            {{ 'reset_password.request_button' | trans ({}, 'pagecontent') }}
+        </button>
     </div>
 
     {{ form_end(requestForm) }}

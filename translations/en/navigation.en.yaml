@@ -1,5 +1,5 @@
 #-----------------------------------------------------------------
-#           catalogue de traduction de la navigation
+#                 navigation translation catalog
 #-----------------------------------------------------------------
 
 # title of the pages
@@ -7,6 +7,7 @@ title:
     homepage: Homepage
     productspage: The shop
     cartpage: Your cart
+    checkoutpage: Cart checkout
     loginpage: Login
     registerpage: S'inscrire
     resetpage: 
