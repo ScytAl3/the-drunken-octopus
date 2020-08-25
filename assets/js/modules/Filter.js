@@ -42,6 +42,7 @@ export default class Filter {
             if (e.target.tagName === 'A') {
                 e.preventDefault();
                 this.loadUrl(e.target.getAttribute('href'));
+                console.log(e.target)
             }             
         };
         /*
@@ -52,6 +53,10 @@ export default class Filter {
         Écoute sur l'élément pagination (js-filter-pagination)
         */
         this.pagination.addEventListener('click', aClickListener);
+        /*
+        Écoute sur l'élément reset filter (js-filter-reset)
+        */
+        this.reset.addEventListener('click', this.loadForm.bind(this));
         /*
         Écoute sur l'élément form du filtre (js-filter-form)
         */
