@@ -83,12 +83,10 @@
                 {{ product.price|format_currency('EUR', {fraction_digit: 2}) }}
             </div>
 
-            <div class="card-body">
-                {# Formulaire por ajouter la quantité du produit au panier #}
+            {# Formulaire por ajouter la quantité du produit au panier #}
+            <div class="card-body">                
                 <form action="{{ path('app_cart_add', {id: product.id}) }}" method="POST">
-
                     <div class="row justify-content-between mx-0">
-
                         <label class="mb-0" for="quantity">Quantity</label>
                         {# modificateur de quantité#}
                         <div class="quantity-input">
@@ -96,7 +94,7 @@
                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                                 <span aria-hidden="true">−</span>
                             </button>
-                            <input class="text-center js-qty-number" type="number" name="quantity"
+                            <input class="text-center" type="number" name="quantity"
                                    id="quantity" value="1" min="1" max="" data-id={{ product.id }}
                                    aria-label="quantity">
                             <button class=" btn btn-success btn-sm" type="button"

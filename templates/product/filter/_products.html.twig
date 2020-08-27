@@ -1,4 +1,4 @@
 {% for product in products %}
-<!-- Import du template associé à un Product -->
+{# Import du template associé à un Product #}
     {% include 'product/_card.html.twig' with {product: product} only %}
 {% endfor %}

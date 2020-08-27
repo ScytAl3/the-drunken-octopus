@@ -54,53 +54,9 @@
             </tr>
         </thead>
         {# Corps du tableau: liste des produits #}
-        <tbody>
-            {% for item in items %}
-            <tr>
-                <td colspan="2">
-                    {# Photo du produit #}
-                    <a class="text-decoration-none"
-                       href="{{ path('app_product_show', {slug: item.product.slug, id: item.product.id}) }}">
-                        <img src="{{ (item.product.imageName ? vich_uploader_asset(item.product) : asset('build/images/default/placeholder.jpg')) | imagine_filter("squared_thumb_xsmall") }}"
-                             alt="Image of {{item.product.title}}">
-                    </a>
-                    {# Nom du produit #}
-                    <span class="ml-2">
-                        {{ item.product.title }}
-                    </span>
-                </td>
-                {# Prix du produit #}
-                <td class="align-middle">
-                    {{ item.product.price|format_currency('EUR', {fraction_digit: 2}) }}
-                </td>
-                {# Quantité du produit #}
-                <td class="align-middle quantity-modifier text-center js-quantity-modifier"
-                    data-itemid="{{ item.product.id }}">
-                    {# Ajouter quantité #}
-                    <a class="quantity-down text-decoration-none" href="#" data-direction="down">
-                        <i class="fas fa-minus-square"></i>
-                    </a>
-                    {# Passage de data pour le traitement de la quantite et le message de modification#}
-                    <span class="mx-2" id="js-quantity-product-{{ item.product.id }}">
-                        {{ item.quantity }}
-                    </span>
-                    {# Retirer quantité #}
-                    <a class="quantity-up text-decoration-none" href="#" data-direction="up">
-                        <i class="fas fa-plus-circle"></i>
-                    </a>
-                </td>
-                {# Montant total pour la quantité du produit #}
-                <td class="align-middle text-right" id="js-montant-product-{{ item.product.id }}">
-                    {{ (item.product.price * item.quantity)|format_currency('EUR', {fraction_digit: 2}) }}
-                </td>
-                {# Bouton pour supprimer un produit du panier #}
-                <td class="align-middle text-right pr-3">
-                    <a class="btn btn-danger" href="{{ path('app_cart_remove', {id: item.product.id}) }}">
-                        <i class="fas fa-trash" aria-hidden="true"></i>
-                    </a>
-                </td>
-            </tr>
-            {% endfor %}
+        <tbody class="js-table-cart-product">
+            {# Ajax: cart products template #}
+            {% include 'cart/_cartProducts.html.twig' %}
         </tbody>
         {# Calcul du montant total du panier #}
         <tfoot class="text-right">

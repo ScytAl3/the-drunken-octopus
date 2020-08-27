@@ -36,8 +36,8 @@ class CartService
 
     /**
      * Ajoute un produit dans le panier ou augmente sa quantité de 1 s'il est déjà présent
-     * @param int $id
-     * 
+     * @param int $id 
+     * @param int $qty 
      * @return array 
      */
     public function add(int $id, int $qty = 1): array
@@ -136,9 +136,9 @@ class CartService
                 // Met à jour la quantité du produit
                 $cart[$id] += $qte;
             }            
-            // Si la quantité devient égale à zéro le produit est retiré du panier
+            // Si la quantité devient égale à zéro
             if ($cart[$id] < 1) {
-                // Suppression de cette variable de session
+                // La quantité par défaut = 1
                 $cart[$id] = 1;
             }
         }
@@ -150,7 +150,7 @@ class CartService
     /**
      * Vérifie la quantité du produit en stock
      * @param int $id 
-     * @param int $q 
+     * @param int $requiredQuantity
      * @return bool 
      */
     private function getStockProduct(int $id, int $requiredQuantity): bool

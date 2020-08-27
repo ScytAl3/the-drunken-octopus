@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -22,6 +23,10 @@ class CartController extends AbstractController
 {
     /**
      * @Route("/cart", name="app_cart_index", methods={"GET"})
+     * @param CartService $cartService 
+     * @return Response 
+     * @throws LogicException 
+     * @throws UnexpectedValueException 
      */
     public function index(CartService $cartService)
     {
@@ -38,10 +43,15 @@ class CartController extends AbstractController
             'total' => $total,
         ]);
     }
-
+    
     /**
      * @Route("/cart/add/{id}", name="app_cart_add", methods={"GET", "POST"})
-     * @var int $id
+     * @param int $id 
+     * @param Request $request 
+     * @param CartService $cartService 
+     * @return RedirectResponse 
+     * @throws SuspiciousOperationException 
+     * @throws LogicException 
      */
     public function add(int $id, Request $request, CartService $cartService)
     {
@@ -59,12 +69,13 @@ class CartController extends AbstractController
         // Redirection vers le panier et focus sur le dernier produit ajouté
         return $this->redirectToRoute('app_cart_index');
     }
-
+    
     /**
      * @Route("/cart/remove/{id}", name="app_cart_remove")
-     * @param int $id
-     * 
-     * @return void 
+     * @param int $id 
+     * @param CartService $cartService 
+     * @return RedirectResponse 
+     * @throws LogicException 
      */
     public function remove(int $id, CartService $cartService)
     {
@@ -78,13 +89,14 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute('app_cart_index');
     }
-
+    
     /**
      * @Route("/cart/{id<\d+>}/quantity/{direction<up|down>}", name="app_cart_update", methods="POST")
      * @param int $id 
-     * @param string $direction
-     * 
-     * @return void 
+     * @param string $direction 
+     * @param CartService $cartService 
+     * @return JsonResponse 
+     * @throws LogicException 
      */
     public function updateQuantity(int $id, string $direction, CartService $cartService): JsonResponse
     {
