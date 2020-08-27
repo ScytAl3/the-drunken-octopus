@@ -28,7 +28,9 @@
         </div>
         {# Caractéristique du produit #}
         <div>
-            <h3>Product features:</h3>
+            <h3>
+                {{ 'show_product.features.title' | trans ({}, 'pagecontent') }}
+            </h3>
         </div>
         <div class="card-deck mt-3">
             {# Couleur #}
@@ -37,7 +39,9 @@
                     <h5 class="card-title">
                         <i class="far fa-eye"></i>
                     </h5>
-                    <p class="card-text">Color</p>
+                    <p class="card-text">
+                        {{ 'show_product.features.visual' | trans ({}, 'pagecontent') }}
+                    </p>
                     <p class="card-text">
                         {{ product.color }}
                     </p>
@@ -50,7 +54,7 @@
                         <i class="fas fa-pepper-hot"></i>
                     </h5>
                     <p class="card-text">
-                        IBU
+                        {{ 'show_product.features.bitterness' | trans ({}, 'pagecontent') }}
                     </p>
                     <p class="card-text">
                         {{ product.ibu }}
@@ -64,7 +68,7 @@
                         <i class="fas fa-temperature-high"></i>
                     </h5>
                     <p class="card-text">
-                        ABV
+                        {{ 'show_product.features.alcohol' | trans ({}, 'pagecontent') }}
                     </p>
                     <p class="card-text">
                         {{ product.alcohol }}
@@ -87,17 +91,19 @@
             <div class="card-body">                
                 <form action="{{ path('app_cart_add', {id: product.id}) }}" method="POST">
                     <div class="row justify-content-between mx-0">
-                        <label class="mb-0" for="quantity">Quantity</label>
+                        <label class="mb-0" for="quantity">
+                            {{ 'show_product.form.label' | trans ({}, 'pagecontent') }}
+                        </label>
                         {# modificateur de quantité#}
                         <div class="quantity-input">
-                            <button class="btn btn-danger btn-sm" type="button"
+                            <button class="btn btn-danger btn-sm py-0" type="button"
                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                                 <span aria-hidden="true">−</span>
                             </button>
-                            <input class="text-center" type="number" name="quantity"
+                            <input class="text-center my-0" type="number" name="quantity"
                                    id="quantity" value="1" min="1" max="" data-id={{ product.id }}
                                    aria-label="quantity">
-                            <button class=" btn btn-success btn-sm" type="button"
+                            <button class=" btn btn-success btn-sm py-0" type="button"
                                     onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
                                 <span aria-hidden="true">+</span>
                             </button>
@@ -106,7 +112,9 @@
                     {# Bouton pour ajouter au panier #}
                     <div>
                         <button class="btn btn-light btn-lg btn-block js-product-add mt-3" type="submit" name="add">
-                            <span class="">Ajouter au panier</span>
+                            <span class="">
+                                {{ 'show_product.form.button' | trans ({}, 'pagecontent') }}
+                            </span>
                         </button>
                     </div>
                 </form>

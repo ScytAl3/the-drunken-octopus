@@ -105,6 +105,23 @@ products:
 #-------------------------------------------------------------------
 
 #element HTML
+show_product:
+    features:
+        title: "Caractéristiques du produit :"
+        visual: Couleur
+        bitterness: Amertume
+        alcohol: "Degré d'alcool"
+
+# element form
+    form:
+        label: Quantité
+        button: Ajouter au panier
+
+#-------------------------------------------------------------------
+#             catalogue de traduction de la page du panier
+#-------------------------------------------------------------------
+
+#element HTML
 cart:
     titlepage: Votre panier
     no_db_result: Vous n'avez pas encore de produits dans votre panier.

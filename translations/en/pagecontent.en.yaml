@@ -101,6 +101,23 @@ products:
     card_product:
         add_button: Add to cart
 
+#-------------------------------------------------------------------
+#             catalogue de traduction de la page du panier
+#-------------------------------------------------------------------
+
+#element HTML
+show_product:
+    features:
+        title: "Product features:"
+        visual: Color
+        bitterness: IBU
+        alcohol: ABV
+
+# element form
+    form:
+        label: Quantity
+        button: Add to cart
+
 #-----------------------------------------------------------------
 #             translation catalog of the cart page
 #-----------------------------------------------------------------
