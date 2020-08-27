@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use UnexpectedValueException;
 
@@ -39,13 +40,17 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/cart/add/{id}", name="app_cart_add", methods={"GET"})
+     * @Route("/cart/add/{id}", name="app_cart_add", methods={"GET", "POST"})
      * @var int $id
      */
-    public function add(int $id, CartService $cartService)
+    public function add(int $id, Request $request, CartService $cartService)
     {
+        // Verifie la method utilisée pour ajouter le produit :
+        // - depuis la page produit -> GET
+        // - depuis la page détail -> POST 
+        $qty = ($request->isMethod('POST')) ? $_POST['quantity'] : 1;
         // Appelle de la methode add() associé au cartService et récupération du message
-        $message = $cartService->add($id);
+        $message = $cartService->add($id, $qty);
         // Création du message flash
         $this->addFlash(
             $message['type'],

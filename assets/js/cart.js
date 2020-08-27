@@ -47,7 +47,6 @@ $(document).ready(function () {
             }
         })
     });
-
 });
 
 console.log('Cart is charged');
