@@ -77,6 +77,37 @@ email_check:
     retry: try again
 
 #-----------------------------------------------------------------
+#            translation catalog of the my account page
+#-----------------------------------------------------------------
+
+#element HTML
+my_account:
+    titlepage: My account
+    welcome: |
+        welcome to your personal space.
+        Here you can manage all your orders and personal information.
+    menu:
+        identity: My personal information
+        address: My addresses
+        orders: History and details of my orders
+    
+#sub account page
+    identity:
+        titlepage: Your personal information
+        subtitle: Do not hesitate to modify your personal information if it has changed.
+    address:
+        titlepage: My addresses
+        information: |
+            Choose your billing and delivery addresses. These will be pre-selected when you place your orders.
+            You can also add other addresses, which is particularly interesting for sending gifts or receiving your order at the office.
+    orders:
+        titlepage: History
+        subtitle: You will find here your past orders since the creation of your account
+    action_link:
+        back_to: My account
+    
+
+#-----------------------------------------------------------------
 #             translation catalog of the products page
 #-----------------------------------------------------------------
 

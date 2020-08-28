@@ -9,7 +9,13 @@ title:
     cartpage: Your cart
     checkoutpage: Cart checkout
     loginpage: Login
-    registerpage: S'inscrire
+    registerpage: Register
+    accountpage:
+      maintitle: My account
+      menu:
+        identity: My informations
+        address: My addresses
+        orders: My orders
     resetpage: 
       request: Reset your password
       checkemail: Envoi Courriel Réinitialisation Mot de passe
@@ -21,7 +27,7 @@ navbar:
   link:
     products: Our beers
     user:
-        profile: Profile
+        profile: My Account
         logout: Logout
 
 # footer

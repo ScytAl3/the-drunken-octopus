@@ -1,37 +1,59 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% block title %} Account | {{ parent() }} {% endblock %}
-
-{% block stylesheets %}
-{{ parent() }}
-<link rel="stylesheet" href="{{ asset('css/_sidenav.css') }}">
-{% endblock %}
-
-
+{% block title %} {{ 'title.accountpage.maintitle' | trans ({}, 'navigation') }} | {{ parent() }} {% endblock %}
 
 {% block body %}
-<div class="row">
-    <!-- Section Side Navigation -->
-    <div class="col-md-3">
-        <!-- Import du template assocée à la sidenav -->
-        {% include 'account/_sidenav.html.twig' %}
-    </div>
-    <!-- /Section Side Navigation -->
 
-    <!-- Section informations du compte -->
-    <div class="col-md-9">
-        <div class="card my-5">
-            <h4 class="card-header py-5">Welcome back, {{ app.user.firstName }} {{ app.user.lastName }}</h4>
-            <div class="card-body">
-                <h5 class="card-title">Manage Your account ?</h5>
-                <a class="btn btn-info" href="#">
-                    <span class="mr-2"><i class="fas fa-pencil-alt"></i></span>Update
-                </a>
-            </div>
-        </div>
-    </div>
-    <!-- /Section informations du compte -->
+{# Titre de la page #}
+<div class="text-center border-bottom border-warning pt-5">
+    <h1 class="text-uppercase text-center">
+        {{ 'my_account.titlepage' | trans ({}, 'pagecontent') }}
+    </h1>
+    <p>
+        {{ app.user.firstName }}, {{ 'my_account.welcome' | trans ({}, 'pagecontent') | nl2br }}
+    </p>
 </div>
+
+{# Affichage de catégories associées au compte #}
+<div class="card-deck text-center justify-content-around my-5">
+    <div class="card col-3">
+        <a href="{{ path('app_account_identity') }}">
+            <div class="card-body">
+                <h2 class="card-title">
+                    <i class="far fa-address-card"></i>
+                </h2>
+                <p class="card-text">
+                    {{ 'my_account.menu.identity' | trans ({}, 'pagecontent') }}
+                </p>
+            </div>
+        </a>
+    </div>
+    <div class="card col-3">
+        <a href="{{ path('app_account_address') }}">
+            <div class="card-body">
+                <h2 class="card-title">
+                    <i class="fas fa-map-marked-alt"></i>
+                </h2>
+                <p class="card-text">
+                    {{ 'my_account.menu.address' | trans ({}, 'pagecontent') }}
+                </p>
+            </div>
+        </a>
+    </div>
+    <div class="card col-3">
+        <a href="{{ path('app_account_address') }}">
+            <div class="card-body">
+                <h2 class="card-title">
+                    <i class="fas fa-file-invoice"></i>
+                </h2>
+                <p class="card-text">
+                    {{ 'my_account.menu.orders' | trans ({}, 'pagecontent') }}
+                </p>
+            </div>
+        </a>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block javascripts %}

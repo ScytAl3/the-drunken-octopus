@@ -75,6 +75,36 @@ email_check:
     spam: Si vous ne recevez pas de courrier électronique, veuillez vérifier votre dossier de courrier indésirable ou
     retry: essayer à nouveau
 
+#-----------------------------------------------------------------
+#            catalogue de traduction de la page mon compte
+#-----------------------------------------------------------------
+
+#element HTML
+my_account:
+    titlepage: Mon compte
+    welcome: |
+        bienvenue sur votre espace personnel.
+        Vous pouvez gérer ici toutes vos commandes et vos informations personnelles.
+    menu:
+        identity: Mes informations personnelles
+        address: Mes adresses
+        orders: Historique et détails de mes commandes
+    
+#account menu
+    identity:
+        titlepage: Vos informations personnelles
+        subtitle: "N'hésitez pas à modifier vos informations personnelles si celles-ci ont changé."
+    address:
+        titlepage: Mes addresses
+        information: |
+            Choisissez vos adresses de facturation et de livraison. Ces dernières seront présélectionnées lors de vos commandes.
+            Vous pouvez également ajouter d'autres adresses, ce qui est particulièrement intéressant pour envoyer des cadeaux ou recevoir votre commande au bureau.
+    orders:
+        titlepage: Historique
+        subtitle:  Vous trouverez ici vos commandes passées depuis la création de votre compte
+    action_link:
+        back_to: Mon compte
+
 #-------------------------------------------------------------------
 #           catalogue de traduction de la page des produits
 #-------------------------------------------------------------------

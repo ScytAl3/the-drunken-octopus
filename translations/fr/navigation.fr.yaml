@@ -9,7 +9,13 @@ title:
     cartpage: Votre panier
     checkoutpage: Panier - paiement 
     loginpage: Connexion
-    registerpage:
+    registerpage: S'inscrire
+    accountpage:
+      maintitle: Mon compte
+      menu:
+        identity: Mes information
+        address: Mes addresses
+        orders: Mes commandes 
     resetpage:
       request: Réinitialiser votre mot de passe
       checkemail: Password Reset Email Sent
@@ -20,7 +26,7 @@ navbar:
   link:
     products: Nos bières
     user:
-        profile: Profil
+        profile: Mon compte
         logout: Se déconnecter
 
 # footer

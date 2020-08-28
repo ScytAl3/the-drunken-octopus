@@ -1,6 +1,0 @@
-/* Permet au formulaire de filtre de suivre le scroll */
-.filter {
-    display: block;
-    position: sticky;
-    top:0;
-}
