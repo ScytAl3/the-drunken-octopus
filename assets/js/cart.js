@@ -32,10 +32,17 @@ $(document).ready(function () {
             },
             dataType: 'json',
             success: function (data) {
-                console.log(data);
+                // console.log(data);
 
-                // mise à jour du produit modifié
-                $("#js-quantity-product-" + $productid).text(data.newQuantity);
+                // Mise à jour du produit qui est en coours de modification
+                // Si la quantité voulue existe en stock
+                if (data.newQuantity) {
+                    // Affiche la nouvelle quantité
+                    $("#js-quantity-product-" + $productid).text(data.newQuantity);
+                } else {
+                    // Sinon affiche une alerte de stock insuffisant
+                    alert("The quantity in stock is insufficient");
+                }
                 $("#js-montant-product-" + $productid).html(data.newTotal);
 
                 // mise a jour de la quantite et du montant total du panier

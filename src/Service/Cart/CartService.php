@@ -135,7 +135,10 @@ class CartService
             if ($this->getStockProduct($id, $qte)) {
                 // Met à jour la quantité du produit
                 $cart[$id] += $qte;
-            }            
+            } else {
+                // Return false pour afficher une alerte sur la quantité en stock
+                return false;
+            }         
             // Si la quantité devient égale à zéro
             if ($cart[$id] < 1) {
                 // La quantité par défaut = 1
