@@ -14,10 +14,22 @@
     </p>
 </div>
 
-{# Boutton retour my account #}
-<a class="btn btn-info btn-sm" href="{{ path('app_account_index') }}">
+{# Boutton retour page principale mon account #}
+<a class="btn btn-info btn-sm mt-3" href="{{ path('app_account_index') }}">
     <i class="fas fa-chevron-circle-left"></i>
     {{ 'my_account.action_link.back_to' | trans ({}, 'pagecontent') }}
 </a>
+
+<div class="col-md-8 rounded shadow mx-auto py-2 my-4">
+    {# Logo du site #}
+    <div class="text-center py-4">
+        <img src="{{ asset('build/images/default/octopus-logo-form.png') | imagine_filter("squared_thumb_smaller") }}"
+             alt="Logo {{ project.name }}">
+    </div>
+    {# /Logo du site #}
+
+    {# Formulaire pour les informations d'identité de l'utilisateur #}
+    {% include 'account/form/_identity.html.twig' %}
+</div>
 
 {% endblock %}

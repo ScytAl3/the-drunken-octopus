@@ -16,8 +16,9 @@
 
 {# Affichage de catégories associées au compte #}
 <div class="card-deck text-center justify-content-around my-5">
+    {# identity #}
     <div class="card col-3">
-        <a href="{{ path('app_account_identity') }}">
+        <a href="{{ path('app_account_identity_edit', {id: app.user.id}) }}">
             <div class="card-body">
                 <h2 class="card-title">
                     <i class="far fa-address-card"></i>
@@ -28,6 +29,7 @@
             </div>
         </a>
     </div>
+    {# address #}
     <div class="card col-3">
         <a href="{{ path('app_account_address') }}">
             <div class="card-body">
@@ -40,6 +42,7 @@
             </div>
         </a>
     </div>
+    {# orders #}
     <div class="card col-3">
         <a href="{{ path('app_account_address') }}">
             <div class="card-body">

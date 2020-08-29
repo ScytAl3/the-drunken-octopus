@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+
+{{ form_row(form.firstName) }}
+
+{{ form_row(form.lastName) }}
+
+{{ form_row(form.birthDate) }}
+
+{{ form_row(form.email) }}
+
+<!-- desactivation de la validation HTML5 avec "formnovalidate" -->
+<div class="my-4">
+    <button type="submit" class="btn btn-primary btn-lg btn-block">
+        Update identity
+    </button>
+</div>
+
+{{ form_end(form) }}
