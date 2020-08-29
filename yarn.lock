@@ -3069,6 +3069,11 @@ findup-sync@^3.0.0:
     micromatch "^3.0.4"
     resolve-dir "^1.0.1"
 
+flag-icon-css@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/flag-icon-css/-/flag-icon-css-3.5.0.tgz#430747d5cb91e60babf85494de99173c16dc7cf2"
+  integrity sha512-pgJnJLrtb0tcDgU1fzGaQXmR8h++nXvILJ+r5SmOXaaL/2pocunQo2a8TAXhjQnBpRLPtZ1KCz/TYpqeNuE2ew==
+
 flip-toolkit@^7.0.11:
   version "7.0.11"
   resolved "https://registry.yarnpkg.com/flip-toolkit/-/flip-toolkit-7.0.11.tgz#b7a1a7e97fd4fa2f3d0cf088f77c422278c9e915"
