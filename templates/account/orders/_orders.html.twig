@@ -1,0 +1,56 @@
+{% for order in orders %}
+
+<div class="row no-gutters bg-white border rounded overflow-hidden flex-md-row shadow-sm position-relative mb-4">
+    {# Order information #}
+    <div class="col-md-10 d-flex flex-column order-md-1 p-4">
+        {# Numéro et date de la commande #}
+        <h4 class="d-inline-block mb-2 text-primary">
+            Commande n° {{ order.id }}
+            datée du
+            <time datetime="{{ order.createdAt|date('d-m-Y') }}">
+                {{ order.createdAt|date('d-m-Y') }}
+            </time>
+        </h4>
+        {# Status de la commande #}
+        <p class="mb-0">
+            Statut de la commande :
+            <span class="text-success">
+                {{ order.payement ? "Commande réglée" : "En attente de réglement"}}
+            </span>
+        </p>
+        {# Montant #}
+        <p class="mb-0">
+            Montant : {{ order.totalPrice|format_currency('EUR', {fraction_digit: 2}) }}
+        </p>
+        {# Mode de réglement #}
+        <p>
+            Mode de paiement :
+        </p>
+        {# Aperçu des produit#}
+        <div class="row">
+            {# Boucle sur la liste des produits achetés associés à la commande#}
+            {% for purchaseProduct in order.purchaseProducts %}
+            <div class="ml-2">
+                <img src="{{ (purchaseProduct.product.imageName ? vich_uploader_asset(purchaseProduct.product) : asset('build/images/default/placeholder.jpg')) | imagine_filter("squared_thumb_xsmall") }}"
+                     alt="Image of {{purchaseProduct.product.title}}">                
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {# Order buton #}
+    <div class="col-md-2 order-md-1 py-3 px-2">
+        {# Afficher détails de la commande #}
+        <a class="btn btn-primary btn-block" href="{{ path('app_account_order_show', {id: order.id}) }}">
+            Voir détail
+        </a>
+        {# Suivre colis #}
+        <a class="btn btn-outline-primary btn-block" target="_blank" href="http://www.colissimo.fr/portail_colissimo/">
+            Suivre mon colis
+        </a>
+        {# Demander un retour #}
+        <a class="btn btn-outline-primary btn-block" href="#">Demander un retour
+        </a>
+    </div>
+</div>
+{% endfor %}

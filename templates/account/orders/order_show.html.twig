@@ -1,0 +1,63 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %} {{ 'title.accountpage.menu.orders' | trans ({}, 'navigation') }} | {{ parent() }} {% endblock %}
+
+{% block body %}
+
+{# Titre de la page #}
+<div class="text-center border-bottom border-warning pt-5">
+    <h1 class="text-uppercase text-center">
+        {#{ 'my_account.orders.titlepage' | trans ({}, 'pagecontent') }#}
+
+    </h1>
+    <p>
+        {#{ 'my_account.orders.subtitle' | trans ({}, 'pagecontent') }#}
+    </p>
+</div>
+
+{# Boutton retour order history #}
+<div class="text-center mt-3">
+    <a class="btn btn-info btn-sm" href="{{ path('app_account_order_history', {id: app.user.id}) }}">
+        <i class="fas fa-chevron-circle-left"></i>
+        {{ 'my_account.action_link.back_to' | trans ({}, 'pagecontent') }}
+    </a>
+</div>
+
+{# Block pour afficher la liste des produits associés à la commande #}
+<div>
+    {# Tableau des produits dans le panier #}
+    <table class="table table-striped mt-3">
+        {# Entête du tableau #}
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    {{ 'cart.table_header.product' | trans ({}, 'pagecontent') }}
+                </th>
+                <th></th>
+                <th class="text-center">
+                    {{ 'cart.table_header.quantity' | trans ({}, 'pagecontent') }}
+                </th>
+                <th class="text-right">Total</th>
+            </tr>
+        </thead>
+        {# Corps du tableau: liste des produits #}
+        <tbody class="js-tbody-cart-product">
+            {# Import: purchased products template #}
+            {% include 'account/orders/_purchasedProducts.html.twig' %}
+        </tbody>
+        {# Calcul du montant total du panier #}
+        <tfoot class="text-right">
+            <tr style="height:20px;">
+            </tr>
+            <tr class="table-info">
+                <td colspan="3">Total :</td>
+                <td id="js-cart-total">
+                    {#{ total|format_currency('EUR', {fraction_digit: 2}) }#}
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    
+</div>
+
+{% endblock %}

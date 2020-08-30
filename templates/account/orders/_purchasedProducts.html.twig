@@ -1,0 +1,21 @@
+{% for purchasedProduct in purchasedProducts %}
+<tr>
+    <td colspan="2">
+        {# Photo du produit #}
+        <img src="{{ (purchasedProduct.product.imageName ? vich_uploader_asset(purchasedProduct.product) : asset('build/images/default/placeholder.jpg')) | imagine_filter("squared_thumb_xsmall") }}"
+             alt="Image of {{purchasedProduct.product.title}}">
+        {# Nom du produit #}
+        <span class="ml-2">
+            {{ purchasedProduct.product.title }}
+        </span>
+    </td>
+    {# Quantité du produit #}
+    <td class="align-middle text-center">
+        {{ purchasedProduct.quantity }}
+    </td>
+    {# Montant total pour la quantité du produit #}
+    <td class="align-middle text-right" id="js-montant-product-{{ purchasedProduct.product.id }}">
+        {{ (purchasedProduct.product.price * purchasedProduct.quantity)|format_currency('EUR', {fraction_digit: 2}) }}
+    </td>
+</tr>
+{% endfor %}

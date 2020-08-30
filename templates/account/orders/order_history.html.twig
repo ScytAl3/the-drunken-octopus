@@ -1,0 +1,45 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %} {{ 'title.accountpage.menu.orders' | trans ({}, 'navigation') }} | {{ parent() }} {% endblock %}
+
+{% block body %}
+
+{# Titre de la page #}
+<div class="text-center border-bottom border-warning pt-5">
+    <h1 class="text-uppercase text-center">
+        {{ 'my_account.orders.titlepage' | trans ({}, 'pagecontent') }}
+    </h1>
+    <p>
+        {{ 'my_account.orders.subtitle' | trans ({}, 'pagecontent') }}
+    </p>
+</div>
+
+{# Boutton retour my account #}
+<div class="text-center mt-3">
+    <a class="btn btn-info btn-sm" href="{{ path('app_account_index') }}">
+        <i class="fas fa-chevron-circle-left"></i>
+        {{ 'my_account.action_link.back_to' | trans ({}, 'pagecontent') }}
+    </a>
+</div>
+
+{# Block pour afficher la liste des commandes associées à l'utilisateur connecté #}
+<div class="my-5">
+
+    {# Si des commandes ont été passé par l'utilisateur #}
+    {% if orders|length > 0 %}
+
+        {# Import: orders template #}
+        {% include 'account/orders/_orders.html.twig' %}
+        
+    {# Sinon : message si l'historique est vide #}
+    {% else %}
+        <div class="alert alert-info text-center" role="alert">
+            <p class="h3 text-center mb-0">
+                Vous n'avez passé aucune commande encore !
+            </p>
+        </div>
+    {% endif %}
+    
+</div>
+
+{% endblock %}
