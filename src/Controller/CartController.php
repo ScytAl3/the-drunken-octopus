@@ -175,6 +175,7 @@ class CartController extends AbstractController
             // Passage des paramètres pour la création de la commande
             $order
                 ->setUser($user)
+                ->setTotalPrice($cartService->getTotalCart())
                 ->setPayement(false);
             $em->persist($order);
             $em->flush();
