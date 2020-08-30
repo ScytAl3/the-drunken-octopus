@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\PurchaseOrder;
 use App\Entity\User;
 use App\Security\EmailVerifier;
 use Symfony\Component\Mime\Address;
 use App\Form\AccountIdentityFormType;
+use App\Repository\PurchaseOrderRepository;
+use App\Repository\PurchaseProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -95,14 +98,30 @@ class AccountController extends AbstractController
      */
     public function address()
     {
-        return $this->render('account/address.html.twig', []);
+        return $this->render('account/addresses/address.html.twig', []);
     }
 
     /**
-     * @Route("/account/order-history", name="app_account_order_history", methods={"GET"})
+     * @Route("/account/{id<[0-9]+>}/order-history", name="app_account_order_history", methods={"GET"})
      */
-    public function orderHistory()
+    public function orderHistory(PurchaseOrderRepository $repo, User $user, Request $request): Response
     {
-        return $this->render('account/order_history.html.twig', []);
+        $orders = $repo->findOrderHistory($user->getId());
+        // dd($orders);
+        return $this->render('account/orders/order_history.html.twig', [
+            'orders' => $orders,
+        ]);
+    }
+
+    /**
+     * @Route("/account/order-history/{id<[0-9]+>}", name="app_account_order_show", methods={"GET"})
+     */
+    public function showOrder(PurchaseProductRepository $repo, PurchaseOrder $order, Request $request): Response
+    {
+        $purchasedProducts = $repo->findPurchasedProducts($order->getId());
+        // dd($purchasedProducts);
+        return $this->render('account/orders/order_show.html.twig', [
+            'purchasedProducts' => $purchasedProducts,
+        ]);
     }
 }

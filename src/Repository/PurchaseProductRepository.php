@@ -2,9 +2,13 @@
 
 namespace App\Repository;
 
+use Doctrine\ORM\QueryBuilder;
 use App\Entity\PurchaseProduct;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\ORMException;
+use InvalidArgumentException;
+use RuntimeException;
 
 /**
  * @method PurchaseProduct|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +23,40 @@ class PurchaseProductRepository extends ServiceEntityRepository
         parent::__construct($registry, PurchaseProduct::class);
     }
 
-    // /**
-    //  * @return PurchaseProduct[] Returns an array of PurchaseProduct objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Retourne la liste des produits associés à cette commande
+     * @param int $orderId 
+     * @return PurchaseProduct[] 
+     * @throws InvalidArgumentException 
+     * @throws RuntimeException 
+     * @throws ORMException 
+     */
+    public function findPurchasedProducts(Int $orderId): array
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->getPurchasedProductQuery($orderId)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?PurchaseProduct
+    /**
+     * Retourne la requête construite
+     * @param int $id 
+     * @return QueryBuilder 
+     * @throws InvalidArgumentException 
+     * @throws RuntimeException 
+     */
+    private function getPurchasedProductQuery(Int $id): QueryBuilder
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        // Construction de la requête
+        $query = $this
+            ->createQueryBuilder('p')
+            ->addSelect('o')            // Jointure sur la table orders
+            ->join('p.purchaseOrder', 'o')
+            ->addSelect('i')            // Jointure sur la table products
+            ->join('p.product', 'i')
+            ->where('p.purchaseOrder = :val')
+            ->setParameter('val', $id);
+
+        return $query;
     }
-    */
 }

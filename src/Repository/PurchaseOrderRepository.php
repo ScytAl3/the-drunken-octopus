@@ -4,7 +4,11 @@ namespace App\Repository;
 
 use App\Entity\PurchaseOrder;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use InvalidArgumentException;
+use RuntimeException;
 
 /**
  * @method PurchaseOrder|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +23,43 @@ class PurchaseOrderRepository extends ServiceEntityRepository
         parent::__construct($registry, PurchaseOrder::class);
     }
 
-    // /**
-    //  * @return PurchaseOrder[] Returns an array of PurchaseOrder objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Retourne la liste des commandes de l'utilisateur connecté
+     * @param int $userId 
+     * @return PurchaseOrder[] 
+     * @throws InvalidArgumentException 
+     * @throws RuntimeException 
+     * @throws ORMException 
+     */
+    public function findOrderHistory(Int $userId): array
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->getOrderHistoryQuery($userId)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?PurchaseOrder
+    /**
+     * Retourne la requête construite
+     * @param int $id 
+     * 
+     * @return QueryBuilder 
+     * @throws InvalidArgumentException 
+     * @throws RuntimeException 
+     */
+    private function getOrderHistoryQuery(Int $id): QueryBuilder
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        // Construction de la requête
+        $query = $this
+            ->createQueryBuilder('p')
+            ->addSelect('u')            // Jointure sur la table Users
+            ->join('p.user', 'u')
+            ->addSelect('l')            // Jointure sur la table purchase_products
+            ->join('p.purchaseProducts', 'l')
+            ->addSelect('i')            // Jointure sur la table products
+            ->join('l.product', 'i')
+            ->where('u.id = :val')
+            ->setParameter('val', $id);
+        
+        return $query;
     }
-    */
 }

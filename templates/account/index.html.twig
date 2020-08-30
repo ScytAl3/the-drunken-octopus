@@ -44,7 +44,7 @@
     </div>
     {# orders #}
     <div class="card col-3">
-        <a href="{{ path('app_account_address') }}">
+        <a href="{{ path('app_account_order_history', {id: app.user.id}) }}">
             <div class="card-body">
                 <h2 class="card-title">
                     <i class="fas fa-file-invoice"></i>
