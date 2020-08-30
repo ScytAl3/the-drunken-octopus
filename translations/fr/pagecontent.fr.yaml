@@ -94,6 +94,14 @@ my_account:
     identity:
         titlepage: Vos informations personnelles
         subtitle: "N'hésitez pas à modifier vos informations personnelles si celles-ci ont changé."
+        # element form
+        form:
+            firstname: Prénom
+            lastname: Nom
+            birth: Date de naissance
+            email: Adresse email
+            button: Mettre à jour l'identité
+
     address:
         titlepage: Mes addresses
         information: |
@@ -102,6 +110,26 @@ my_account:
     orders:
         titlepage: Historique
         subtitle:  Vous trouverez ici vos commandes passées depuis la création de votre compte
+        history_page:
+            order_id: Commande
+            order_date: datée du
+            statut: "Statut de la commande :"
+            amount: Montant
+            payement: Mode de paiement
+            buttons:
+                show: Voir detail
+                track: Suivre mon colis
+                return: Demander un retour
+        detail_page:
+            title: Commande
+            date: En date du
+            table_header:
+                product: Produit
+                quantity: Quantité
+
+            action_link:
+                back_to: Mes commandes
+
     action_link:
         back_to: Mon compte
 

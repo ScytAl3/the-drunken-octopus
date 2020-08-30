@@ -23,7 +23,7 @@ class RegistrationFormType extends AbstractType
                 'label' => 'register.form.firstname',
             ])
             ->add('lastName', TextType::class, [
-            'label' => 'register.form.lastname',
+                'label' => 'register.form.lastname',
             ])
             ->add('email', EmailType::class, [
                 'label' => 'register.form.email',

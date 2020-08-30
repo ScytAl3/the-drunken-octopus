@@ -16,6 +16,7 @@ title:
         identity: Mes information
         address: Mes addresses
         orders: Mes commandes 
+        order_detail: Commande - détail
     resetpage:
       request: Réinitialiser votre mot de passe
       checkemail: Password Reset Email Sent

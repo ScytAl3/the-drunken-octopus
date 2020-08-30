@@ -104,7 +104,7 @@ class AccountController extends AbstractController
     /**
      * @Route("/account/{id<[0-9]+>}/order-history", name="app_account_order_history", methods={"GET"})
      */
-    public function orderHistory(PurchaseOrderRepository $repo, User $user, Request $request): Response
+    public function orderHistory(PurchaseOrderRepository $repo, User $user): Response
     {
         $orders = $repo->findOrderHistory($user->getId());
         // dd($orders);
@@ -116,12 +116,14 @@ class AccountController extends AbstractController
     /**
      * @Route("/account/order-history/{id<[0-9]+>}", name="app_account_order_show", methods={"GET"})
      */
-    public function showOrder(PurchaseProductRepository $repo, PurchaseOrder $order, Request $request): Response
+    public function showOrder(PurchaseProductRepository $repo, PurchaseOrder $order): Response
     {
         $purchasedProducts = $repo->findPurchasedProducts($order->getId());
         // dd($purchasedProducts);
         return $this->render('account/orders/order_show.html.twig', [
             'purchasedProducts' => $purchasedProducts,
+            'orderId' => $order->getId(),
+            'date' => $order->getCreatedAt(),
         ]);
     }
 }

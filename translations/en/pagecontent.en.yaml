@@ -95,6 +95,14 @@ my_account:
     identity:
         titlepage: Your personal information
         subtitle: Do not hesitate to modify your personal information if it has changed.
+        # element form
+        form:
+            firstname: First name
+            lastname: Name
+            birth: Birth date
+            email: Email address
+            button: Update identity
+
     address:
         titlepage: My addresses
         information: |
@@ -103,6 +111,26 @@ my_account:
     orders:
         titlepage: History
         subtitle: You will find here your past orders since the creation of your account
+        history_page:
+            order_id: Order
+            order_date: dated
+            statut: "Order status:"
+            amount: Amount
+            payement: Method of payment
+            buttons:
+                show: See details
+                track: Track my package
+                return: Request a return
+        detail_page:
+            title: Order
+            date: Dated
+            table_header:
+                product: Product
+                quantity: Quantity
+            
+            action_link:
+                back_to: My order history
+
     action_link:
         back_to: My account
     

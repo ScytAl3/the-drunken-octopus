@@ -5,26 +5,27 @@
     <div class="col-md-10 d-flex flex-column order-md-1 p-4">
         {# Numéro et date de la commande #}
         <h4 class="d-inline-block mb-2 text-primary">
-            Commande n° {{ order.id }}
-            datée du
+            {{ 'my_account.orders.history_page.order_id' | trans ({}, 'pagecontent') }} n° {{ order.id }}
+            {{ 'my_account.orders.history_page.order_date' | trans ({}, 'pagecontent') }}
             <time datetime="{{ order.createdAt|date('d-m-Y') }}">
                 {{ order.createdAt|date('d-m-Y') }}
             </time>
         </h4>
         {# Status de la commande #}
         <p class="mb-0">
-            Statut de la commande :
+            {{ 'my_account.orders.history_page.statut' | trans ({}, 'pagecontent') }}
             <span class="text-success">
                 {{ order.payement ? "Commande réglée" : "En attente de réglement"}}
             </span>
         </p>
         {# Montant #}
         <p class="mb-0">
-            Montant : {{ order.totalPrice|format_currency('EUR', {fraction_digit: 2}) }}
+            {{ 'my_account.orders.history_page.amount' | trans ({}, 'pagecontent') }}
+            {{ order.totalPrice|format_currency('EUR', {fraction_digit: 2}) }}
         </p>
         {# Mode de réglement #}
         <p>
-            Mode de paiement :
+            {{ 'my_account.orders.history_page.payement' | trans ({}, 'pagecontent') }}
         </p>
         {# Aperçu des produit#}
         <div class="row">
@@ -42,14 +43,15 @@
     <div class="col-md-2 order-md-1 py-3 px-2">
         {# Afficher détails de la commande #}
         <a class="btn btn-primary btn-block" href="{{ path('app_account_order_show', {id: order.id}) }}">
-            Voir détail
+            {{ 'my_account.orders.history_page.buttons.show' | trans ({}, 'pagecontent') }}
         </a>
         {# Suivre colis #}
         <a class="btn btn-outline-primary btn-block" target="_blank" href="http://www.colissimo.fr/portail_colissimo/">
-            Suivre mon colis
+            {{ 'my_account.orders.history_page.buttons.track' | trans ({}, 'pagecontent') }}
         </a>
         {# Demander un retour #}
-        <a class="btn btn-outline-primary btn-block" href="#">Demander un retour
+        <a class="btn btn-outline-primary btn-block" href="#">
+            {{ 'my_account.orders.history_page.buttons.return' | trans ({}, 'pagecontent') }}
         </a>
     </div>
 </div>

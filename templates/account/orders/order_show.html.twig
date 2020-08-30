@@ -1,17 +1,21 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% block title %} {{ 'title.accountpage.menu.orders' | trans ({}, 'navigation') }} | {{ parent() }} {% endblock %}
+{% block title %} {{ 'title.accountpage.menu.order_detail' | trans ({}, 'navigation') }} | {{ parent() }} {% endblock %}
 
 {% block body %}
 
 {# Titre de la page #}
 <div class="text-center border-bottom border-warning pt-5">
     <h1 class="text-uppercase text-center">
-        {#{ 'my_account.orders.titlepage' | trans ({}, 'pagecontent') }#}
-
+        {{ 'my_account.orders.detail_page.title' | trans ({}, 'pagecontent') }}
+        n°
+        {{ orderId }}
     </h1>
     <p>
-        {#{ 'my_account.orders.subtitle' | trans ({}, 'pagecontent') }#}
+        {{ 'my_account.orders.detail_page.date' | trans ({}, 'pagecontent') }}
+        <time datetime="{{ date|date('d-m-Y') }}">
+            {{ date|date('d-m-Y') }}
+        </time>
     </p>
 </div>
 
@@ -19,7 +23,7 @@
 <div class="text-center mt-3">
     <a class="btn btn-info btn-sm" href="{{ path('app_account_order_history', {id: app.user.id}) }}">
         <i class="fas fa-chevron-circle-left"></i>
-        {{ 'my_account.action_link.back_to' | trans ({}, 'pagecontent') }}
+        {{ 'my_account.orders.detail_page.action_link.back_to' | trans ({}, 'pagecontent') }}
     </a>
 </div>
 
@@ -31,17 +35,17 @@
         <thead class="thead-dark">
             <tr>
                 <th>
-                    {{ 'cart.table_header.product' | trans ({}, 'pagecontent') }}
+                    {{ 'my_account.orders.detail_page.table_header.product' | trans ({}, 'pagecontent') }}
                 </th>
                 <th></th>
                 <th class="text-center">
-                    {{ 'cart.table_header.quantity' | trans ({}, 'pagecontent') }}
+                    {{ 'my_account.orders.detail_page.table_header.quantity' | trans ({}, 'pagecontent') }}
                 </th>
                 <th class="text-right">Total</th>
             </tr>
         </thead>
         {# Corps du tableau: liste des produits #}
-        <tbody class="js-tbody-cart-product">
+        <tbody>
             {# Import: purchased products template #}
             {% include 'account/orders/_purchasedProducts.html.twig' %}
         </tbody>
@@ -57,7 +61,7 @@
             </tr>
         </tfoot>
     </table>
-    
+
 </div>
 
 {% endblock %}
