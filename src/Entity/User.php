@@ -121,10 +121,16 @@ class User implements UserInterface
      */
     private $purchaseOrders;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ShippingAddresses::class, mappedBy="user")
+     */
+    private $shippingAddress;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
         $this->purchaseOrders = new ArrayCollection();
+        $this->shippingAddress = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -278,6 +284,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($purchaseOrder->getUser() === $this) {
                 $purchaseOrder->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ShippingAddresses[]
+     */
+    public function getShippingAddress(): Collection
+    {
+        return $this->shippingAddress;
+    }
+
+    public function addShippingAddress(ShippingAddresses $shippingAddress): self
+    {
+        if (!$this->shippingAddress->contains($shippingAddress)) {
+            $this->shippingAddress[] = $shippingAddress;
+            $shippingAddress->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShippingAddress(ShippingAddresses $shippingAddress): self
+    {
+        if ($this->shippingAddress->contains($shippingAddress)) {
+            $this->shippingAddress->removeElement($shippingAddress);
+            // set the owning side to null (unless already changed)
+            if ($shippingAddress->getUser() === $this) {
+                $shippingAddress->setUser(null);
             }
         }
 

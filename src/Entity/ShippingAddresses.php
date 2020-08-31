@@ -74,6 +74,11 @@ class ShippingAddresses
      */
     private $sameForBilling;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="shippingAddress")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -171,6 +176,18 @@ class ShippingAddresses
     public function setSameForBilling(bool $sameForBilling): self
     {
         $this->sameForBilling = $sameForBilling;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
