@@ -1,0 +1,64 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %} {{ 'title.accountpage.menu.address' | trans ({}, 'navigation') }} | {{ parent() }} {% endblock %}
+
+{% block body %}
+
+{# Titre de la page #}
+<div class="text-center border-bottom border-warning pt-5">
+    <h1 class="text-uppercase text-center">
+        {{ 'my_account.address.titlepage' | trans ({}, 'pagecontent') }}
+    </h1>
+    <p>
+        {{ 'my_account.address.information' | trans ({}, 'pagecontent') | nl2br }}
+    </p>
+</div>
+
+{# Boutton retour my account #}
+<div class="text-center mt-3">
+    <a class="btn btn-info btn-sm" href="{{ path('app_account_index') }}">
+        <i class="fas fa-chevron-circle-left"></i>
+        {{ 'my_account.action_link.back_to' | trans ({}, 'pagecontent') }}
+    </a>
+</div>
+
+{# Block pour afficher la liste des commandes associées à l'utilisateur connecté #}
+<div class="my-5">
+
+    <div class="row row-cols-1 row-cols-md-3 mb-4">
+        {# Si des adresses ont été enregistrée par l'utilisateur #}
+        {% if addresses|length > 0 %}
+
+        {# Import: addresses list template #}
+        {% include 'account/addresses/_addresses.html.twig' %}
+
+        {# Sinon : message aucune adresse enregistrée #}
+        {% else %}
+        <div class="alert alert-info text-center" role="alert">
+            <p class="h3 text-center mb-0">
+                Vous n'avez pas encore enregistré d'adresse de livraison !
+            </p>
+        </div>
+        {% endif %}
+
+        {# Button to add address #}
+        <div class="col mb-4">
+            <div class="card h100">
+                <a href="{{ path('app_account_address_create', {id: app.user.id}) }}">
+                    <div class="card-body text-center">
+                        {# Address name #}
+                        <h5 class="card-title">
+                            <i class="fas fa-plus-circle"></i>                            
+                        </h5>
+                        <p class="card-text">
+                            Add address
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

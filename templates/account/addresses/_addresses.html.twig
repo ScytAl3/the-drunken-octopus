@@ -1,0 +1,37 @@
+{% for address in addresses %}
+
+<div class="col mb-4">
+    <div class="card h100">
+        <div class="card-body">
+            {# Address name #}
+            <h5 class="card-title">
+                {{ address.name }}
+            </h5>
+            {# Address informations #}
+            <ul class="card-text list-unstyled">
+                <li>
+                    {{ address.address }}
+                </li>
+                <li>
+                    {{ address.address2 }}
+                </li>
+                <li>{{ address.zipcode }} {{ address.city }}</li>
+                <li>{{ address.country }}</li>
+                <li>{{ address.phone }}</li>
+            </ul>
+            {# Action buttons #}
+            <div class="row justify-content-around">
+                <a class="btn btn-outline-danger" href="#">
+                    <i class="fas fa-trash" aria-hidden="true"></i>
+                    Delete
+                </a>
+                <a class="btn btn-primary" href="#">
+                    <i class="fas fa-edit"></i>
+                    Update
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}

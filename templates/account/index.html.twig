@@ -18,7 +18,7 @@
 <div class="card-deck text-center justify-content-around my-5">
     {# identity #}
     <div class="card col-3">
-        <a href="{{ path('app_account_identity_edit', {id: app.user.id}) }}">
+        <a href="{{ path('app_account_identity_edit') }}">
             <div class="card-body">
                 <h2 class="card-title">
                     <i class="far fa-address-card"></i>
@@ -44,7 +44,7 @@
     </div>
     {# orders #}
     <div class="card col-3">
-        <a href="{{ path('app_account_order_history', {id: app.user.id}) }}">
+        <a href="{{ path('app_account_order_history') }}">
             <div class="card-body">
                 <h2 class="card-title">
                     <i class="fas fa-file-invoice"></i>

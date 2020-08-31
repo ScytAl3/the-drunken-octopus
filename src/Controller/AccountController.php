@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\PurchaseOrder;
+use App\Entity\ShippingAddresses;
 use App\Entity\User;
 use App\Security\EmailVerifier;
 use Symfony\Component\Mime\Address;
 use App\Form\AccountIdentityFormType;
+use App\Form\ShippingAddressFormType;
 use App\Repository\PurchaseOrderRepository;
 use App\Repository\PurchaseProductRepository;
+use App\Repository\ShippingAddressesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,10 +34,12 @@ class AccountController extends AbstractController
     }
 
     /**
-     * @Route("/account/{id<[0-9]+>}/identity/edit", name="app_account_identity_edit", methods={"GET", "PUT"})
+     * @Route("/account/identity/edit", name="app_account_identity_edit", methods={"GET", "PUT"})
      */
-    public function identityEdit(Request $request, EntityManagerInterface $em, User $user, EmailVerifier $emailVerifier): Response
+    public function identityEdit(Request $request, EntityManagerInterface $em, EmailVerifier $emailVerifier): Response
     {
+        // Recupère l'utilisateur courant
+        $user = $this->getUser();
         // Création du formulaire de modification de l'identité
         $form = $this->createForm(AccountIdentityFormType::class, $user, [
             'method' => 'PUT',
@@ -96,16 +101,59 @@ class AccountController extends AbstractController
     /**
      * @Route("/account/address", name="app_account_address", methods={"GET"})
      */
-    public function address()
+    public function address(ShippingAddressesRepository $repo): Response
     {
-        return $this->render('account/addresses/address.html.twig', []);
+        // Recupère l'utilisateur courant
+        $user = $this->getUser();
+        // Recupère les addresses associées
+        $addresses = $repo->findBy(['user' => $user->getId()]);
+        // dd($addresses);
+        return $this->render('account/addresses/address_list.html.twig', [
+            'addresses' => $addresses,
+        ]);
     }
 
     /**
-     * @Route("/account/{id<[0-9]+>}/order-history", name="app_account_order_history", methods={"GET"})
+     * @Route("/account/address/create", name="app_account_address_create", methods={"GET", "POST"})
      */
-    public function orderHistory(PurchaseOrderRepository $repo, User $user): Response
+    public function create_address(Request $request, EntityManagerInterface $em): Response
     {
+        // Recupère l'utilisateur courant
+        $user = $this->getUser();
+        // Instanciation d'une nouvelle class <address></address>
+        $address = new ShippingAddresses;
+
+        $form = $this->createForm(ShippingAddressFormType::class, $address);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $address->setUser($user);
+            $em->persist($address);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Address created successfully!'
+            );
+
+            // redirige vers la page qui montre les adresses associées au compte
+            return $this->redirectToRoute('app_account_address', []);
+        }
+
+        return $this->render('account/addresses/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/account/order-history", name="app_account_order_history", methods={"GET"})
+     */
+    public function orderHistory(PurchaseOrderRepository $repo): Response
+    {
+        // Recupère l'utilisateur courant
+        $user = $this->getUser();
+        // Récupère l'historique des commandes
         $orders = $repo->findOrderHistory($user->getId());
         // dd($orders);
         return $this->render('account/orders/order_history.html.twig', [
