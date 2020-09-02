@@ -189,6 +189,7 @@ products:
         new: New products
     card_product:
         add_button: Add to cart
+        outOfStock: Out of stock
 
 #-------------------------------------------------------------------
 #             catalogue de traduction de la page du panier
@@ -205,7 +206,9 @@ show_product:
 # element form
     form:
         label: Quantity
-        button: Add to cart
+        buttons:
+            add: Add to cart
+            outOfStock: Out of stock
 
 #-----------------------------------------------------------------
 #             translation catalog of the cart page

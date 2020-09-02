@@ -2,6 +2,7 @@
 
 namespace App\Twig;
 
+use App\Entity\Product;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
@@ -49,6 +50,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('pluralize', [$this, 'pluralize']),
             new TwigFunction('set_active_route', [$this, 'setActiveRoute']),
             new TwigFunction('set_cart_counter', [$this, 'setCartCount']),
+            new TwigFunction('available_or_sold_out', [$this, 'availableOrSoldOut'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -103,5 +105,16 @@ class AppExtension extends AbstractExtension
         }
         // retourne la quantité totale - sinon 0
         return $count;
+    }
+
+    /**
+     * Vérifie la quantité en stock : le lien d'ajout au panier sera désactivé si la quantité = 0
+     *
+     * @param Product $product
+     * @return string
+     */
+    public function availableOrSoldOut(Product $product): string
+    {
+        return ($product->getQuantity() == 0) ? 'disabled' : '';
     }
 }

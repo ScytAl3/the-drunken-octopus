@@ -9,8 +9,13 @@
         </div>
         {# Nom et prix du produit #}
         <div class="card-body px-0 pt-0">
-            <a href="{{path('app_cart_add', {id: product.id}) }}" class="btn btn-warning btn-lg btn-block rounded-0">
-                {{ 'products.card_product.add_button' | trans ({}, 'pagecontent') }}
+            <a href="{{path('app_cart_add', {id: product.id}) }}"
+               class="btn btn-warning btn-lg btn-block rounded-0 {{ available_or_sold_out(product) }}">
+                {% if product.quantity == 0 %}
+                    {{ 'products.card_product.outOfStock' | trans ({}, 'pagecontent') }}
+                {% else %}
+                    {{ 'products.card_product.add_button' | trans ({}, 'pagecontent') }}
+                {% endif %}
             </a>
             <div class="text-center">
                 <h5 class="card-title mt-2 pl-3">{{ product.title }}</h5>

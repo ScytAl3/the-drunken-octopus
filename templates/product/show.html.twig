@@ -111,10 +111,17 @@
                     </div>
                     {# Bouton pour ajouter au panier #}
                     <div>
-                        <button class="btn btn-light btn-lg btn-block js-product-add mt-3" type="submit" name="add">
-                            <span class="">
-                                {{ 'show_product.form.button' | trans ({}, 'pagecontent') }}
-                            </span>
+                        <button class="btn btn-light btn-lg btn-block js-product-add mt-3" type="submit" name="add" {{ available_or_sold_out(product) }}>
+                            {% if product.quantity == 0 %}
+                                <span>
+                                    {{ 'show_product.form.buttons.outOfStock' | trans ({}, 'pagecontent') }}
+                                </span>
+                            {% else %}
+                                <span>
+                                    {{ 'show_product.form.buttons.add' | trans ({}, 'pagecontent') }}
+                                </span>
+                            {% endif %}
+                            
                         </button>
                     </div>
                 </form>

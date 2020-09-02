@@ -186,9 +186,10 @@ products:
         new: Nouveautés
     card_product:
         add_button: Ajouter au panier
+        outOfStock: En rupture
 
 #-------------------------------------------------------------------
-#             catalogue de traduction de la page du panier
+#          catalogue de traduction de la page détail du produit
 #-------------------------------------------------------------------
 
 #element HTML
@@ -202,7 +203,9 @@ show_product:
 # element form
     form:
         label: Quantité
-        button: Ajouter au panier
+        buttons:
+            add: Ajouter au panier
+            outOfStock: En rupture
 
 #-------------------------------------------------------------------
 #             catalogue de traduction de la page du panier
