@@ -99,9 +99,9 @@ class AccountController extends AbstractController
     }
 
     /**
-     * @Route("/account/address", name="app_account_address", methods={"GET"})
+     * @Route("/account/address/list", name="app_account_address_list", methods={"GET"})
      */
-    public function address(ShippingAddressesRepository $repo): Response
+    public function address_list(ShippingAddressesRepository $repo): Response
     {
         // Recupère l'utilisateur courant
         $user = $this->getUser();
@@ -116,11 +116,11 @@ class AccountController extends AbstractController
     /**
      * @Route("/account/address/create", name="app_account_address_create", methods={"GET", "POST"})
      */
-    public function create_address(Request $request, EntityManagerInterface $em): Response
+    public function address_create(Request $request, EntityManagerInterface $em): Response
     {
         // Recupère l'utilisateur courant
         $user = $this->getUser();
-        // Instanciation d'une nouvelle class <address></address>
+        // Instanciation d'une nouvelle class ShippingAddresses
         $address = new ShippingAddresses;
 
         $form = $this->createForm(ShippingAddressFormType::class, $address);
@@ -138,14 +138,64 @@ class AccountController extends AbstractController
             );
 
             // redirige vers la page qui montre les adresses associées au compte
-            return $this->redirectToRoute('app_account_address', []);
+            return $this->redirectToRoute('app_account_address_list', []);
         }
-
+        
         return $this->render('account/addresses/create.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
+    /**
+     * @Route("/account/address/{id<[0-9]+>}/edit", name="app_account_address_edit", methods={"GET", "PUT"})
+     */
+    public function address_edit(Request $request, EntityManagerInterface $em, ShippingAddresses $address): Response
+    {
+        // Recupère l'utilisateur courant
+        $user = $this->getUser();
+        // Création du formulaire de modification de l'adresse
+        $form = $this->createForm(ShippingAddressFormType::class, $address, [
+            'method' => 'PUT',
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($address);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Address updated successfully!'
+            );
+
+            // redirige vers la page qui montre les adresses associées au compte
+            return $this->redirectToRoute('app_account_address_list', []);
+        }
+
+        return $this->render('account/addresses/update.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/account/address/{id<[0-9]+>}", name="app_account_address_delete", methods={"DELETE"})
+     */
+    public function address_delete(Request $request, EntityManagerInterface $em, ShippingAddresses $address): Response
+    {
+        if ($this->isCsrfTokenValid('address_delete_' . $address->getId(), $request->request->get('_csrf_token'))) {
+
+            $em->remove($address);
+            $em->flush();
+        }
+
+        $this->addFlash(
+            'danger',
+            'Shipping address deleted successfully!'
+        );
+
+        return $this->redirectToRoute('app_account_address_list');
+    }
     /**
      * @Route("/account/order-history", name="app_account_order_history", methods={"GET"})
      */
@@ -162,7 +212,7 @@ class AccountController extends AbstractController
     }
 
     /**
-     * @Route("/account/order-history/{id<[0-9]+>}", name="app_account_order_show", methods={"GET"})
+     * @Route("/account/order-history/{id<[0-9]+>}/show", name="app_account_order_show", methods={"GET"})
      */
     public function showOrder(PurchaseProductRepository $repo, PurchaseOrder $order): Response
     {
