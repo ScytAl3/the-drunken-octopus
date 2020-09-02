@@ -1,6 +1,7 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% block title %} {{ 'title.accountpage.menu.order_detail' | trans ({}, 'navigation') }} | {{ parent() }} {% endblock %}
+{% block title %} {{ 'title.accountpage.menu.order_detail' | trans ({}, 'navigation') ~ orderId }} | {{ parent() }}
+{% endblock %}
 
 {% block body %}
 
@@ -21,7 +22,8 @@
 
 {# Boutton retour order history #}
 <div class="text-center mt-3">
-    <a class="btn btn-info btn-sm" href="{{ path('app_account_order_history', {id: app.user.id}) }}">
+    <a class="btn btn-info btn-sm"
+       href="{{ path('app_account_order_history', {'_fragment': 'anchor-order-history'}) }}">
         <i class="fas fa-chevron-circle-left"></i>
         {{ 'my_account.orders.detail_page.action_link.back_to' | trans ({}, 'pagecontent') }}
     </a>
@@ -55,8 +57,8 @@
             </tr>
             <tr class="table-info">
                 <td colspan="3">Total :</td>
-                <td id="js-cart-total">
-                    {#{ total|format_currency('EUR', {fraction_digit: 2}) }#}
+                <td>
+                    {{ total|format_currency('EUR', {fraction_digit: 2}) }}
                 </td>
             </tr>
         </tfoot>

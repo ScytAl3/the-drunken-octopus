@@ -5,7 +5,7 @@
 {% block body %}
 
 {# Titre de la page #}
-<div class="text-center border-bottom border-warning pt-5">
+<div class="text-center border-bottom border-warning pt-5" id="anchor-account">
     <h1 class="text-uppercase text-center">
         {{ 'my_account.titlepage' | trans ({}, 'pagecontent') }}
     </h1>
@@ -18,7 +18,7 @@
 <div class="card-deck text-center justify-content-around my-5">
     {# identity #}
     <div class="card col-3">
-        <a href="{{ path('app_account_identity_edit') }}">
+        <a class="text-decoration-none" href="{{ path('app_account_identity_edit') }}">
             <div class="card-body">
                 <h2 class="card-title">
                     <i class="far fa-address-card"></i>
@@ -31,7 +31,8 @@
     </div>
     {# address #}
     <div class="card col-3">
-        <a href="{{ path('app_account_address') }}">
+        <a class="text-decoration-none"
+           href="{{ path('app_account_address_list', {'_fragment': 'anchor-addresses'}) }}">
             <div class="card-body">
                 <h2 class="card-title">
                     <i class="fas fa-map-marked-alt"></i>
@@ -44,7 +45,8 @@
     </div>
     {# orders #}
     <div class="card col-3">
-        <a href="{{ path('app_account_order_history') }}">
+        <a class="text-decoration-none"
+           href="{{ path('app_account_order_history', {'_fragment': 'anchor-order-history'}) }}">
             <div class="card-body">
                 <h2 class="card-title">
                     <i class="fas fa-file-invoice"></i>

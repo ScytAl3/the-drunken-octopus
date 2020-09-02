@@ -1,18 +1,31 @@
 {{ form_start(form) }}
 
-{#{ form_row(form.firstName) }}
+{{ form_row(form.name) }}
 
-{{ form_row(form.lastName) }}
+{{ form_row(form.address) }}
 
-{{ form_row(form.birthDate) }}
+{{ form_row(form.address2) }}
 
-{{ form_row(form.email) }#}
+<div class="row">
+    <div class="col">
+        {{ form_row(form.zipcode) }}
+    </div>
+    <div class="col">
+        {{ form_row(form.city) }}
+    </div>
+    <div class="col">
+        {{ form_row(form.country) }}
+    </div>
+</div>
+
+{{ form_row(form.phone) }}
+
+{{ form_row(form.sameForBilling) }}
 
 {# Validation button #}
 <div class="my-4">
-    <button type="submit" class="btn btn-primary btn-lg btn-block">
-        {{ 'my_account.identity.form.button' | trans ({}, 'pagecontent') }}
-    </button>
+    <input type="submit" class="btn btn-primary btn-lg btn-block"
+           value="{{ submitButtonText ?? ('my_account.address.form.buttons.create' | trans ({}, 'pagecontent')) }}">
 </div>
 
 {{ form_end(form) }}

@@ -15,8 +15,8 @@
 </div>
 
 {# Boutton retour my account #}
-<div class="text-center mt-3">
-    <a class="btn btn-info btn-sm" href="{{ path('app_account_index') }}">
+<div class="text-center mt-3" id="anchor-addresses">
+    <a class="btn btn-info btn-sm" href="{{ path('app_account_index', {'_fragment': 'anchor-account'}) }}">
         <i class="fas fa-chevron-circle-left"></i>
         {{ 'my_account.action_link.back_to' | trans ({}, 'pagecontent') }}
     </a>
@@ -36,22 +36,22 @@
         {% else %}
         <div class="alert alert-info text-center" role="alert">
             <p class="h3 text-center mb-0">
-                Vous n'avez pas encore enregistré d'adresse de livraison !
+                {{ 'my_account.address.empty_result' | trans ({}, 'pagecontent') }}
             </p>
         </div>
         {% endif %}
 
         {# Button to add address #}
         <div class="col mb-4">
-            <div class="card h100">
-                <a href="{{ path('app_account_address_create', {id: app.user.id}) }}">
+            <div class="card justify-content-center h-100">
+                <a class="text-decoration-none" href="{{ path('app_account_address_create') }}">
                     <div class="card-body text-center">
                         {# Address name #}
                         <h5 class="card-title">
-                            <i class="fas fa-plus-circle"></i>                            
+                            <i class="fas fa-plus-circle"></i>
                         </h5>
                         <p class="card-text">
-                            Add address
+                            {{ 'my_account.address.buttons.add' | trans ({}, 'pagecontent') }}
                         </p>
                     </div>
                 </a>

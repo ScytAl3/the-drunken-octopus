@@ -1,33 +1,71 @@
 {% for address in addresses %}
 
 <div class="col mb-4">
-    <div class="card h100">
+    <div class="card h-100">
         <div class="card-body">
             {# Address name #}
-            <h5 class="card-title">
-                {{ address.name }}
-            </h5>
+            <div class="card-title">
+                <h4 class="text-center">
+                    <i class="fas fa-map-marker-alt"></i>
+                </h4>
+                <h5>
+                    {{ address.name }}
+                </h5>
+            </div>
             {# Address informations #}
-            <ul class="card-text list-unstyled">
-                <li>
+            <div class="card-text">
+                {# Adresse #}
+                <p class="mb-0">
                     {{ address.address }}
-                </li>
-                <li>
+                </p>
+                {# Complément adresse #}
+                <p class="mb-0">
                     {{ address.address2 }}
-                </li>
-                <li>{{ address.zipcode }} {{ address.city }}</li>
-                <li>{{ address.country }}</li>
-                <li>{{ address.phone }}</li>
-            </ul>
-            {# Action buttons #}
+                </p>
+                {# Code postal & ville #}
+                <p class="mb-0">
+                    {{ address.zipcode }} {{ address.city }}
+                </p>
+                {# Pays #}
+                <p class="mb-0">
+                    {{ address.country }}
+                </p>
+                {# Téléphone #}
+                <p class="mb-0">
+                    {{ address.phone }}
+                </p>
+                {# Adresse pour la facturation #}
+                <p class="mt-auto">
+                    {% if address.sameForBilling %}
+                    <small class="text-success">
+                        {{ 'my_account.address.billing_address.same' | trans ({}, 'pagecontent') }}
+                    </small>
+                    {% else %}
+                    <small class="text-danger">
+                        {{ 'my_account.address.billing_address.notsame' | trans ({}, 'pagecontent') }}
+                    </small>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        {# Action buttons #}
+        <div class="card-footer">
             <div class="row justify-content-around">
-                <a class="btn btn-outline-danger" href="#">
+                {# Delete button & form #}
+                <a class="btn btn-outline-danger" href="#"
+                   onclick="event.preventDefault(); confirm('Are you sure?') && document.getElementById('js-address-delete-form').submit();">
                     <i class="fas fa-trash" aria-hidden="true"></i>
-                    Delete
+                    {{ 'my_account.address.buttons.del' | trans ({}, 'pagecontent') }}
                 </a>
-                <a class="btn btn-primary" href="#">
+                <form id="js-address-delete-form" action="{{ path('app_account_address_delete', {id: address.id}) }}"
+                      method="POST" style="display: none;">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('address_delete_' ~ address.id) }}">
+                </form>
+                {# Update button #}
+                <a class="btn btn-primary" href="{{ path('app_account_address_edit', {id: address.id}) }}">
                     <i class="fas fa-edit"></i>
-                    Update
+                    {{ 'my_account.address.buttons.update' | trans ({}, 'pagecontent') }}
                 </a>
             </div>
         </div>

@@ -107,9 +107,38 @@ my_account:
         information: |
             Choisissez vos adresses de facturation et de livraison. Ces dernières seront présélectionnées lors de vos commandes.
             Vous pouvez également ajouter d'autres adresses, ce qui est particulièrement intéressant pour envoyer des cadeaux ou recevoir votre commande au bureau.
+        empty_result: Vous n'avez sauvegardé aucune adresse encore.
+        billing_address:
+            same: Même adresse pour la facturation
+            notsame: Autre adresse pour la facturation
+        buttons:
+            add : Ajouter une adresse
+            update: Modifier
+            del: Supprimer
+        create_page:
+            title: Votre adresse à créer
+            action_link:
+                back_to: Mes adresses
+        update_page:
+            title: Votre adresse à modifier
+            action_link:
+                back_to: Mes adresses
+        form:
+            name: "Nom de l'adresse (ex: domicile, travail...)"
+            address: Adresse (numéro et nom de la rue)
+            address2: Complément d'adresse (code d'accès, bâtiment...)
+            zip: Code postal
+            city: Ville
+            country: Pays
+            phone: Téléphone
+            same_billing: Même adresse pour la facturation
+            buttons:
+                create: Enregistrer cette nouvelle adresse
+                update: Mettre à jour cette adresse
     orders:
         titlepage: Historique
         subtitle:  Vous trouverez ici vos commandes passées depuis la création de votre compte
+        empty_result: Vous n'avez aucune commande.
         history_page:
             order_id: Commande
             order_date: datée du

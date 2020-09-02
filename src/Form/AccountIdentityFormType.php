@@ -17,7 +17,7 @@ class AccountIdentityFormType extends AbstractType
         $builder
             ->add('firstName', TextType::class, [
                 'label' => 'my_account.identity.form.firstname',
-                'attr' => ['autofocus' => true]
+                'attr' => ['autofocus' => true],
             ])
             ->add('lastName', TextType::class, [
                 'label' => 'my_account.identity.form.lastname',

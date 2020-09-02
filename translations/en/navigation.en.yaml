@@ -15,8 +15,10 @@ title:
       menu:
         identity: My informations
         address: My addresses
+        address_create: Create address
+        address_update: Update address
         orders: My orders
-        order_detail: Order - detail
+        order_detail: Order n°
     resetpage: 
       request: Reset your password
       checkemail: Envoi Courriel Réinitialisation Mot de passe

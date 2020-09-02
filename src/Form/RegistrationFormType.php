@@ -21,6 +21,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('firstName', TextType::class, [
                 'label' => 'register.form.firstname',
+                'attr' => ['autofocus' => true],
             ])
             ->add('lastName', TextType::class, [
                 'label' => 'register.form.lastname',

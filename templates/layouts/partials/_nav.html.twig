@@ -69,7 +69,7 @@
                         {# Dropdown user connected menu #}
                         <div class="dropdown-menu dropdown-menu-right user-account-connected"
                              aria-labelledby="navbarDropdownMenuAccount">
-                            <a class="dropdown-item" href="{{ path('app_account_index') }}">
+                            <a class="dropdown-item" href="{{ path('app_account_index', {'_fragment': 'anchor-account'}) }}">
                                 <i class="fas fa-user-edit  mr-2" aria-hidden="true"></i>
                                 {{ 'navbar.link.user.profile' | trans ({}, 'navigation') }}
                             </a>

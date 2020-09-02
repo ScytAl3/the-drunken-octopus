@@ -222,6 +222,7 @@ class AccountController extends AbstractController
             'purchasedProducts' => $purchasedProducts,
             'orderId' => $order->getId(),
             'date' => $order->getCreatedAt(),
+            'total' => $order->getTotalPrice(),
         ]);
     }
 }
