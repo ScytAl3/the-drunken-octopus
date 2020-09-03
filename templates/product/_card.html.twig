@@ -23,8 +23,12 @@
             </a>
             {# Nom et prix du produit #}
             <div class="text-center">
-                <h5 class="card-title mt-2 pl-3">{{ product.title }}</h5>
-                <p class="card-text pl-3">{{ product.price  }} €</p>                
+                <h5 class="card-title mt-2 pl-3">
+                    {{ product.title }}
+                </h5>
+                <p class="card-text pl-3">
+                    {{ product.price|format_currency('EUR', {fraction_digit: 2}) }}
+                </p>                
             </div>
         </div>
     </div>
