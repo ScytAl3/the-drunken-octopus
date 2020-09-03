@@ -50,7 +50,8 @@ class AppExtension extends AbstractExtension
             new TwigFunction('pluralize', [$this, 'pluralize']),
             new TwigFunction('set_active_route', [$this, 'setActiveRoute']),
             new TwigFunction('set_cart_counter', [$this, 'setCartCount']),
-            new TwigFunction('available_or_sold_out', [$this, 'availableOrSoldOut'], ['is_safe' => ['html']]),
+            new TwigFunction('available_or_sold_out', [$this, 'availableOrSoldOut']),
+            new TwigFunction('is_a_new_product', [$this, 'isANewProduct'], ['is_safe' => ['html']])
         ];
     }
 
@@ -83,7 +84,7 @@ class AppExtension extends AbstractExtension
     public function setActiveRoute(string $route, ?string $activeClass = 'active'): string
     {
         $currentRoute = $this->requestStack->getCurrentRequest()->attributes->get('_route');
-        return (strpos($currentRoute, $route, 0) !== false)? $activeClass : '' ;
+        return (strpos($currentRoute, $route, 0) !== false) ? $activeClass : '';
     }
 
     /**
@@ -116,5 +117,22 @@ class AppExtension extends AbstractExtension
     public function availableOrSoldOut(Product $product): string
     {
         return ($product->getQuantity() == 0) ? 'disabled' : '';
+    }
+
+    /**
+     * Affiche un badge sur le produit s'il est nouveau 
+     *
+     * @param Product $product
+     * @return string
+     */
+    public function isANewProduct(Product $product, string $translation): string
+    {
+        if ($product->isNovelty()) {
+            return '<span class="badge badge-success text-block">' . $translation . '</span>';
+        } else {
+            return '';
+        }
+
+        // return '<p class="text-block">'. $product->isNew().'</p>';
     }
 }

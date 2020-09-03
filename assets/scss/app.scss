@@ -112,6 +112,30 @@ section {
 }
 
 /*------------------------------
+  Products page: animation image
+-------------------------------*/
+.product {
+  img {
+    transition: transform 0.3s ease-out;
+
+    &:hover {
+      transform: scale(1.075);
+    }
+  }
+  span.text-block {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+/*------------------------------
+  Products page: animation image
+-------------------------------*/
+
+/*------------------------------
   Products page: filter loader 
 -------------------------------*/
 .is-loading {
@@ -131,17 +155,6 @@ section {
     top: calc(50% - 1rem);
     left: calc(50% - 1rem);
     z-index: 5;
-  }
-}
-
-/*------------------------------
-  Products page: animation image
--------------------------------*/
-.product img {
-  transition: transform 0.3s ease-out;
-
-  &:hover {
-    transform: scale(1.075);
   }
 }
 

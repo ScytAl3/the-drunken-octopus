@@ -187,6 +187,7 @@ products:
     card_product:
         add_button: Ajouter au panier
         outOfStock: En rupture
+        new: Nouveauté
 
 #-------------------------------------------------------------------
 #          catalogue de traduction de la page détail du produit

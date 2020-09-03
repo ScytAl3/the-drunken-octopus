@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\Timestampable;
 use App\Repository\ProductRepository;
+use DateTime;
 use Symfony\Component\Validator\Constraints as Assert;
 // Validates that a particular field (or fields) in a Doctrine entity is (are) unique
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -197,7 +198,7 @@ class Product
     {
         $this->purchaseProducts = new ArrayCollection();
     }
-    
+
     /*-----------------------------------------------------------------------------
                                     Getters - Setters 
     -----------------------------------------------------------------------------*/
@@ -432,5 +433,34 @@ class Product
         }
 
         return $this;
+    }
+
+    /**
+     * Retourne le nombre de jours entre la date du jour et la date de création
+     * d'un produit
+     *
+     * @return integer
+     */
+    public function daysLeft(): int
+    {
+        // Initialisation de la date courante
+        $now = (new \DateTimeImmutable())->format('Y-m-d');
+        // Calcul de la différence en timestamps 
+        $diff = strtotime($now) - strtotime($this->createdAt->format('Y-m-d'));
+
+        // 1 day = 24 hours 
+        // 24 * 60 * 60 = 86400 seconds 
+        return abs(round($diff / 86400)); 
+    }
+
+    /**
+     * Retourne TRUE si la date de création du produit est inférieur à 30 jours
+     * sinon FALSE
+     *
+     * @return boolean
+     */
+    public function isNovelty(): bool
+    {
+        return ($this->daysLeft() < 30);
     }
 }

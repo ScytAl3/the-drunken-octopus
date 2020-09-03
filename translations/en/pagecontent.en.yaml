@@ -190,6 +190,7 @@ products:
     card_product:
         add_button: Add to cart
         outOfStock: Out of stock
+        new: New
 
 #-------------------------------------------------------------------
 #             catalogue de traduction de la page du panier
