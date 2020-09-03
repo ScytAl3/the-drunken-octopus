@@ -47,7 +47,11 @@ class ProductRepository extends ServiceEntityRepository
         $pagination = $this->paginator->paginate(
             $query,             /* query NOT result */
             $searchData->page,  /* page number*/
-            12                  /* limit per page*/
+            12,                  /* limit per page*/
+            [
+                'defaultSortFieldName'      => 'p.createdAt',
+                'defaultSortDirection' => 'DESC'
+            ]
         );
         // Pour connaître le nombre total d'items, sinon le max = la limite par page
         $pagination->getTotalItemCount();
@@ -117,12 +121,13 @@ class ProductRepository extends ServiceEntityRepository
         // Construction de la requête
         $query = $this
             ->createQueryBuilder('p')
-            ->addSelect('s')            // Ajout de la table Style
+            ->addSelect('s')                        // Ajout de la table Style
             ->join('p.style', 's')
-            ->addSelect('c')            // Ajout de la table Country
+            ->addSelect('c')                        // Ajout de la table Country
             ->join('p.country', 'c')
-            ->addSelect('b')            // Ajout de la table Brewery
-            ->join('p.brewery', 'b');
+            ->addSelect('b')                        // Ajout de la table Brewery
+            ->join('p.brewery', 'b')
+            ->andWhere('p.availability = true');    // Uniquement les produits toujours en vente
         // Contrôle du champ de recherche
         if (!empty($searchData->q)) {
             $query = $query
@@ -149,33 +154,4 @@ class ProductRepository extends ServiceEntityRepository
         }
         return $query;
     }
-
-    // /**
-    //  * @return Product[] Returns an array of Product objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Product
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
