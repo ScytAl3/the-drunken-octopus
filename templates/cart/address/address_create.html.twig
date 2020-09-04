@@ -1,0 +1,41 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %} {{ 'title.accountpage.menu.address_create' | trans ({}, 'navigation') }} | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+{# Titre de la page #}
+<div class="text-center border-bottom border-warning pt-5">
+    <h1 class="text-uppercase text-center">
+        {# {{ 'my_account.address.create_page.title' | trans ({}, 'pagecontent') }} #}
+        Delivery
+    </h1>
+    <p>
+        Please enter the delivery address
+    </p>
+</div>
+
+{# Boutton retour page liste des adresses #}
+<div class="text-center mt-3">
+    <a class="btn btn-info btn-sm" href="{{ path('app_cart_index') }}">
+        <i class="fas fa-chevron-circle-left"></i>
+        {# {{ 'my_account.address.create_page.action_link.back_to' | trans ({}, 'pagecontent') }} #}
+        Back to cart
+    </a>
+</div>
+
+{# Formulaire pour les informations de la nouvelle adresse #}
+<div class="col-md-8 rounded shadow mx-auto py-2 my-4">
+    {# Logo du site #}
+    <div class="text-center py-4">
+        <img src="{{ asset('build/images/default/octopus-logo-form.png') | imagine_filter("squared_thumb_smaller") }}"
+             alt="Logo {{ project.name }}">
+    </div>
+    {# /Logo du site #}
+
+    {# Import du formulaire #}
+    {% include 'account/form/_address.html.twig' %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% for address in addresses %}
+
+<div class="col mb-4">
+    <div class="card h-100">
+        {# Address name #}
+        <div class="card-header">
+            <h5>
+                {{ address.name }}
+            </h5>
+        </div>
+        {# Address informations #}
+        <div class="card-body">
+            <div class="card-text">
+                {# Adresse #}
+                <p class="mb-0">
+                    {{ address.address }}
+                </p>
+                {# Complément adresse #}
+                <p class="mb-0">
+                    {{ address.address2 }}
+                </p>
+                {# Code postal & ville #}
+                <p class="mb-0">
+                    {{ address.zipcode }} {{ address.city }}
+                </p>
+                {# Pays #}
+                <p class="mb-0">
+                    {{ address.country }}
+                </p>
+                {# Téléphone #}
+                <p class="mb-0">
+                    {{ address.phone }}
+                </p>
+                {# Adresse pour la facturation #}
+                <p class="mt-auto">
+                    {% if address.sameForBilling %}
+                    <small class="text-success">
+                        {{ 'my_account.address.billing_address.same' | trans ({}, 'pagecontent') }}
+                    </small>
+                    {% else %}
+                    <small class="text-danger">
+                        {{ 'my_account.address.billing_address.notsame' | trans ({}, 'pagecontent') }}
+                    </small>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        {# Select button #}
+        <div class="card-footer">            
+            <a class="btn btn-success btn-block" href="{{ path('app_cart_order', {id: address.id}) }}">
+                Select this address
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
