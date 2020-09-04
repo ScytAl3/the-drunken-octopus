@@ -44,6 +44,16 @@ class PurchaseOrder
      */
     private $totalPrice;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=ShippingAddresses::class, inversedBy="purchaseOrders")
+     */
+    private $shippingAddress;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ShippingAddresses::class, inversedBy="purchaseOrders")
+     */
+    private $billingAddress;
+
     public function __construct()
     {
         $this->purchaseProducts = new ArrayCollection();
@@ -117,6 +127,30 @@ class PurchaseOrder
     public function setTotalPrice(float $totalPrice): self
     {
         $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    public function getShippingAddress(): ?ShippingAddresses
+    {
+        return $this->shippingAddress;
+    }
+
+    public function setShippingAddress(?ShippingAddresses $shippingAddress): self
+    {
+        $this->shippingAddress = $shippingAddress;
+
+        return $this;
+    }
+
+    public function getBillingAddress(): ?ShippingAddresses
+    {
+        return $this->billingAddress;
+    }
+
+    public function setBillingAddress(?ShippingAddresses $billingAddress): self
+    {
+        $this->billingAddress = $billingAddress;
 
         return $this;
     }

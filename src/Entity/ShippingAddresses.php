@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ShippingAddressesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 // Validates that a particular field (or fields) in a Doctrine entity is (are) unique
@@ -78,6 +80,16 @@ class ShippingAddresses
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="shippingAddress")
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PurchaseOrder::class, mappedBy="shippingAddress")
+     */
+    private $purchaseOrders;
+
+    public function __construct()
+    {
+        $this->purchaseOrders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -188,6 +200,37 @@ class ShippingAddresses
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PurchaseOrder[]
+     */
+    public function getPurchaseOrders(): Collection
+    {
+        return $this->purchaseOrders;
+    }
+
+    public function addPurchaseOrder(PurchaseOrder $purchaseOrder): self
+    {
+        if (!$this->purchaseOrders->contains($purchaseOrder)) {
+            $this->purchaseOrders[] = $purchaseOrder;
+            $purchaseOrder->setShippingAddress($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseOrder(PurchaseOrder $purchaseOrder): self
+    {
+        if ($this->purchaseOrders->contains($purchaseOrder)) {
+            $this->purchaseOrders->removeElement($purchaseOrder);
+            // set the owning side to null (unless already changed)
+            if ($purchaseOrder->getShippingAddress() === $this) {
+                $purchaseOrder->setShippingAddress(null);
+            }
+        }
 
         return $this;
     }
