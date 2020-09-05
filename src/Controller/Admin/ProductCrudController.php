@@ -20,6 +20,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\PercentField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ProductCrudController extends AbstractCrudController
 {
@@ -43,6 +44,7 @@ class ProductCrudController extends AbstractCrudController
         $name = TextField::new('title', 'Beer name');
         $description = TextEditorField::new('description', 'Description')
             ->setNumOfRows(7);
+            // ->setFormType(TextareaType::class);
         $color = TextField::new('color');
         $ibu = NumberField::new('ibu', 'IBU');
         $abv = PercentField::new('alcohol', 'ABV')
