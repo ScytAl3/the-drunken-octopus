@@ -7,7 +7,9 @@ title:
     homepage: Accueil
     productspage: La boutique
     cartpage: Votre panier
-    checkoutpage: Panier - paiement 
+    checkoutpage:
+      shipping: Panier - livraison
+      choose: Choix adresse
     loginpage: Connexion
     registerpage: S'inscrire
     accountpage:

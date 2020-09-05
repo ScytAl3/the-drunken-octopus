@@ -9,6 +9,7 @@ use App\Entity\ShippingAddresses;
 use App\Service\Cart\CartService;
 use App\Form\ShippingAddressFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\ShippingAddressesRepository;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,15 +20,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  * @IsGranted("ROLE_USER")
  */
 class CheckoutController extends AbstractController
-{    
+{
     /**
-     * @Route("/cart/checkout/shipping", name="app_cart_checkout", methods="GET")
+     * @Route("/cart/checkout/shipping", name="app_cart_checkout", methods={"GET", "POST"})
      * @return Response 
      * @throws AccessDeniedException 
      * @throws LogicException 
      * @throws UnexpectedValueException 
      */
-    public function index(ShippingAddressesRepository $repo): Response
+    public function index(ShippingAddressesRepository $repo, Request $request, EntityManagerInterface $em): Response
     {
         // L'utilisateur doit être authentifié
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -42,15 +43,30 @@ class CheckoutController extends AbstractController
 
             $form = $this->createForm(ShippingAddressFormType::class, $address);
 
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $address->setUser($this->getUser());
+                $em->persist($address);
+                $em->flush();
+
+                $this->addFlash(
+                    'success',
+                    'Address created successfully!'
+                );
+
+                // redirige vers la page de sélection des adresses associées au compte
+                return $this->redirectToRoute('app_cart_checkout', []);
+            }
             return $this->render('cart/address/address_create.html.twig', [
                 'form' => $form->createView()
             ]);
         } else {
+            // Sinon retourne sur la page de sélection des adresses
             return $this->render('cart/address/select.html.twig', [
                 'addresses' => $addresses,
             ]);
         }
-        return $this->render('cart/checkout.html.twig', []);
     }
 
     /**
@@ -68,9 +84,8 @@ class CheckoutController extends AbstractController
 
         // Récupère l'utilisateur authentifié
         $user = $this->getUser();
-        // Récupère l'identifiant de l'adresse de livraison
-        $shipping = $address->getId();
-        dd($shipping);
+        // Récupère l'identifiant de l'adresse de livraison 
+        $shipping = $address;
         // Appelle de la méthode qui retourne les informations associées au produit du panier
         $cartProductData = $cartService->getDataCart();
 
@@ -81,6 +96,8 @@ class CheckoutController extends AbstractController
             // Passage des paramètres pour la création de la commande
             $order
                 ->setUser($user)
+                ->setShippingAddress($shipping)
+                ->setBillingAddress($shipping)
                 ->setTotalPrice($cartService->getTotalCart())
                 ->setPayement(false);
             $em->persist($order);

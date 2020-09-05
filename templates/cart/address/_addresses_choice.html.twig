@@ -48,7 +48,7 @@
         {# Select button #}
         <div class="card-footer">            
             <a class="btn btn-success btn-block" href="{{ path('app_cart_order', {id: address.id}) }}">
-                Select this address
+                {{ 'cart.checkout.buttons.select' | trans ({}, 'pagecontent') }}
             </a>
         </div>
     </div>

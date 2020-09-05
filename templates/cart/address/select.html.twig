@@ -1,18 +1,16 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% block title %} {{ 'title.accountpage.menu.address' | trans ({}, 'navigation') }} | {{ parent() }} {% endblock %}
+{% block title %} {{ 'title.checkoutpage.choose' | trans ({}, 'navigation') }} | {{ parent() }} {% endblock %}
 
 {% block body %}
 
 {# Titre de la page #}
 <div class="text-center border-bottom border-warning pt-5">
     <h1 class="text-uppercase text-center">
-        {# {{ 'my_account.address.titlepage' | trans ({}, 'pagecontent') }} #}
-        Delivery 
+        {{ 'cart.checkout.titlepage' | trans ({}, 'pagecontent') }}
     </h1>
     <p>
-        {# {{ 'my_account.address.information' | trans ({}, 'pagecontent') | nl2br }} #}
-        Please choose the addresses
+        {{ 'cart.checkout.subtitle' | trans ({}, 'pagecontent') }}
     </p>
 </div>
 
@@ -20,25 +18,21 @@
 <div class="text-center mt-3" id="anchor-addresses">
     <a class="btn btn-info btn-sm" href="{{ path('app_cart_index') }}">
         <i class="fas fa-chevron-circle-left"></i>
-        {# {{ 'my_account.action_link.back_to' | trans ({}, 'pagecontent') }} #}
-        Back to cart
+        {{ 'cart.checkout.buttons.back_to' | trans ({}, 'pagecontent') }}
     </a>
 </div>
 
 {# Block pour afficher la liste des adresses associées à l'utilisateur connecté #}
 <div class="my-5">
-
+    {# Titre du block #}
     <h2 class="h6 mb-4">
-        My delivery address (possible relay point to choose at the next step)
+        {{ 'cart.checkout.information' | trans ({}, 'pagecontent') }}
     </h2>
 
+    {# Import: addresses list template #}
     <div class="row row-cols-1 row-cols-md-3 mb-2">
-
-        {# Import: addresses list template #}
         {% include 'cart/address/_addresses_choice.html.twig' %}
-        
     </div>
-
 </div>
 
 {% endblock %}

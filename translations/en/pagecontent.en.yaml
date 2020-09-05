@@ -233,5 +233,10 @@ cart:
         checkout: Continue to checkout
 
     checkout:
-        titlepage: Confirm order
-        button: Confirm
+        titlepage: Delivery
+        subtitle: Please choose an address
+        create_subtitle: Please enter the delivery address
+        information: My delivery address (possible relay point to choose at the next step)
+        buttons: 
+            back_to: Back to cart
+            select: Select this address

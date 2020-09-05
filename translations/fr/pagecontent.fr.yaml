@@ -230,5 +230,10 @@ cart:
         checkout: Poursuivre la commande
 
     checkout:
-        titlepage: Confirmer la commande
-        button: Confirmer
+        titlepage: Livraison
+        subtitle: Veuillez choisir une adresse
+        create_subtitle: Veuillez indiquer l'adresse de livraison
+        information: Mon adresse de livraison (point de relais possible à choisir à l'étape suivante)
+        buttons:
+            back_to: Retour au panier
+            select: Selectionner cette adresse

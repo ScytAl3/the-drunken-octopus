@@ -7,7 +7,9 @@ title:
     homepage: Homepage
     productspage: The shop
     cartpage: Your cart
-    checkoutpage: Cart checkout
+    checkoutpage:
+      shipping: Cart - Delivery
+      choose: Address choose
     loginpage: Login
     registerpage: Register
     accountpage:
