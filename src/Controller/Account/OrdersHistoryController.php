@@ -33,11 +33,17 @@ class OrdersHistoryController extends AbstractController
     {
         $purchasedProducts = $repo->findPurchasedProducts($order->getId());
         // dd($purchasedProducts);
+
+        $shipping_address = $order->getShippingAddress()->getAddress();
+
         return $this->render('account/orders/order_show.html.twig', [
             'purchasedProducts' => $purchasedProducts,
             'orderId' => $order->getId(),
             'date' => $order->getCreatedAt(),
-            'total' => $order->getTotalPrice(),
+            'total_ht' => $order->getTotalPrice(),
+            'tva' => $order->getTotalPrice() * 0.2,
+            'total_ttc' => $order->getTotalPrice() * 1.2,
+            'shipping_address' => $shipping_address,
         ]);
     }
 

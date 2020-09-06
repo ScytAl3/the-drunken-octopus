@@ -4,6 +4,7 @@ namespace App\Controller\Account;
 
 use App\Entity\ShippingAddresses;
 use App\Form\ShippingAddressFormType;
+use App\Repository\PurchaseOrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -95,8 +96,17 @@ class AddressesController extends AbstractController
     /**
      * @Route("/account/address/{id<[0-9]+>}", name="app_account_address_delete", methods={"DELETE"})
      */
-    public function address_delete(Request $request, EntityManagerInterface $em, ShippingAddresses $address): Response
+    public function address_delete(Request $request, EntityManagerInterface $em, ShippingAddresses $address, PurchaseOrderRepository $repo): Response
     {
+        // Verification que l'adresse n'a pas déjà été utilisé
+        if ($repo->findBy(['shippingAddress' => $address->getId()])) {
+            $this->addFlash(
+                'danger',
+                'This address cannot be deleted!'
+            );
+            return $this->redirectToRoute('app_account_address_list');
+        }
+        
         if ($this->isCsrfTokenValid('address_delete_' . $address->getId(), $request->request->get('_csrf_token'))) {
 
             $em->remove($address);
