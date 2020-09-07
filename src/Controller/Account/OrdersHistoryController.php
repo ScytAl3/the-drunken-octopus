@@ -3,8 +3,10 @@
 namespace App\Controller\Account;
 
 use App\Entity\PurchaseOrder;
+use App\Entity\ShippingAddresses;
 use App\Repository\PurchaseOrderRepository;
 use App\Repository\PurchaseProductRepository;
+use App\Repository\ShippingAddressesRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,12 +31,18 @@ class OrdersHistoryController extends AbstractController
     /**
      * @Route("/account/order-history/{id<[0-9]+>}/show", name="app_account_order_show", methods={"GET"})
      */
-    public function showOrder(PurchaseProductRepository $repo, PurchaseOrder $order): Response
+    public function showOrder(PurchaseProductRepository $repo, PurchaseOrder $order, ShippingAddressesRepository $shippingAddressesRepository): Response
     {
+        // Récupère la liste des produits associée à la commande
         $purchasedProducts = $repo->findPurchasedProducts($order->getId());
         // dd($purchasedProducts);
 
-        $shipping_address = $order->getShippingAddress()->getAddress();
+        // Récupère l'adresse de livraison
+        $shipping_address = new ShippingAddresses();
+        $shipping_address = $shippingAddressesRepository->find($order->getShippingAddress());
+        // dd($shipping_address);
+            
+        // $shipping_address = $order->getShippingAddress();
 
         return $this->render('account/orders/order_show.html.twig', [
             'purchasedProducts' => $purchasedProducts,

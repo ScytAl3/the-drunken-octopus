@@ -2,16 +2,9 @@
 
 namespace App\Controller\Account;
 
-use App\Entity\PurchaseOrder;
-use App\Entity\ShippingAddresses;
-use App\Entity\User;
 use App\Security\EmailVerifier;
 use Symfony\Component\Mime\Address;
 use App\Form\AccountIdentityFormType;
-use App\Form\ShippingAddressFormType;
-use App\Repository\PurchaseOrderRepository;
-use App\Repository\PurchaseProductRepository;
-use App\Repository\ShippingAddressesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;

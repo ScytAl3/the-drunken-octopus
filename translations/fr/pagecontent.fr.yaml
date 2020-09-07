@@ -123,6 +123,7 @@ my_account:
             title: Votre adresse à modifier
             action_link:
                 back_to: Mes adresses
+        # element form
         form:
             name: "Nom de l'adresse (ex: domicile, travail...)"
             address: Adresse (numéro et nom de la rue)
@@ -155,9 +156,19 @@ my_account:
             table_header:
                 product: Produit
                 quantity: Quantité
+            table_footer:
+                ht: Total des produits (hors taxes)
+                tva: TVA comprise
+                delivery: Livraison
+                delivery_fee: gratuite
+                total: Total (taxes comprises)
+            address:
+                shipping: Adresse de livraison
+                billing: Adresse de facturation
 
             action_link:
                 back_to: Mes commandes
+                download: Télécharger la facture au format PDF
 
     action_link:
         back_to: Mon compte

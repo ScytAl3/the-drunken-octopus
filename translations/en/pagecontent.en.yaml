@@ -124,6 +124,7 @@ my_account:
             title: Your address to update
             action_link:
                 back_to: My addresses
+        # element form
         form:
             name: "Name of the address (ex: home, work...)"
             address: Address (number and street name)
@@ -157,9 +158,19 @@ my_account:
             table_header:
                 product: Product
                 quantity: Quantity
+            table_footer:
+                ht: Total products (excl. tax)
+                tva: including VAT
+                delivery: Delivery
+                delivery_fee: free of charges
+                total: Total (incl. tax)
+            address:
+                shipping: Shipping address
+                billing: Billing address
             
             action_link:
                 back_to: My order history
+                download: Download the invoice in PDF format
 
     action_link:
         back_to: My account

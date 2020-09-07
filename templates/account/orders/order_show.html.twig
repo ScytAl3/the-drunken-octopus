@@ -24,13 +24,21 @@
 <div class="text-center mt-3">
     <a class="btn btn-info btn-sm"
        href="{{ path('app_account_order_history', {'_fragment': 'anchor-order-history'}) }}">
-        <i class="fas fa-chevron-circle-left"></i>
+        <i class="fas fa-chevron-circle-left mr-2"></i>
         {{ 'my_account.orders.detail_page.action_link.back_to' | trans ({}, 'pagecontent') }}
     </a>
 </div>
 
+{# Bouton générer la facture au format pdf #}
+<div class="mt-5">
+    <a class="btn btn-success btn-sm" href="#">
+        <i class="fas fa-download mr-2"></i>
+        {{ 'my_account.orders.detail_page.action_link.download' | trans ({}, 'pagecontent') }}
+    </a>
+</div>
+
 {# Block pour afficher la liste des produits associés à la commande #}
-<div>
+<div class="mb-5">
     {# Tableau des produits dans le panier #}
     <table class="table table-striped mt-3">
         {# Entête du tableau #}
@@ -55,30 +63,38 @@
         <tfoot class="text-right table-sm">
             {# Total HT des produits #}
             <tr class="font-weight-bold">
-                <td colspan="3">Total products (excl. tax) :</td>
+                <td colspan="3">
+                    {{ 'my_account.orders.detail_page.table_footer.ht' | trans ({}, 'pagecontent') }}
+                </td>
                 <td>
                     {{ total_ht |format_currency('EUR', {fraction_digit: 2}) }}
                 </td>
             </tr>
             {# Total de la TVA #}
             <tr class="font-weight-light">
-                <td colspan="3">including vat :</td>
+                <td colspan="3">
+                    {{ 'my_account.orders.detail_page.table_footer.tva' | trans ({}, 'pagecontent') }}
+                </td>
                 <td>
                     {{ tva |format_currency('EUR', {fraction_digit: 2}) }}
                 </td>
             </tr>
             {# Montant de la livraison #}
             <tr class="font-weight-light">
-                <td colspan="3">Delivery :</td>
+                <td colspan="3">
+                    {{ 'my_account.orders.detail_page.table_footer.delivery' | trans ({}, 'pagecontent') }}
+                </td>
                 <td>
                     <small class="text-success">
-                        free of charge
+                        {{ 'my_account.orders.detail_page.table_footer.delivery_fee' | trans ({}, 'pagecontent') }}
                     </small>
                 </td>
             </tr>
             {# Total TTC : tva + shipping #}
             <tr class="font-weight-bold">
-                <td colspan="3">Total (incl. tax) :</td>
+                <td colspan="3">
+                    {{ 'my_account.orders.detail_page.table_footer.total' | trans ({}, 'pagecontent') }}
+                </td>
                 <td>
                     {{ total_ttc |format_currency('EUR', {fraction_digit: 2}) }}
                 </td>
@@ -86,11 +102,78 @@
         </tfoot>
     </table>
 
+    <hr>
     <br>
+
     {# Adresses: livraison & facturation #}
-    <div class="row">
-        {{ dump(shipping_address) }}
-    </div>
+    <table class="mx-auto">
+        <tbody>
+            <tr>
+                {# Adresse de livraison #}
+                <td class="w-25">
+                    <div class="card border-info mb-3">
+                        <div class="card-header text-white bg-info">
+                            {{ 'my_account.orders.detail_page.address.shipping' | trans ({}, 'pagecontent') }}
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                {# Adresse #}
+                                <p class="my-0">
+                                    {{ shipping_address.address }}
+                                </p>
+                                {# Complément adresse #}
+                                <p class="my-0">
+                                    {{ shipping_address.address2 }}
+                                </p>
+                                {# Code postal & ville #}
+                                <p class="my-0">
+                                    {{ shipping_address.zipcode }} {{ shipping_address.city }}
+                                </p>
+                                {# Pays #}
+                                <p class="my-0">
+                                    {{ shipping_address.country }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                {# /Adresse de livraison #}
+
+                <td class="w-50"></td>
+
+                {# Adresse de facturation #}
+                <td class="w-25">
+                    <div class="card border-info mb-3">
+                        <div class="card-header text-white bg-info">
+                            {{ 'my_account.orders.detail_page.address.billing' | trans ({}, 'pagecontent') }}
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                {# Adresse #}
+                                <p class="my-0">
+                                    {{ shipping_address.address }}
+                                </p>
+                                {# Complément adresse #}
+                                <p class="my-0">
+                                    {{ shipping_address.address2 }}
+                                </p>
+                                {# Code postal & ville #}
+                                <p class="my-0">
+                                    {{ shipping_address.zipcode }} {{ shipping_address.city }}
+                                </p>
+                                {# Pays #}
+                                <p class="my-0">
+                                    {{ shipping_address.country }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                {# /Adresse de facturation #}
+            </tr>
+        </tbody>
+    </table>
+    {# /Adresses: livraison & facturation #}
 
 </div>
 
