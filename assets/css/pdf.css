@@ -1,0 +1,66 @@
+/* the ~ allows you to reference things in node_modules */
+/* @import "~bootstrap/dist/css/bootstrap.css"; */
+
+/*---------------------------------------------
+            CSS for the DomPDF layout
+----------------------------------------------*/
+
+/*------------------------------
+        Global
+-------------------------------*/
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding-top: 0%;
+}
+
+body {
+  background-color: blanchedalmond !important;
+  color: #312f31 !important;
+}
+
+p {
+  font-size: small !important;
+}
+
+/*------------------------------
+        Header
+-------------------------------*/
+.header-container {
+  /* width: 100%; */
+}
+
+.left {
+  float: left;
+  width: 200px;
+}
+
+.right {
+  float: right;
+  width: 300px;
+}
+
+.clear {
+  clear: both;
+  }
+/*------------------------------
+    Table: Product
+-------------------------------*/
+table {
+  width: 100%;
+}
+
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+
+.td-vertical-align {
+  vertical-align: top;
+}
+
+.tfoot-border-bottom {
+  border-bottom: 1px solid #fff;
+}

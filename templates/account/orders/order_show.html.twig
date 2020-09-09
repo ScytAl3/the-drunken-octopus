@@ -31,7 +31,7 @@
 
 {# Bouton générer la facture au format pdf #}
 <div class="mt-5">
-    <a class="btn btn-success btn-sm" href="#">
+    <a class="btn btn-success btn-sm" href="{{ path('app_account_order_pdf', {id: orderId}) }}" target="_blank">
         <i class="fas fa-download mr-2"></i>
         {{ 'my_account.orders.detail_page.action_link.download' | trans ({}, 'pagecontent') }}
     </a>

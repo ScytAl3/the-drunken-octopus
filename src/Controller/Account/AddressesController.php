@@ -4,14 +4,18 @@ namespace App\Controller\Account;
 
 use App\Entity\ShippingAddresses;
 use App\Form\ShippingAddressFormType;
-use App\Repository\PurchaseOrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\PurchaseOrderRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\ShippingAddressesRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * @IsGranted("ROLE_USER")
+ */
 class AddressesController extends AbstractController
 {
     /**

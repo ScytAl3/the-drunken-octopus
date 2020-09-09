@@ -2,15 +2,21 @@
 
 namespace App\Controller\Account;
 
+use App\Entity\User;
 use App\Entity\PurchaseOrder;
 use App\Entity\ShippingAddresses;
+use App\Service\Order\OrderService;
 use App\Repository\PurchaseOrderRepository;
 use App\Repository\PurchaseProductRepository;
-use App\Repository\ShippingAddressesRepository;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\ShippingAddressesRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * @IsGranted("ROLE_USER")
+ */
 class OrdersHistoryController extends AbstractController
 {
     /**
@@ -55,4 +61,16 @@ class OrdersHistoryController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/account/order_pdf/{id}", name="app_account_order_pdf", methods={"GET"})
+     *
+     * @param OrderService $orderService
+     * @param PurchaseOrder $purchaseOrder
+     * @return void
+     */
+    public function generatePdf(OrderService $orderService, PurchaseOrder $purchaseOrder)
+    {
+        $orderService->getOrderPDF($purchaseOrder);
+        exit;
+    }
 }

@@ -8,6 +8,8 @@ parameters:
     locale: 'en'
     # List of supported locales
     app_locales: en|fr|
+    # Directory in which the order PDF should be stored
+    order_directory: '%kernel.project_dir%/public/uploads/orders'
 
 services:
     # default configuration for services in *this* file
@@ -42,3 +44,8 @@ services:
         arguments: ['%kernel.default_locale%']
         # uncomment the next line if you are not using autoconfigure
         # tags: [kernel.event_subscriber]
+
+    # service pour la generation et l enregistrement du PDF
+    App\Service\Order\OrderService:
+        arguments: 
+            $pdfDirectory: '%order_directory%'
