@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\ShippingAddressesRepository;
+use App\Service\Order\OrderService;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -77,7 +78,7 @@ class CheckoutController extends AbstractController
      * @throws AccessDeniedException 
      * @throws LogicException 
      */
-    public function confirmOrder(EntityManagerInterface $em, ShippingAddresses $address, CartService $cartService)
+    public function confirmOrder(EntityManagerInterface $em, ShippingAddresses $address, CartService $cartService, OrderService $orderService)
     {
         // L'utilisateur doit être authentifié
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -129,7 +130,7 @@ class CheckoutController extends AbstractController
                 'success',
                 'Checkout completed. Your order will be shipped soon.'
             );
-            // Vidage du panier de la session
+            // Vide le panier de la session
             $cartService->clearCart();
         } catch (\Throwable $th) {
             $this->addFlash(
@@ -137,6 +138,8 @@ class CheckoutController extends AbstractController
                 'Checkout error: ' . $th
             );
         }
+        // Envoie de la facture en pdf à l'adresse mail de l'utilisateur
+        $orderService->mailOrderPDF($order);
         // redirige vers la page du panier
         return $this->redirectToRoute('app_cart_index');
     }
