@@ -169,6 +169,13 @@ my_account:
             action_link:
                 back_to: Mes commandes
                 download: Télécharger la facture au format PDF
+        pdf_page:
+            invoice: Facture
+            table_info:
+                invoice_num: Numéro de facture
+                invoice_date: Date de facturation
+                order_num: Réf. de la commande
+                order_date: Date de la commande
 
     action_link:
         back_to: Mon compte

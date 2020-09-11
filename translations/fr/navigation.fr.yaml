@@ -21,6 +21,7 @@ title:
         address_update: Modifier adresse
         orders: Mes commandes 
         order_detail: Commande n°
+        order_pdf: Facture PDF
     resetpage:
       request: Réinitialiser votre mot de passe
       checkemail: Password Reset Email Sent

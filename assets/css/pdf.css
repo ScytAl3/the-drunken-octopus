@@ -1,5 +1,5 @@
 /* the ~ allows you to reference things in node_modules */
-/* @import "~bootstrap/dist/css/bootstrap.css"; */
+@import "~bootstrap/dist/css/bootstrap.css";
 
 /*---------------------------------------------
             CSS for the DomPDF layout
@@ -16,21 +16,76 @@ body {
 }
 
 body {
-  background-color: blanchedalmond !important;
-  color: #312f31 !important;
+  background-color: blanchedalmond;
+  color: #312f31;
 }
 
 p {
-  font-size: small !important;
+  font-size: small;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right ;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-muted {
+  color: #6c757d;
+}
+
+.font-weight-bold {
+  font-weight: 700;
+}
+
+.mb-0,
+.my-0 {
+  margin-bottom: 0;
+}
+
+.mt-0,
+.my-0 {
+  margin-top: 0;
+}
+
+.mt-auto,
+.my-auto {
+  margin-top: auto;
+}
+
+.mr-auto,
+.mx-auto {
+  margin-right: auto;
+}
+
+.mb-auto,
+.my-auto {
+  margin-bottom: auto;
+}
+
+.ml-auto,
+.mx-auto {
+  margin-left: auto;
+}
+
+.pl-2,
+.px-2 {
+  padding-left: 0.5rem;
+}
+
+.mb-4,
+.my-4 {
+  margin-bottom: 1.5rem;
+}
 /*------------------------------
         Header
 -------------------------------*/
-.header-container {
-  /* width: 100%; */
-}
-
 .left {
   float: left;
   width: 200px;
@@ -43,24 +98,42 @@ p {
 
 .clear {
   clear: both;
-  }
+}
+
 /*------------------------------
-    Table: Product
+    Table: Addresses
 -------------------------------*/
-table {
+#table-address {
+  width: 75%;
+  border-spacing: 1rem 0;
+  border-collapse: separate;
+}
+
+.address_header {
+  background-color: #17a2b8;
+  border-radius: 0.25rem;
+}
+
+
+/*------------------------------
+    Table: Products
+-------------------------------*/
+#table-product {
   width: 100%;
+}
+
+.thead-dark {
+  color: #fff;
+  background-color: #343a40;
+  border-color: #454d55;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 th,
 td {
   margin: 0;
   padding: 0;
-}
-
-.td-vertical-align {
-  vertical-align: top;
-}
-
-.tfoot-border-bottom {
-  border-bottom: 1px solid #fff;
 }

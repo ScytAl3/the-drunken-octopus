@@ -5,23 +5,26 @@
         {# Default meta tags #}
         <meta charset="UTF-8">
         {# Title #}
-        <title>{% block title %} PDF Invoice | {{ project.name }} {% endblock %}</title>
+        <title>
+            {% block title %}
+            {{ 'title.accountpage.menu.order_pdf' | trans ({}, 'navigation') }} | {{ project.name }}
+            {% endblock %}
+        </title>
 
         {% block stylesheets %}
         {# href="{{ absolute_url(asset('build/app.css'))[1:] }}" #}
         <link rel="stylesheet" href="{{ asset('build/pdf.css')[1:] }}">
         {% endblock %}
-
     </head>
 
     <body>
-
         {# Layout for PDF files #}
         <div>
+            {# Header : logo and information #}
             <header>
-                <div class="header-container" style="border: solid blue">
+                <div>
                     {# Header logo #}
-                    <div class="left" style="border: solid red">
+                    <div class="left pl-2">
                         {# uncomment the line ;extension=gd2 in the php.in file #}
                         <img src="{{ asset('build/images/default/octopus-logo-form.png')[1:] }}" height="200"
                              alt="{{ project.name }} logo">
@@ -29,39 +32,124 @@
 
                     {# Invoice information #}
                     <div class="right">
-                        <div class="card-body" style="border: solid yellow">
-                            <h5 class="card-title text-capitalize">Invoice</h5>
-                            <p class="card-subtitle mb-2 text-muted">
-                                {{ purchaseOrder.createdAt|date('d-m-Y') }}
-                            </p>
-                            <p class="card-text text-muted">
-                                #FA-ODR_{{ purchaseOrder.id }}-USR_{{ purchaseOrder.user.id }}
-                            </p>
-                        </div>
-                    </div>                
+                        <h3 class="text-uppercase mb-0">
+                            {{ 'my_account.orders.pdf_page.invoice' | trans ({}, 'pagecontent') }}
+                        </h3>
+                        <p class="text-muted mt-0">
+                            {{ purchaseOrder.createdAt|date('d-m-Y') }}
+                            <br>
+                            {{ invoice_number }}
+                        </p>
+                    </div>
                 </div>
-
             </header>
 
-            {# Numéro de commande et date #}
-            <div class="clear">
-                <h1 class="text-uppercase">
-                    {{ 'my_account.orders.detail_page.title' | trans ({}, 'pagecontent') }}
-                    n°
-                    {{ purchaseOrder.id }}
-                </h1>
-                <p>
-                    {{ 'my_account.orders.detail_page.date' | trans ({}, 'pagecontent') }}
-                    <time datetime="{{ purchaseOrder.createdAt|date('d-m-Y') }}">
-                        {{ purchaseOrder.createdAt|date('d-m-Y') }}
-                    </time>
-                </p>
-            </div>
+            <br class="clear">
+
+            {# Adresses: livraison & facturation #}
+            <table class="right mb-4" id="table-address">
+                <tbody>
+                    <tr>
+                        {# Adresse de livraison #}
+                        <td class="pl-2">
+                            <h4 class="address_header">
+                                {{ 'my_account.orders.detail_page.address.shipping' | trans ({}, 'pagecontent') }}
+                            </h4>
+                            <div>
+                                {# Adresse #}
+                                <p class="my-0">
+                                    {{ shipping_address.address }}
+                                </p>
+                                {# Complément adresse #}
+                                <p class="my-0">
+                                    {{ shipping_address.address2 }}
+                                </p>
+                                {# Code postal & ville #}
+                                <p class="my-0">
+                                    {{ shipping_address.zipcode }} {{ shipping_address.city }}
+                                </p>
+                                {# Pays #}
+                                <p class="my-0">
+                                    {{ shipping_address.country }}
+                                </p>
+                            </div>
+                        </td>
+                        {# Adresse de facturation #}
+                        <td class="pl-2">
+                            <h4 class="address_header">
+                                {{ 'my_account.orders.detail_page.address.billing' | trans ({}, 'pagecontent') }}
+                            </h4>
+                            <div>
+                                {# Adresse #}
+                                <p class="my-0">
+                                    {{ shipping_address.address }}
+                                </p>
+                                {# Complément adresse #}
+                                <p class="my-0">
+                                    {{ shipping_address.address2 }}
+                                </p>
+                                {# Code postal & ville #}
+                                <p class="my-0">
+                                    {{ shipping_address.zipcode }} {{ shipping_address.city }}
+                                </p>
+                                {# Pays #}
+                                <p class="my-0">
+                                    {{ shipping_address.country }}
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            {# Information reminder #}
+            <table class="clear" id="table-product">
+                {# Entête du tableau #}
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            {{ 'my_account.orders.pdf_page.table_info.invoice_num' | trans ({}, 'pagecontent') }}
+                        </th>
+                        <th>
+                            {{ 'my_account.orders.pdf_page.table_info.invoice_date' | trans ({}, 'pagecontent') }}
+                        </th>
+                        <th>
+                            {{ 'my_account.orders.pdf_page.table_info.order_num' | trans ({}, 'pagecontent') }}
+                        </th>
+                        <th>
+                            {{ 'my_account.orders.pdf_page.table_info.order_date' | trans ({}, 'pagecontent') }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    <tr>
+                        <td>
+                            {{ invoice_number }}
+                        </td>
+                        <td>
+                            <time datetime="{{ purchaseOrder.createdAt|date('d-m-Y') }}">
+                                {{ purchaseOrder.createdAt|date('d-m-Y') }}
+                            </time>
+                        </td>
+                        <td>
+                            {{ purchaseOrder.id }}
+                        </td>
+                        <td>
+                            <time datetime="{{ purchaseOrder.createdAt|date('d-m-Y') }}">
+                                {{ purchaseOrder.createdAt|date('d-m-Y') }}
+                            </time>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br>
+            <br>
 
             {# Tableau des produits dans le panier #}
-            <table class="table-striped mt-3">
+            <table class="table-striped" id="table-product">
                 {# Entête du tableau #}
-                <thead class="bg-danger text-white rounded">
+                <thead class="thead-dark">
                     <tr>
                         <th>
                             {{ 'my_account.orders.detail_page.table_header.product' | trans ({}, 'pagecontent') }}
@@ -78,10 +166,10 @@
                 {# Corps du tableau: liste des produits #}
                 <tbody>
                     {# Import: purchased products template #}
-                    {% include 'account/orders/_purchasedProducts.html.twig' %}
+                    {% include 'pdf/_invoiceProducts.html.twig' %}
                 </tbody>
                 {# Calcul du montant total du panier #}
-                <tfoot class="text-right table-sm">
+                <tfoot class="text-right">
                     {# Total HT des produits #}
                     <tr class="font-weight-bold">
                         <td colspan="3">
@@ -126,77 +214,8 @@
             <hr>
             <br>
 
-            {# Adresses: livraison & facturation #}
-            <table class="mx-auto">
-                <tbody>
-                    <tr>
-                        {# Adresse de livraison #}
-                        <td class="w-25">
-                            <div class="card border-info mb-3">
-                                <div class="card-header text-white bg-info">
-                                    {{ 'my_account.orders.detail_page.address.shipping' | trans ({}, 'pagecontent') }}
-                                </div>
-                                <div class="card-body">
-                                    <div class="card-text">
-                                        {# Adresse #}
-                                        <p class="my-0">
-                                            {{ shipping_address.address }}
-                                        </p>
-                                        {# Complément adresse #}
-                                        <p class="my-0">
-                                            {{ shipping_address.address2 }}
-                                        </p>
-                                        {# Code postal & ville #}
-                                        <p class="my-0">
-                                            {{ shipping_address.zipcode }} {{ shipping_address.city }}
-                                        </p>
-                                        {# Pays #}
-                                        <p class="my-0">
-                                            {{ shipping_address.country }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        {# /Adresse de livraison #}
-
-                        <td class="w-50"></td>
-
-                        {# Adresse de facturation #}
-                        <td class="w-25">
-                            <div class="card border-info mb-3">
-                                <div class="card-header text-white bg-info">
-                                    {{ 'my_account.orders.detail_page.address.billing' | trans ({}, 'pagecontent') }}
-                                </div>
-                                <div class="card-body">
-                                    <div class="card-text">
-                                        {# Adresse #}
-                                        <p class="my-0">
-                                            {{ shipping_address.address }}
-                                        </p>
-                                        {# Complément adresse #}
-                                        <p class="my-0">
-                                            {{ shipping_address.address2 }}
-                                        </p>
-                                        {# Code postal & ville #}
-                                        <p class="my-0">
-                                            {{ shipping_address.zipcode }} {{ shipping_address.city }}
-                                        </p>
-                                        {# Pays #}
-                                        <p class="my-0">
-                                            {{ shipping_address.country }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        {# /Adresse de facturation #}
-                    </tr>
-                </tbody>
-            </table>
-            {# /Adresses: livraison & facturation #}
-
         </div>
+        {# Layout for PDF files #}
     </body>
 
     {% block javascripts %}

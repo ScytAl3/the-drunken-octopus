@@ -80,6 +80,7 @@ class OrderService
 
         // retrieve the HTML generated in the twig file
         $html = $this->twig->render('pdf/invoice.html.twig', [
+            'invoice_number' => '#FA-ODR_' . $purchaseOrder->getId() . '-USR_' . $purchaseOrder->getUser()->getId(),
             'purchaseOrder' => $purchaseOrder,
             'purchasedProducts' => $purchasedProducts,
             'total_ht' => $purchaseOrder->getTotalPrice(),

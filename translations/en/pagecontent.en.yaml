@@ -171,6 +171,14 @@ my_account:
             action_link:
                 back_to: My order history
                 download: Download the invoice in PDF format
+        pdf_page:
+            invoice: Invoice
+            table_info:
+                invoice_num: Invoice number
+                invoice_date: Invoice date
+                order_num: Order number
+                order_date: Order date
+                
 
     action_link:
         back_to: My account

@@ -21,6 +21,7 @@ title:
         address_update: Update address
         orders: My orders
         order_detail: Order n°
+        order_pdf: PDF Invoice
     resetpage: 
       request: Reset your password
       checkemail: Envoi Courriel Réinitialisation Mot de passe
