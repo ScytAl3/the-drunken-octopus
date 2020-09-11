@@ -1,6 +1,6 @@
 {% for purchasedProduct in purchasedProducts %}
-<tr>
-    <td colspan="2">
+<tr class="">
+    <td colspan="2" class="pl-2 pt-2">
         {# Nom du produit #}
         <span class="ml-2">
             {{ purchasedProduct.product.title }}
@@ -11,7 +11,7 @@
         {{ purchasedProduct.quantity }}
     </td>
     {# Montant total pour la quantité du produit #}
-    <td class="align-middle text-right" id="js-montant-product-{{ purchasedProduct.product.id }}">
+    <td class="align-middle text-right pr-2" id="js-montant-product-{{ purchasedProduct.product.id }}">
         {{ (purchasedProduct.product.price * purchasedProduct.quantity)|format_currency('EUR', {fraction_digit: 2}) }}
     </td>
 </tr>

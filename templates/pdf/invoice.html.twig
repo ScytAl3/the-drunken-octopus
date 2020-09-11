@@ -17,9 +17,9 @@
         {% endblock %}
     </head>
 
-    <body>
+    <body class="d-flex flex-column">
         {# Layout for PDF files #}
-        <div>
+        <main role="main">
             {# Header : logo and information #}
             <header>
                 <div>
@@ -47,7 +47,7 @@
             <br class="clear">
 
             {# Adresses: livraison & facturation #}
-            <table class="right mb-4" id="table-address">
+            <table class="right mb-5" id="table-address">
                 <tbody>
                     <tr>
                         {# Adresse de livraison #}
@@ -103,11 +103,11 @@
             </table>
 
             {# Information reminder #}
-            <table class="clear" id="table-product">
+            <table class="clear table-bordered" id="table-remind">
                 {# Entête du tableau #}
                 <thead class="thead-dark">
                     <tr>
-                        <th>
+                        <th class="py-1">
                             {{ 'my_account.orders.pdf_page.table_info.invoice_num' | trans ({}, 'pagecontent') }}
                         </th>
                         <th>
@@ -123,7 +123,7 @@
                 </thead>
                 <tbody class="text-center">
                     <tr>
-                        <td>
+                        <td class="py-1">
                             {{ invoice_number }}
                         </td>
                         <td>
@@ -147,7 +147,7 @@
             <br>
 
             {# Tableau des produits dans le panier #}
-            <table class="table-striped" id="table-product">
+            <table class="table-striped table-bordered mb-3" id="table-product">
                 {# Entête du tableau #}
                 <thead class="thead-dark">
                     <tr>
@@ -158,7 +158,7 @@
                         <th class="text-center">
                             {{ 'my_account.orders.detail_page.table_header.quantity' | trans ({}, 'pagecontent') }}
                         </th>
-                        <th class="text-right">
+                        <th class="text-right pr-2">
                             Total
                         </th>
                     </tr>
@@ -175,7 +175,7 @@
                         <td colspan="3">
                             {{ 'my_account.orders.detail_page.table_footer.ht' | trans ({}, 'pagecontent') }}
                         </td>
-                        <td>
+                        <td class="pr-2 pt-2">
                             {{ total_ht |format_currency('EUR', {fraction_digit: 2}) }}
                         </td>
                     </tr>
@@ -184,7 +184,7 @@
                         <td colspan="3">
                             {{ 'my_account.orders.detail_page.table_footer.tva' | trans ({}, 'pagecontent') }}
                         </td>
-                        <td>
+                        <td class="pr-2">
                             {{ tva |format_currency('EUR', {fraction_digit: 2}) }}
                         </td>
                     </tr>
@@ -193,8 +193,8 @@
                         <td colspan="3">
                             {{ 'my_account.orders.detail_page.table_footer.delivery' | trans ({}, 'pagecontent') }}
                         </td>
-                        <td>
-                            <small class="text-success">
+                        <td class="pr-2">
+                            <small class="text-success text-right">
                                 {{ 'my_account.orders.detail_page.table_footer.delivery_fee' | trans ({}, 'pagecontent') }}
                             </small>
                         </td>
@@ -204,17 +204,45 @@
                         <td colspan="3">
                             {{ 'my_account.orders.detail_page.table_footer.total' | trans ({}, 'pagecontent') }}
                         </td>
-                        <td>
+                        <td class="pr-2 pb-2">
                             {{ total_ttc |format_currency('EUR', {fraction_digit: 2}) }}
                         </td>
                     </tr>
                 </tfoot>
             </table>
+            
+            {# Adresse shop #}
+            <table class="left text-center mb-5" id="table-address-shop">
+                <tbody>
+                    <tr>
+                        <td class="pl-2">
+                            <h4 class="address_header">
+                                {{ project.name }}
+                            </h4>
+                            <div>
+                                {# Adresse #}
+                                <p class="my-0">
+                                    New Gallifrey Brewing Company
+                                </p>                                
+                                {# Code postal & ville #}
+                                <p class="my-0">
+                                    509 Resource Row, Chesapeake, VA
+                                </p>
+                                {# Pays #}
+                                <p class="my-0">
+                                    23320, USA
+                                </p>
+                                {# Phone #}
+                                <p class="my-0">
+                                    (757) 455-0100
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-            <hr>
-            <br>
-
-        </div>
+        </main>
         {# Layout for PDF files #}
     </body>
 
