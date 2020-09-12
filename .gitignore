@@ -30,5 +30,5 @@ yarn-error.log
 ###< liip/imagine-bundle ###
 
 ###> symfony/dompdf uploads ###
-/public/uploads/orders
+/public/uploads/orders/
 ###< symfony/dompdf uploads ###
