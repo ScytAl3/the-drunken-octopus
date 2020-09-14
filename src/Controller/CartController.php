@@ -53,14 +53,9 @@ class CartController extends AbstractController
         // - depuis la page produit -> GET
         // - depuis la page détail -> POST 
         $qty = ($request->isMethod('POST')) ? $_POST['quantity'] : 1;
-        // Appelle de la methode add() associé au cartService et récupération du message
-        $message = $cartService->add($id, $qty);
-        // Création du message flash
-        $this->addFlash(
-            $message['type'],
-            $message['text']
-        );
-        // Redirection vers le panier et focus sur le dernier produit ajouté
+        // Appelle de la methode add() associé au cartService
+        $cartService->add($id, $qty);
+        // Redirection vers le panier
         return $this->redirectToRoute('app_cart_index');
     }
 
@@ -73,14 +68,9 @@ class CartController extends AbstractController
      */
     public function remove(int $id, CartService $cartService)
     {
-        // Appelle de la methode add() associé au cartService et récupération du message
-        $message = $cartService->remove($id);
-        // Création du message flash
-        $this->addFlash(
-            $message['type'],
-            $message['text']
-        );
-
+        // Appelle de la methode add() associé au cartService
+        $cartService->remove($id);
+        // Redirection vers le panier
         return $this->redirectToRoute('app_cart_index');
     }
 

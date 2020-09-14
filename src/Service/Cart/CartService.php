@@ -4,6 +4,7 @@ namespace App\Service\Cart;
 
 use App\Entity\Product;
 use App\Repository\ProductRepository;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService
@@ -20,6 +21,8 @@ class CartService
      */
     protected $productRepository;
 
+    protected $flashBag;
+
     /**
      * Methode d'ajout de dépendances à la méthode __construct
      * injection de dépendance
@@ -28,24 +31,23 @@ class CartService
      * 
      * @return void 
      */
-    public function __construct(SessionInterface $session, ProductRepository $productRepository)
+    public function __construct(SessionInterface $session, ProductRepository $productRepository, FlashBagInterface $flashBag)
     {
         $this->session = $session;
         $this->productRepository = $productRepository;
+        $this->flashBag = $flashBag;
     }
 
     /**
      * Ajoute un produit dans le panier ou augmente sa quantité de 1 s'il est déjà présent
      * @param int $id 
      * @param int $qty 
-     * @return array 
+     * @return void 
      */
-    public function add(int $id, int $qty = 1): array
+    public function add(int $id, int $qty = 1)
     {
         // Récupération du panier de la session s'il existe - la valeur par défaut est un tableau vide
         $cart = $this->session->get('cart', []);
-        // Initialisation du tableau pour le message flash
-        $message = [];
         // Verifie si l'identifiant du produit est déjà dans le panier - si oui ajoute 1 à la quantité
         if (!empty($cart[$id])) {
             // Si la quantité en stock - (quantité déjà dans le panier +1) est supérieur à 0
@@ -53,16 +55,16 @@ class CartService
                 // Ajout 1 à la quantité à commander
                 $cart[$id] += $qty;
                 // Ajout d'un message de confirmation
-                $message = [
-                    'type' => 'success',
-                    'text' => 'The quantity of the product has been increased by 1 successfully!'
-                ];
+                $this->flashBag->add(
+                    'success',
+                    'The quantity of the product has been increased by 1 successfully!'
+                );
             } else {
                 // Sinon creation d'un message pour stock insuffisant
-                $message = [
-                    'type' => 'danger',
-                    'text' => "We don't have enough of this product in stock!"
-                ];
+                $this->flashBag->add(
+                    'danger',
+                    "We don't have enough of this product in stock!"
+                );
             }
         } else {
             // Si la quantité en stock - (quantité déjà dans le panier +1) est supérieur à 0
@@ -70,22 +72,20 @@ class CartService
                 // Ajoute au panier l'identifiant du produit associé à la quantité
                 $cart[$id] = $qty;
                 // Ajout d'un message de confirmation
-                $message = [
-                    'type' => 'success',
-                    'text' => 'The product was added successfully!'
-                ];
+                $this->flashBag->add(
+                    'success',
+                    'The product was added successfully!'
+                );
             } else {
                 // Sinon creation d'un message pour stock insuffisant
-                $message = [
-                    'type' => 'danger',
-                    'text' => "We don't have enough of this product in stock!"
-                ];
+                $this->flashBag->add(
+                    'danger',
+                    "We don't have enough of this product in stock!"
+                );
             }
         }
         // Sauvegarde le panier en cours dans la session
         $this->session->set('cart', $cart);
-        // Retourne le message à afficher
-        return $message;
     }
 
     /**
@@ -94,26 +94,22 @@ class CartService
      * 
      * @return void 
      */
-    public function remove(int $id): array
+    public function remove(int $id)
     {
         // Récupération du panier
         $cart = $this->session->get('cart', []);
-        // Initialisation du tableau pour le message flash
-        $message = [];
         // Si l'identifiant du produit existe dans le panier
         if (!empty($cart[$id])) {
             // Suppression de cette variable de session
             unset($cart[$id]);
             // Ajout d'un message de confirmation
-            $message = [
-                'type' => 'danger',
-                'text' => 'The product was successfully deleted!'
-            ];
+            $this->flashBag->add(
+                'danger',
+                'The product was successfully deleted!'
+            );
         }
         // Actualise le nouveau panier
         $this->session->set('cart', $cart);
-        // Retourne le message à afficher
-        return $message;
     }
 
     /**
