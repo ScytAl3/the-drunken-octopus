@@ -15,6 +15,11 @@ nav {
     top: -10px;
     right: -2px;
   }
+  @media screen and (max-width: 500px) {
+    .logo-container {
+      max-width: 207px;
+    }
+  }
 }
 
 /*--------------------------------

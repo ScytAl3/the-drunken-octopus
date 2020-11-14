@@ -6,12 +6,14 @@
         {% endif %}
         <div class="container">
             {# navbar brand & logo #}
-            <a class="navbar-brand text-uppercase" href="{{ path('app_home') }}">
-                <img class="d-inline-block align-center"
-                     src="{{ asset('build/images/header/octopus-logo.png') | imagine_filter("squared_thumb_xsmall") }}"
-                     alt="Logo {{ project.name }}">
-                {{ project.name }}
-            </a>
+            <div class="logo-container">
+                <a class="navbar-brand text-uppercase" href="{{ path('app_home') }}">
+                    <img class="d-inline-block align-center"
+                         src="{{ asset('build/images/header/octopus-logo.png') | imagine_filter("squared_thumb_xsmall") }}"
+                         alt="Logo {{ project.name }}">
+                    {{ project.name }}
+                </a>
+            </div>
             {# /navbar brand & logo #}
 
             {# collapse button #}
@@ -69,7 +71,8 @@
                         {# Dropdown user connected menu #}
                         <div class="dropdown-menu dropdown-menu-right user-account-connected"
                              aria-labelledby="navbarDropdownMenuAccount">
-                            <a class="dropdown-item" href="{{ path('app_account_index', {'_fragment': 'anchor-account'}) }}">
+                            <a class="dropdown-item"
+                               href="{{ path('app_account_index', {'_fragment': 'anchor-account'}) }}">
                                 <i class="fas fa-user-edit  mr-2" aria-hidden="true"></i>
                                 {{ 'navbar.link.user.profile' | trans ({}, 'navigation') }}
                             </a>
@@ -96,7 +99,7 @@
                             {% if set_cart_counter() > 0 %}
                             <span class="badge badge-light badge-pill cart-badge-top-right" id="js-cart-count">
                                 {{ set_cart_counter() }}
-                            </span>                            
+                            </span>
                             {% endif %}
                         </a>
                         {# /Right side of the navigation bar #}

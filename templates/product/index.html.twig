@@ -25,32 +25,30 @@
 
             {# Import du template assocée à formulaire de recherche #}
             {% include 'product/_filter.html.twig' with {form: form} only %}
-            
+
         </div>
         {# /Section filtre #}
 
         {# Section des produits #}
-        <div class="col-sm-9 col-md-9 mt-3">
+        <div class="col-12 col-sm-9 col-md-9 mt-3">
 
             {# Si il y a des produits #}
             {% if products|length > 0 %}
 
-            <div class="row justify-content-between pr-3">
-                {# Titre de la section et nombre de résultat #}
-                <div>                    
-                    <h4 class="text-left pl-2 py-2">
-                        {{ 'products.result.title' | trans ({}, 'pagecontent') }}
-                    </h4>
-                    {# Ajax: result filter template #}
-                    {% include 'product/filter/_result.html.twig' %}
-                </div>
-                
-                {# pagination sortable filter #}
-                <div class="d-flex justify-content-end align-self-end js-filter-sorting">
-                    {# Ajax: sorting filter template #}
-                    {% include 'product/filter/_sorting.html.twig' %}
+            {# Titre de la section et nombre de résultat #}
+            <div>
+                <h4 class="text-left pl-2 py-2">
+                    {{ 'products.result.title' | trans ({}, 'pagecontent') }}
+                </h4>
+                {# Ajax: result filter template #}
+                {% include 'product/filter/_result.html.twig' %}
+            </div>
 
-                </div>
+            {# pagination sortable filter #}
+            <div class="d-flex justify-content-end align-self-end js-filter-sorting">
+                {# Ajax: sorting filter template #}
+                {% include 'product/filter/_sorting.html.twig' %}
+
             </div>
 
             {# Affiche les produits filtrés #}
@@ -67,12 +65,12 @@
             </div>
 
             {# Sinon : message du panier vide #}
-            {% else %}                
-                <div class="alert alert-info text-center" role="alert">
-                    <p class="h3 text-center mb-0">
-                        {{ 'products.no_db_result' | trans ({}, 'pagecontent') }}
-                    </p>
-                </div>
+            {% else %}
+            <div class="alert alert-info text-center" role="alert">
+                <p class="h3 text-center mb-0">
+                    {{ 'products.no_db_result' | trans ({}, 'pagecontent') }}
+                </p>
+            </div>
 
             {% endif %}
         </div>

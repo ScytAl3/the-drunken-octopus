@@ -1,4 +1,4 @@
-<div class="col-6 col-sm-6 col-md-6 col-lg-4 mb-3" id="flip-product-{{ product.id }}">
+<article class="col-6 col-sm-6 col-md-6 col-lg-4 mb-3" id="flip-product-{{ product.id }}">
     <div class="card h-100 bg-white rounded shadow product">
         {# Image du produit animée au survol de la souris #}
         <div class="card-img-top mw-100 overflow-hidden">
@@ -9,27 +9,30 @@
             {# Fonction twig pour afficher un badge sur les produits nouveaux #}
             {{ is_a_new_product(product, 'products.card_product.new' | trans ({}, 'pagecontent')) }}
         </div>
-        
+
         <div class="card-body px-0 pt-0">
             {# Bouton ajout au panier #}
             <a href="{{path('app_cart_add', {id: product.id}) }}"
                class="btn btn-warning btn-lg btn-block rounded-0 {{ available_or_sold_out(product) }}">
-               {# Désactivation du bouton si stock insuffisant #}
+                {# Désactivation du bouton si stock insuffisant #}
                 {% if product.quantity == 0 %}
-                    {{ 'products.card_product.outOfStock' | trans ({}, 'pagecontent') }}
+                {{ 'products.card_product.outOfStock' | trans ({}, 'pagecontent') }}
                 {% else %}
-                    {{ 'products.card_product.add_button' | trans ({}, 'pagecontent') }}
+                {{ 'products.card_product.add_button' | trans ({}, 'pagecontent') }}
                 {% endif %}
             </a>
-            {# Nom et prix du produit #}
-            <div class="text-center">
-                <h5 class="card-title mt-2 pl-3">
+            {# Nom du produit #}
+            <div class="card-title text-center pt-3">
+                <h5 class="product-title">
                     {{ product.title }}
                 </h5>
-                <p class="card-text pl-3">
-                    {{ product.price|format_currency('EUR', {fraction_digit: 2}) }}
-                </p>                
             </div>
         </div>
+        {# Prix du produit #}
+        <div class="text-center mb-2">
+            <p class="card-text pl-3">
+                {{ product.price|format_currency('EUR', {fraction_digit: 2}) }}
+            </p>
+        </div>
     </div>
-</div>
+</article>

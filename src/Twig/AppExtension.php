@@ -132,7 +132,5 @@ class AppExtension extends AbstractExtension
         } else {
             return '';
         }
-
-        // return '<p class="text-block">'. $product->isNew().'</p>';
     }
 }

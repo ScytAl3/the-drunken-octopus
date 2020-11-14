@@ -8,10 +8,10 @@
 {% block body %}
 
 <article>
-    <section>
-        {# titre de la page & presentation #}
+    {# titre de la page & presentation #}
+    <section>        
         <div class="mt-5 p-3 text-center">
-            <h1 class="display-4 font-weight-bold">Presentation</h1>
+            <h1 class="font-weight-bold main-title">Presentation</h1>
             <div class="container text-light-bg">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit expedita, laborum accusamus optio ex
                     quas.
@@ -32,16 +32,18 @@
                     labore?
                 </p>
             </div>
-        </div>
-        {# /titre de la page & presentation #}
+        </div>        
     </section>
+    {# /titre de la page & presentation #}
 
+    {# Parallax start : img#1 #}
     <section>
         <div class="bgimg-1 parallax">
             <div class="caption">
-                <span class="border">LOREM CAPTION 1</span>
+                <span class="border">CAPTION 1</span>
             </div>
         </div>
+        {# Content section : #1 #}
         <div class="container text-light-bg">
             <h3 class="text-center">Lorem ipsum</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit expedita, laborum accusamus optio ex quas.
@@ -75,13 +77,16 @@
         </div>
     </section>
 
+    {# Parallax : img#2 #}
     <section>
         <div class="bgimg-2 parallax">
             <div class="caption">
-                <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">LOREM CAPTION
-                    2</span>
+                <span class="border" style="background-color:transparent;color: #f7f7f7;">
+                    CAPTION 2
+                </span>
             </div>
         </div>
+        {# Content section : #2 #}
         <div class="text-dark-bg">
             <div class="container">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur nihil fuga molestiae atque adipisci.
@@ -106,13 +111,16 @@
         </div>
     </section>
 
+    {# Parallax : img#3 #}
     <section>
         <div class="bgimg-3 parallax">
             <div class="caption">
-                <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">LOREM CAPTION
-                    3</span>
+                <span class="border" style="background-color:transparent;color: #f7f7f7;">
+                    CAPTION 3
+                </span>
             </div>
         </div>
+        {# Content section : #3 #}
         <div class="container text-light-bg">
             <h3 class="text-center">Lorem ipsum</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit expedita, laborum accusamus optio ex quas.
@@ -129,11 +137,16 @@
                 labore?
             </p>
         </div>
+    </section>
+
+    {# Parallax : img#4 #}
+    <section>
         <div class="bgimg-4 parallax">
             <div class="container">
                 <div class="row pt-5 pb-5">
                     <div class="col-md-4 py-2">
-                        <div class="card border-light card-body" style="background-color:transparent;color: #f7f7f7;">
+                        <div class="card border-light card-body h-100"
+                             style="background-color:transparent;color: #f7f7f7;">
                             <h3>Nihilo magis.</h3>
                             <p>Vide, ne etiam menses! nisi forte eum dicis, qui, simul atque arripuit, interficit. Magni
                                 enim
@@ -148,7 +161,8 @@
                         </div>
                     </div>
                     <div class="col-md-4 py-2">
-                        <div class="card border-light card-body" style="background-color:transparent;color: #f7f7f7;">
+                        <div class="card border-light card-body h-100"
+                             style="background-color:transparent;color: #f7f7f7;">
                             <h3>Nihil illinc huc pervenit.</h3>
                             <p>Quis Aristidem non mortuum diligit? De vacuitate doloris eadem sententia erit. Quid, si
                                 etiam
@@ -160,7 +174,8 @@
                         </div>
                     </div>
                     <div class="col-md-4 py-2">
-                        <div class="card border-light card-body" style="background-color:transparent;color: #f7f7f7;">
+                        <div class="card border-light card-body h-100"
+                             style="background-color:transparent;color: #f7f7f7;">
                             <h3>Quare attende, quaeso.</h3>
                             <p>Graccho, eius fere, aequalí? Cur deinde Metrodori liberos commendas? Compensabatur,
                                 inquit,
@@ -177,6 +192,7 @@
     </section>
 
     <section>
+        {# Content section : #4 #}
         <div class="text-dark-bg">
             <div class="container">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur nihil fuga molestiae atque adipisci.
@@ -198,10 +214,11 @@
         </div>
         <div class="bgimg-1 parallax">
             <div class="caption">
-                <span class="border">LOREM CAPTION FINAL</span>
+                <span class="border">CAPTION FINAL</span>
             </div>
         </div>
     </section>
+    {# Parallax end : img#1 #}
 </article>
 
 {% endblock %}
