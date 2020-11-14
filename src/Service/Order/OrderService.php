@@ -43,6 +43,11 @@ class OrderService
     protected $twig;
 
     /**
+     * @var string
+     */
+    protected $chrootDirectory;
+    
+    /**
      * @var [type]
      */
     protected $pdfDirectory;
@@ -54,17 +59,22 @@ class OrderService
 
     /**
      * Ajout des dépendances à la méthode __construct
-     * 
-     * @param PurchaseOrderRepository
-     * @param Environment   pour travailler avec un template twig
-     * @param String    le chemin du dossier pour enregistrer les factures generees define in config/services.yaml
+     * @param PurchaseOrderRepository $purchaseOrderRepository 
+     * @param PurchaseProductRepository $purchaseProductRepository 
+     * @param ShippingAddressesRepository $shippingAddressesRepository 
+     * @param Environment $twig 
+     * @param string $chrootDirectory 
+     * @param string $pdfDirectory 
+     * @param MailerInterface $mailer 
+     * @return void 
      */
-    public function __construct(PurchaseOrderRepository $purchaseOrderRepository, PurchaseProductRepository $purchaseProductRepository, ShippingAddressesRepository $shippingAddressesRepository, Environment $twig, string $pdfDirectory, MailerInterface $mailer)
+    public function __construct(PurchaseOrderRepository $purchaseOrderRepository, PurchaseProductRepository $purchaseProductRepository, ShippingAddressesRepository $shippingAddressesRepository, Environment $twig, string $chrootDirectory, string $pdfDirectory, MailerInterface $mailer)
     {
         $this->purchaseOrderRepository = $purchaseOrderRepository;
         $this->purchaseProductRepository = $purchaseProductRepository;
         $this->shippingAddressesRepository = $shippingAddressesRepository;
         $this->twig = $twig;
+        $this->chrootDirectory = $chrootDirectory;
         $this->pdfDirectory = $pdfDirectory;
         $this->mailer = $mailer;
     }
@@ -86,6 +96,7 @@ class OrderService
 
         // configure Dompdf according to the needs
         $pdfOptions = new Options;
+        $pdfOptions->set('chroot', $this->chrootDirectory);
         $pdfOptions->set('defaultFont', 'Arial');
         $pdfOptions->setIsHtml5ParserEnabled(true);
         $pdfOptions->setDpi(150);

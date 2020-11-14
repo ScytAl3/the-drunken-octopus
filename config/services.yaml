@@ -8,6 +8,8 @@ parameters:
     locale: 'en'
     # List of supported locales
     app_locales: en|fr|
+    # Directory src for dompdf
+    dompdf_chroot: "%kernel.project_dir%/public/"
     # Directory in which the order PDF should be stored
     order_directory: '%kernel.project_dir%/public/uploads/orders'
 
@@ -48,5 +50,6 @@ services:
 
     # service pour la generation et l enregistrement du PDF
     App\Service\Order\OrderService:
-        arguments: 
+        arguments:
+            $chrootDirectory: "%dompdf_chroot%"
             $pdfDirectory: '%order_directory%'
