@@ -4,10 +4,10 @@
     <head>
         {# Default meta tags #}
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Franck Jakubowski">
         <meta name="description"
-              content="Un mini site pour administrer des produits et permettre un affichage suivant des filtres.">
+              content="Un site e-commerce qui permet d'afficher les produits en fonction du filtre de recherche. de se connecter ou créér un compte. De remplir un panier et passer commande. De consulter son historique de commande et d'afficher ses facture au format PDF. Permet d'administrer les produits.">
         {#  Favicons #}
         <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon.png') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
@@ -25,47 +25,47 @@
         {% endblock %}
     </head>
 
-    <body id="{% block body_id %}{% endblock %}">
+    <body id="{% block body_id %}{% endblock %}" class="page-container">
 
-        {% block header %}
-            <header>
-                {# Navbar import #}
-                {{ include('layouts/partials/_nav.html.twig') }}
+        <header>
+            {% block header %}
+            {# Navbar import #}
+            {{ include('layouts/partials/_nav.html.twig') }}
 
-                {# Adding a banner when impersonating someone else #}
-                {% if is_granted('IS_IMPERSONATOR') %}
-                <div class="w-100 switch-user">
-                    <div class="alert alert-warning">
-                        You are currently switched to this user.
-                        <a href="{{ path('app_home', {'_switch_user': '_exit'}) }}">Exit Impersonation</a>
-                    </div>
+            {# Adding a banner when impersonating someone else #}
+            {% if is_granted('IS_IMPERSONATOR') %}
+            <div class="w-100 switch-user">
+                <div class="alert alert-warning">
+                    You are currently switched to this user.
+                    <a href="{{ path('app_home', {'_switch_user': '_exit'}) }}">Exit Impersonation</a>
                 </div>
-                {% endif %}
+            </div>
+            {% endif %}
 
-                {# Header background #}
-                {{ include('layouts/partials/_header-bg.html.twig') }}
-            </header>                
-        {% endblock %}
+            {# Header background #}
+            {{ include('layouts/partials/_header-bg.html.twig') }}
+            {% endblock %}
+        </header>
 
         {# Message flash area #}
         {{ include('layouts/partials/_flash_messages.html.twig') }}
         {# /Message flash area #}
-        
+
         <main role="main" class="{{ (app.request.get('_route') == 'app_home') ? '' : 'container' }}">
             {% block body %}{% endblock %}
         </main>
 
         {% block footer %}
-            <footer class="pt-3">
-                {# footer import #}
-                {{ include('layouts/partials/_footer.html.twig') }}
-                {# /footer import #}
-            </footer>
-        {% endblock %}        
+        <footer class="pt-3">
+            {# footer import #}
+            {{ include('layouts/partials/_footer.html.twig') }}
+            {# /footer import #}
+        </footer>
+        {% endblock %}
 
         {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
-        
+
         {% endblock %}
 
     </body>

@@ -22,10 +22,17 @@
 /*------------------------------
             Global
 -------------------------------*/
+html {
+  font-size: 100%;
+}
+
 body {
   font-family: $primary-font, sans-serif;
   background-color: #e4e4e4;
-  padding-top: 60px;
+  &.page-container {
+    padding-top: 60px;
+    margin-top: -1px;
+  }
   &#homepage {
     background-color: #c98224;
   }
