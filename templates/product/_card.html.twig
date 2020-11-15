@@ -12,7 +12,7 @@
 
         <div class="card-body px-0 pt-0">
             {# Bouton ajout au panier #}
-            <a href="{{path('app_cart_add', {id: product.id}) }}"
+            <a href="{{path('app_cart_add', {id: product.id, '_fragment': 'js-cart-product-'~ product.id}) }}"
                class="btn btn-warning btn-lg btn-block rounded-0 {{ available_or_sold_out(product) }}">
                 {# Désactivation du bouton si stock insuffisant #}
                 {% if product.quantity == 0 %}
