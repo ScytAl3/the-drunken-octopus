@@ -65,10 +65,16 @@ input[type="number"]::-webkit-outer-spin-button {
 -------------------------------*/
 section {
   .main-title {
-    font-size: 3.5rem;
+    font-size: 4em;
     line-height: 1.2;
     @media screen and (max-width: 500px) {
-      font-size: 3rem;
+      font-size: 3em;
+    }
+  }
+  p {
+    font-size: 1.5em;
+    @media screen and (max-width: 500px) {
+      font-size: 1em;
     }
   }
   .text-light-bg {
@@ -110,12 +116,12 @@ section {
       background-color: #111;
       color: #fff;
       padding: 18px;
-      font-size: 25px;
+      font-size: 2.5em;
       letter-spacing: 10px;
     }
     @media screen and (max-width: 500px) {
       span.border {
-        font-size: 15px;
+        font-size: 1em;
       }
     }
   }
