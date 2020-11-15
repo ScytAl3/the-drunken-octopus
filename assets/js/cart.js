@@ -14,8 +14,8 @@ $(document).ready(function () {
         var $productid = $link.parent().data('itemid');
         // Recupère la direction - up: ajouter, down: enlever
         var $direction = $link.data('direction');
-        // Récupère l'url préfixé avec la locale
-        const $url = new URL(window.location.href);
+        // Récupère l'url préfixé avec la locale et supprime l'ancre "#js-cart-product-id"
+        const $url = new URL(window.location.href.split('#')[0]);
 
         // console.log($link);
         // console.log($productid);
@@ -32,7 +32,7 @@ $(document).ready(function () {
             },
             dataType: 'json',
             success: function (data) {
-                // console.log(data);
+                console.log(data);
 
                 // Mise à jour du produit qui est en coours de modification
                 // Si la quantité voulue existe en stock
