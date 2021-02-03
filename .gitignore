@@ -34,5 +34,5 @@ yarn-error.log
 ###< symfony/dompdf uploads ###
 
 ###> VSCodium ###
-.vscode
+/.vscode
 ###< VSCodium ###
