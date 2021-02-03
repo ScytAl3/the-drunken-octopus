@@ -32,3 +32,7 @@ yarn-error.log
 ###> symfony/dompdf uploads ###
 /public/uploads/orders/
 ###< symfony/dompdf uploads ###
+
+###> VSCodium ###
+.vscode
+###< VSCodium ###
