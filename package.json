@@ -23,6 +23,8 @@
     "dependencies": {
         "flag-icon-css": "^3.5.0",
         "flip-toolkit": "^7.0.11",
-        "node-forge": ">=0.10.0"
+        "is-svg": "4.2.2",
+        "node-forge": ">=0.10.0",
+        "ssri": "8.0.1"
     }
 }
