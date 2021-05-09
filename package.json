@@ -23,8 +23,11 @@
     "dependencies": {
         "flag-icon-css": "^3.5.0",
         "flip-toolkit": "^7.0.11",
+        "hosted-git-info": "2.8.9",
         "is-svg": "4.2.2",
+        "lodash": "4.17.21",
         "node-forge": ">=0.10.0",
-        "ssri": "8.0.1"
+        "ssri": "8.0.1",
+        "url-parse": "1.5.0"
     }
 }
