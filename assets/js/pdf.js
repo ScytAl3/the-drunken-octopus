@@ -1,1 +1,1 @@
-import '../css/pdf.css';
+import '../styles/pdf.css';
