@@ -1,5 +1,5 @@
 // Importing the file for ajax processing of the product filter
-import Filter from './modules/Filter';
+import Filter from './js/modules/Filter';
 // Instanciation du filtre
 new Filter(document.querySelector('.js-filter'));
 
