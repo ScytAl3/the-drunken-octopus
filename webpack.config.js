@@ -16,22 +16,32 @@ Encore
 
     // copyFiles() method to copy images files into the final output directory
     // see node_modules/@symfony/webpack-encore/index.js
-    // .copyFiles({
-    //     from: './assets/images',
-    //     // optional target path, relative to the output dir
-    //     //to: 'images/[path][name].[ext]',
+    .copyFiles({
+        from: './assets/images',
+        // optional target path, relative to the output dir
+        //to: 'images/[path][name].[ext]',
 
-    //     // if versioning is enabled, add the file hash too
-    //     to: '[path][name].[hash:8].[ext]',
-    //     context: './assets/'
+        // if versioning is enabled, add the file hash too
+        to: '[path][name].[hash:8].[ext]',
+        context: './assets/'
 
-    //     // only copy files matching this pattern
-    //     //pattern: /\.(png|jpg|jpeg)$/
-    // })
-    // .configureFilenames({
-    //     images: 'images/[folder]/[name].[ext]',
-    //     fonts: 'fonts/[name].[ext]'
-    // })
+        // only copy files matching this pattern
+        //pattern: /\.(png|jpg|jpeg)$/
+    })
+    .configureFontRule(
+        { type: 'javascript/auto' },
+        (rule) => {
+            rule.loader = 'file-loader';
+            rule.options = { outputPath: 'fonts', name: '[name].[hash:8].[ext]', publicPath: './fonts/' };
+        }
+    )
+    .configureImageRule(
+        { type: 'javascript/auto' },
+        (rule) => {
+            rule.loader = 'file-loader';
+            rule.options = { outputPath: 'images', name: '[folder]/[name].[hash:8].[ext]', publicPath: './images/' };
+        }
+    )
 
     /*
      * ENTRY CONFIG
@@ -42,6 +52,8 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('filter', './assets/productFilter.js')
     .addEntry('cart', './assets/cart.js')
+    .addEntry('pdf', './assets/pdf.js')
+
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
