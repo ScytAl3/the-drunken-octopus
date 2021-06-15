@@ -26,7 +26,7 @@
             {# collapsible content #}
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 {# Left side of the navigation bar #}
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item {{ set_active_route('app_product') }}">
                         <a class="nav-link" href="{{ path('app_product_index') }}">
                             {{ 'navbar.link.products' | trans ({}, 'navigation') }}
@@ -44,8 +44,8 @@
                 {# /Right side of the navigation bar #}
                 <ul class="navbar-nav justify-content-end">
                     {# Country language selector #}
-                    <li class="nav-item dropdown dropleft active">
-                        <a class="nav-link dropdown-toggle" id="language_switcher" data-toggle="dropdown"
+                    <li class="nav-item dropdown dropstart active">
+                        <a class="nav-link dropdown-toggle" id="language_switcher" data-bs-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-globe"></i>
                         </a>
