@@ -118,12 +118,6 @@
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
-    "laminas/laminas-eventmanager": {
-        "version": "3.2.1"
-    },
-    "laminas/laminas-zendframework-bridge": {
-        "version": "1.0.4"
-    },
     "liip/imagine-bundle": {
         "version": "1.8",
         "recipe": {
@@ -148,9 +142,6 @@
     },
     "phenx/php-svg-lib": {
         "version": "v0.3.3"
-    },
-    "php": {
-        "version": "7.4.1"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -232,9 +223,6 @@
         "files": [
             "./config/packages/dev/debug.yaml"
         ]
-    },
-    "symfony/debug-pack": {
-        "version": "v1.0.8"
     },
     "symfony/dependency-injection": {
         "version": "v5.1.2"
@@ -376,9 +364,6 @@
     "symfony/options-resolver": {
         "version": "v5.1.2"
     },
-    "symfony/orm-pack": {
-        "version": "v2.0.0"
-    },
     "symfony/phpunit-bridge": {
         "version": "5.1",
         "recipe": {
@@ -415,14 +400,14 @@
     "symfony/polyfill-php80": {
         "version": "v1.18.0"
     },
+    "symfony/polyfill-php81": {
+        "version": "v1.25.0"
+    },
     "symfony/polyfill-uuid": {
         "version": "v1.18.0"
     },
     "symfony/process": {
         "version": "v5.1.2"
-    },
-    "symfony/profiler-pack": {
-        "version": "v1.0.4"
     },
     "symfony/property-access": {
         "version": "v5.1.2"
@@ -471,9 +456,6 @@
     "symfony/serializer": {
         "version": "v5.1.2"
     },
-    "symfony/serializer-pack": {
-        "version": "v1.0.3"
-    },
     "symfony/service-contracts": {
         "version": "v2.1.3"
     },
@@ -482,9 +464,6 @@
     },
     "symfony/string": {
         "version": "v5.1.2"
-    },
-    "symfony/test-pack": {
-        "version": "v1.0.6"
     },
     "symfony/translation": {
         "version": "3.3",
@@ -518,9 +497,6 @@
             "./config/packages/twig.yaml",
             "./templates/base.html.twig"
         ]
-    },
-    "symfony/twig-pack": {
-        "version": "v1.0.0"
     },
     "symfony/uid": {
         "version": "v5.1.3"
