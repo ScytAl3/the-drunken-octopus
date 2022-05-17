@@ -5,3 +5,7 @@ twig:
     globals:
         project:
             name: '%app.project_name%'
+
+when@test:
+    twig:
+        strict_variables: true
