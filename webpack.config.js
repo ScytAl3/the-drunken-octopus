@@ -26,7 +26,7 @@ Encore
         context: './assets/',
 
         // only copy files matching this pattern
-        pattern: /\.(png|jpg|jpeg)$/
+        pattern: /\.(png|jpg|jpeg|svg)$/
     })
 
     /*
