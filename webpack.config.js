@@ -23,25 +23,11 @@ Encore
 
         // if versioning is enabled, add the file hash too
         to: '[path][name].[hash:8].[ext]',
-        context: './assets/'
+        context: './assets/',
 
         // only copy files matching this pattern
-        //pattern: /\.(png|jpg|jpeg)$/
+        pattern: /\.(png|jpg|jpeg)$/
     })
-    .configureFontRule(
-        { type: 'javascript/auto' },
-        (rule) => {
-            rule.loader = 'file-loader';
-            rule.options = { outputPath: 'fonts', name: '[name].[hash:8].[ext]', publicPath: './fonts/' };
-        }
-    )
-    .configureImageRule(
-        { type: 'javascript/auto' },
-        (rule) => {
-            rule.loader = 'file-loader';
-            rule.options = { outputPath: 'images', name: '[folder]/[name].[hash:8].[ext]', publicPath: './images/' };
-        }
-    )
 
     /*
      * ENTRY CONFIG
